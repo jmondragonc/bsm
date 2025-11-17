@@ -114,13 +114,14 @@ h3 {
   opacity: 0.7;
 }
 
-/* Cuando está sobre fondo morado */
+/* Cuando está sobre fondo morado (#6A23CD) */
 .bsm-nav.on-purple {
   mix-blend-mode: normal !important;
+  background-color: transparent;
 }
 
 .bsm-nav.on-purple .logo img {
-  filter: none !important;
+  filter: brightness(0) saturate(100%) !important;
 }
 
 .bsm-nav.on-purple .nav-menu-left a,

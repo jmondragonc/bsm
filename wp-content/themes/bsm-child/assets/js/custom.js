@@ -10,46 +10,39 @@
     if (!nav) return;
 
     function checkBackground() {
-        // Detectar color de fondo en la parte superior
-        const element = document.elementFromPoint(window.innerWidth / 2, 50);
-        if (!element) return;
+        // Detectar todas las secciones con fondo morado
+        const purpleSections = document.querySelectorAll('[data-bg="purple"], .bsm-hero, .bsm-footer');
+        let isOnPurple = false;
 
-        let bgColor = null;
-        let currentElement = element;
+        // Obtener la posición del nav
+        const navRect = nav.getBoundingClientRect();
+        const navCenter = navRect.top + (navRect.height / 2);
 
-        // Buscar el color de fondo
-        while (currentElement && currentElement !== document.body) {
-            const computedStyle = window.getComputedStyle(currentElement);
-            const bg = computedStyle.backgroundColor;
+        // Verificar si el nav está sobre alguna sección morada
+        purpleSections.forEach(function(section) {
+            const rect = section.getBoundingClientRect();
 
-            if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
-                bgColor = bg;
-                break;
+            // Si el centro del nav está dentro de una sección morada
+            if (navCenter >= rect.top && navCenter <= rect.bottom) {
+                isOnPurple = true;
             }
-            currentElement = currentElement.parentElement;
-        }
+        });
 
-        // Verificar si es morado (#6A23CD = rgb(106, 35, 205))
-        if (bgColor) {
-            const rgb = bgColor.match(/\d+/g);
-            if (rgb && rgb.length >= 3) {
-                const r = parseInt(rgb[0]);
-                const g = parseInt(rgb[1]);
-                const b = parseInt(rgb[2]);
-
-                // Si es morado
-                if (r > 90 && r < 120 && g > 25 && g < 45 && b > 195 && b < 215) {
-                    nav.classList.add('on-purple');
-                } else {
-                    nav.classList.remove('on-purple');
-                }
-            }
+        // Aplicar o remover la clase según corresponda
+        if (isOnPurple) {
+            nav.classList.add('on-purple');
+        } else {
+            nav.classList.remove('on-purple');
         }
     }
 
-    // Ejecutar al cargar y al hacer scroll
+    // Ejecutar al cargar
+    window.addEventListener('load', checkBackground);
+
+    // Ejecutar inmediatamente
     checkBackground();
 
+    // Ejecutar al hacer scroll
     let ticking = false;
     window.addEventListener('scroll', function() {
         if (!ticking) {
@@ -60,4 +53,9 @@
             ticking = true;
         }
     }, { passive: true });
+
+    // Ejecutar al cambiar el tamaño de la ventana
+    window.addEventListener('resize', function() {
+        checkBackground();
+    });
 })();
