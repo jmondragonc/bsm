@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /*
 Theme Name: BSM Theme
 Theme URI: https://bsm.com
@@ -77,7 +76,7 @@ h3 {
   align-items: center;
   padding: 34px 56px;
   background-color: transparent;
-  mix-blend-mode: difference;
+  transition: all 0.3s ease;
 }
 
 .nav-left {
@@ -89,7 +88,7 @@ h3 {
 .bsm-nav .logo img {
   width: 116px;
   height: auto;
-  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
 }
 
 .nav-menu-left {
@@ -104,8 +103,8 @@ h3 {
   font-family: "Clash Grotesk", sans-serif;
   font-weight: 600;
   font-size: 22px;
-  color: #fff;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .nav-menu-left a:hover,
@@ -113,19 +112,34 @@ h3 {
   opacity: 0.7;
 }
 
-/* Cuando está sobre fondo morado (#6A23CD) */
-.bsm-nav.on-purple {
-  mix-blend-mode: normal !important;
-  background-color: transparent;
-}
-
+/* Estado sobre fondo morado (#6A23CD) */
 .bsm-nav.on-purple .logo img {
-  filter: brightness(0) saturate(100%) !important;
+  filter: brightness(0) saturate(100%);
 }
 
 .bsm-nav.on-purple .nav-menu-left a,
 .bsm-nav.on-purple .nav-right a {
-  color: #000 !important;
+  color: #000;
+}
+
+/* Estado sobre fondo oscuro (negro) */
+.bsm-nav.on-dark .logo img {
+  filter: brightness(0) invert(1);
+}
+
+.bsm-nav.on-dark .nav-menu-left a,
+.bsm-nav.on-dark .nav-right a {
+  color: #fff;
+}
+
+/* Estado sobre fondo claro (blanco) */
+.bsm-nav.on-light .logo img {
+  filter: brightness(0) saturate(100%);
+}
+
+.bsm-nav.on-light .nav-menu-left a,
+.bsm-nav.on-light .nav-right a {
+  color: #000;
 }
 
 /* Ajuste para compensar el header fijo */
