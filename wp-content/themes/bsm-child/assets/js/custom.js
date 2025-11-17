@@ -10,13 +10,9 @@
     if (!nav) return;
 
     function checkBackground() {
-        // Detectar todas las secciones
+        // Detectar solo las secciones con fondo morado
         const purpleSections = document.querySelectorAll('[data-bg="purple"], .bsm-hero, .bsm-footer');
-        const darkSections = document.querySelectorAll('[data-bg="dark"], .bsm-full-experience, .bsm-testimonials');
-        const lightSections = document.querySelectorAll('[data-bg="light"], .bsm-what-we-do, .bsm-work');
-
         let isOnPurple = false;
-        let isOnDark = false;
 
         // Obtener la posición del nav
         const navRect = nav.getBoundingClientRect();
@@ -30,29 +26,11 @@
             }
         });
 
-        // Verificar si está sobre fondo oscuro
-        if (!isOnPurple) {
-            darkSections.forEach(function(section) {
-                const rect = section.getBoundingClientRect();
-                if (navCenter >= rect.top && navCenter <= rect.bottom) {
-                    isOnDark = true;
-                }
-            });
-        }
-
-        // Aplicar clases según corresponda
+        // Aplicar o remover la clase on-purple
         if (isOnPurple) {
             nav.classList.add('on-purple');
-            nav.classList.remove('on-dark');
-            nav.classList.remove('on-light');
-        } else if (isOnDark) {
-            nav.classList.remove('on-purple');
-            nav.classList.add('on-dark');
-            nav.classList.remove('on-light');
         } else {
             nav.classList.remove('on-purple');
-            nav.classList.remove('on-dark');
-            nav.classList.add('on-light');
         }
     }
 
