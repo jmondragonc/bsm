@@ -11,17 +11,41 @@ get_header(); ?>
     <!-- Hero Section -->
     <section class="bsm-hero" data-bg="purple">
         <div class="hero-background">
-            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/hero-background.svg" alt="Hero Background">
+            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/hero-background.svg"
+                alt="Hero Background">
         </div>
         <div class="hero-content">
             <div class="container">
+                <div class="hero-image">
+                    <div class="frames">
+                        <div class="b">
+                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/b1.svg" class="b1_1"
+                                alt="Frame B1">
+                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/b2.svg" class="b1_2"
+                                alt="Frame B2">
+                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/b3.svg" class="b1_3"
+                                alt="Frame B3">
+                        </div>
+                        <div class="s">
+                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/s1.svg" class="s1_1"
+                                alt="Frame S1">
+                        </div>
+                        <div class="m">
+                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/m1.svg" class="m1_1"
+                                alt="Frame M1">
+                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/m2.svg" class="m1_2"
+                                alt="Frame M2">
+                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/m3.svg" class="m1_3"
+                                alt="Frame M3">
+
+                        </div>
+                    </div>
+                </div>
                 <div class="hero-title">
                     <h1>SOMOS LA AGENCIA PARA CUANDO<br>NECESITAS UN CAMBIO</h1>
                 </div>
 
-                <div class="hero-image">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/screenshot.png" alt="Screenshot">
-                </div>
+
             </div>
         </div>
     </section>
@@ -76,7 +100,8 @@ get_header(); ?>
                 <!-- Garbachos -->
                 <div class="work-item">
                     <div class="work-image">
-                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos.svg" alt="Garbachos">
+                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos.svg"
+                            alt="Garbachos">
                     </div>
                     <div class="work-info">
                         <h3>Garbachos</h3>
@@ -107,7 +132,8 @@ get_header(); ?>
                 <!-- Smart Blends -->
                 <div class="work-item">
                     <div class="work-image">
-                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends.svg" alt="Smart Blends">
+                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends.svg"
+                            alt="Smart Blends">
                     </div>
                     <div class="work-info">
                         <h3>Smart Blends</h3>
@@ -128,8 +154,10 @@ get_header(); ?>
             <!-- Garbachos Testimonial -->
             <div class="testimonial-item">
                 <div class="testimonial-images">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos-bocas.svg" alt="Garbachos" class="img-1">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos-chela.svg" alt="Garbachos" class="img-2">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos-bocas.svg"
+                        alt="Garbachos" class="img-1">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos-chela.svg"
+                        alt="Garbachos" class="img-2">
                 </div>
                 <div class="testimonial-content">
                     <div class="avatar"></div>
@@ -141,8 +169,10 @@ get_header(); ?>
             <!-- Organa Testimonial -->
             <div class="testimonial-item">
                 <div class="testimonial-images">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa-1.svg" alt="Organa" class="img-1">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa-2.svg" alt="Organa" class="img-2">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa-1.svg" alt="Organa"
+                        class="img-1">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa-2.svg" alt="Organa"
+                        class="img-2">
                 </div>
                 <div class="testimonial-content">
                     <div class="avatar green"></div>
@@ -154,8 +184,10 @@ get_header(); ?>
             <!-- Smart Blends Testimonial -->
             <div class="testimonial-item">
                 <div class="testimonial-images">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends-storie.png" alt="Smart Blends" class="img-1">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends-carrusel.png" alt="Smart Blends" class="img-2">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends-storie.png"
+                        alt="Smart Blends" class="img-1">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends-carrusel.png"
+                        alt="Smart Blends" class="img-2">
                 </div>
                 <div class="testimonial-content">
                     <div class="avatar blue"></div>
@@ -169,7 +201,8 @@ get_header(); ?>
     <!-- Footer -->
     <footer class="bsm-footer" data-bg="purple">
         <div class="footer-background">
-            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/hero-background.svg" alt="Footer Background">
+            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/hero-background.svg"
+                alt="Footer Background">
         </div>
         <div class="footer-content">
             <div class="container">

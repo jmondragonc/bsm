@@ -42,7 +42,10 @@ h3 {
   position: relative;
   background-color: #6a23cd;
   min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 
 .hero-background {
@@ -63,7 +66,7 @@ h3 {
 .hero-content {
   position: relative;
   z-index: 2;
-  padding-top: 34px;
+  width: 100%;
 }
 
 /* Navigation */
@@ -152,6 +155,70 @@ h3 {
 .hero-image {
   text-align: center;
   margin-bottom: 100px;
+
+  .frames {
+    position: relative;
+    width: 50%;
+    margin: 0 auto;
+    display: grid;
+    flex-direction: row;
+    grid-template-columns: 33.2fr 28.5fr 38.3fr;
+    gap: 24px;
+
+    .b,
+    .s,
+    .m {
+      width: 100%;
+      position: relative;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    .b {
+      width: 100%;
+    }
+    .s {
+      width: 100%;
+    }
+    .m {
+      width: 100%;
+    }
+  }
+
+  .b1_1,
+  .b1_2,
+  .b1_3 {
+    display: block;
+  }
+
+  .b1_2,
+  .b1_3 {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  .s1_1 {
+    display: block;
+  }
+
+  .m1_1,
+  .m1_2,
+  .m1_3 {
+    display: block;
+  }
+
+  .m1_2,
+  .m1_3 {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
 }
 
 .hero-image img {
