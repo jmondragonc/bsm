@@ -235,6 +235,7 @@
         const line1 = document.querySelector(".line-1");
         const line2 = document.querySelector(".line-2");
         const line3 = document.querySelector(".line-3");
+        const r = document.querySelector(".registered");
 
         // Timeline para las líneas
         const linesTimeline = anime.timeline({
@@ -242,14 +243,11 @@
         });
 
         // Animar cada línea hacia la derecha para alinearse con line-1
-        // line-1: 110.667% → 100%
-        // line-2: 70.667% → 100% + (110.667% - 70.667%) = 140%
-        // line-3: 53.87% → 100% + (110.667% - 53.87%) = 156.797%
         linesTimeline
           .add(
             {
               targets: line1,
-              translateX: "100%",
+              translateX: "calc(100% + 24px)",
               duration: 600,
               easing: "easeOutQuad",
             },
@@ -258,7 +256,7 @@
           .add(
             {
               targets: line2,
-              translateX: "155%",
+              translateX: "calc(100% + 24px)",
               duration: 600,
               easing: "easeOutQuad",
             },
@@ -267,7 +265,16 @@
           .add(
             {
               targets: line3,
-              translateX: "205%",
+              translateX: "calc(100% + 24px)",
+              duration: 600,
+              easing: "easeOutQuad",
+            },
+            200
+          )
+          .add(
+            {
+              targets: r,
+              translateX: "calc(100% + 24px)",
               duration: 600,
               easing: "easeOutQuad",
             },
