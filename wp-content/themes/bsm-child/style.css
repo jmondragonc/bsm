@@ -39,8 +39,11 @@ h3 {
 .bsm-hero {
   position: relative;
   background-color: #6a23cd;
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 
 .hero-background {
@@ -61,7 +64,7 @@ h3 {
 .hero-content {
   position: relative;
   z-index: 2;
-  padding-top: 34px;
+  width: 100%;
 }
 
 /* Navigation */
@@ -128,11 +131,6 @@ h3 {
   color: #000;
 }
 
-/* Ajuste para compensar el header fijo */
-.bsm-hero {
-  padding-top: 100px;
-}
-
 /* Hero Title */
 .hero-title {
   text-align: center;
@@ -150,6 +148,118 @@ h3 {
 .hero-image {
   text-align: center;
   margin-bottom: 100px;
+}
+.hero-image .frames {
+  position: relative;
+  width: 50%;
+  margin: 0 auto;
+  display: grid;
+  flex-direction: row;
+  grid-template-columns: 33.2fr 28.5fr 38.3fr;
+  gap: 16px;
+}
+.hero-image .frames .b,
+.hero-image .frames .s,
+.hero-image .frames .m {
+  width: 100%;
+  position: relative;
+}
+.hero-image .frames .b img,
+.hero-image .frames .s img,
+.hero-image .frames .m img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.hero-image .frames .b {
+  width: 100%;
+  z-index: 2;
+}
+.hero-image .frames .s {
+  width: 100%;
+  z-index: 2;
+}
+.hero-image .frames .m {
+  width: 100%;
+  z-index: 2;
+}
+.hero-image .b1_1 {
+  display: block;
+  position: relative;
+}
+.hero-image .b1_2,
+.hero-image .b1_3 {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.hero-image .s1_1 {
+  display: block;
+  position: relative;
+}
+.hero-image .m1_1 {
+  display: block;
+  position: relative;
+  background-color: #6a23cd;
+  z-index: 2;
+}
+.hero-image .m1_2,
+.hero-image .m1_3 {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background-color: #6a23cd;
+  z-index: 2;
+}
+.hero-image .m1_2 img {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-image .lines {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+.hero-image .lines img {
+  width: auto !important;
+  height: auto !important;
+}
+.hero-image .lines .line-1 {
+  width: 110.667%;
+}
+.hero-image .lines .line-1 img {
+  width: 100%;
+  height: auto;
+}
+.hero-image .lines .line-2 {
+  width: 70.667%;
+}
+.hero-image .lines .line-2 img {
+  width: 100%;
+  height: auto;
+}
+.hero-image .lines .line-3 {
+  width: 53.87%;
+}
+.hero-image .lines .line-3 img {
+  width: 100%;
+  height: auto;
+}
+.hero-image .lines .registered {
+  width: 16.18%;
+}
+.hero-image .lines .registered img {
+  width: 100%;
+  height: auto;
 }
 
 .hero-image img {
@@ -509,3 +619,5 @@ h3 {
     font-size: 16px;
   }
 }
+
+/*# sourceMappingURL=style.css.map */
