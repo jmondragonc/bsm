@@ -19,25 +19,49 @@ get_header(); ?>
                 <div class="hero-image">
                     <div class="frames">
                         <div class="b">
-                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/b1.svg" class="b1_1"
-                                alt="Frame B1">
-                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/b2.svg" class="b1_2"
-                                alt="Frame B2">
-                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/b3.svg" class="b1_3"
-                                alt="Frame B3">
+                            <div class="b1_1"><img
+                                    src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/b1.svg"
+                                    alt="Frame B1"></div>
+                            <div class="b1_2"><img
+                                    src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/b2.svg"
+                                    alt="Frame B2"></div>
+                            <div class="b1_3"><img
+                                    src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/b3.svg"
+                                    alt="Frame B3"></div>
                         </div>
                         <div class="s">
-                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/s1.svg" class="s1_1"
-                                alt="Frame S1">
+                            <div class="s1_1"><img
+                                    src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/s1.svg"
+                                    alt="Frame S1"></div>
                         </div>
                         <div class="m">
-                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/m1.svg" class="m1_1"
-                                alt="Frame M1">
-                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/m2.svg" class="m1_2"
-                                alt="Frame M2">
-                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/m3.svg" class="m1_3"
-                                alt="Frame M3">
-
+                            <div class="m1_1"><img
+                                    src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/m1.svg"
+                                    alt="Frame M1"></div>
+                            <div class="m1_2"><img
+                                    src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/m2.svg"
+                                    alt="Frame M2"></div>
+                            <div class="m1_3"><img
+                                    src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/m3.svg"
+                                    alt="Frame M3"></div>
+                            <div class="lines">
+                                <div class="line-1">
+                                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/line1.svg"
+                                        alt="Frame L1">
+                                </div>
+                                <div class="line-2">
+                                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/line2.svg"
+                                        alt="Frame L2">
+                                </div>
+                                <div class="line-3">
+                                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/line3.svg"
+                                        alt="Frame L3">
+                                </div>
+                                <div class="registered">
+                                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/r.svg"
+                                        alt="Registered Trademark">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -101,7 +125,7 @@ get_header(); ?>
                 <div class="work-item">
                     <div class="work-image">
                         <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos.svg"
-                            alt="Garbachos">
+                            alt="Garbachos" loading="lazy">
                     </div>
                     <div class="work-info">
                         <h3>Garbachos</h3>
@@ -117,7 +141,8 @@ get_header(); ?>
                 <!-- Organa -->
                 <div class="work-item">
                     <div class="work-image">
-                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa.svg" alt="Organa">
+                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa.svg" alt="Organa"
+                            loading="lazy">
                     </div>
                     <div class="work-info">
                         <h3>Organa</h3>
@@ -133,7 +158,7 @@ get_header(); ?>
                 <div class="work-item">
                     <div class="work-image">
                         <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends.svg"
-                            alt="Smart Blends">
+                            alt="Smart Blends" loading="lazy">
                     </div>
                     <div class="work-info">
                         <h3>Smart Blends</h3>
@@ -155,9 +180,9 @@ get_header(); ?>
             <div class="testimonial-item">
                 <div class="testimonial-images">
                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos-bocas.svg"
-                        alt="Garbachos" class="img-1">
+                        alt="Garbachos" class="img-1" loading="lazy">
                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos-chela.svg"
-                        alt="Garbachos" class="img-2">
+                        alt="Garbachos" class="img-2" loading="lazy">
                 </div>
                 <div class="testimonial-content">
                     <div class="avatar"></div>
@@ -170,9 +195,9 @@ get_header(); ?>
             <div class="testimonial-item">
                 <div class="testimonial-images">
                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa-1.svg" alt="Organa"
-                        class="img-1">
+                        class="img-1" loading="lazy">
                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa-2.svg" alt="Organa"
-                        class="img-2">
+                        class="img-2" loading="lazy">
                 </div>
                 <div class="testimonial-content">
                     <div class="avatar green"></div>
@@ -185,9 +210,9 @@ get_header(); ?>
             <div class="testimonial-item">
                 <div class="testimonial-images">
                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends-storie.png"
-                        alt="Smart Blends" class="img-1">
+                        alt="Smart Blends" class="img-1" loading="lazy">
                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends-carrusel.png"
-                        alt="Smart Blends" class="img-2">
+                        alt="Smart Blends" class="img-2" loading="lazy">
                 </div>
                 <div class="testimonial-content">
                     <div class="avatar blue"></div>

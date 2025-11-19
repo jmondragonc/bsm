@@ -105,19 +105,13 @@
       }
     });
 
-    // Agregar transición al contenedor
-    framesContainer.style.transition = "transform 0.25s ease";
+    // Configurar contenedor
     framesContainer.style.position = "relative";
 
     // Obtener contenedores individuales de cada letra
     const bContainer = document.querySelector(".b");
     const sContainer = document.querySelector(".s");
     const mContainer = document.querySelector(".m");
-
-    // Agregar transiciones individuales a cada letra
-    if (bContainer) bContainer.style.transition = "transform 0.5s ease-out";
-    if (sContainer) sContainer.style.transition = "transform 0.5s ease-out";
-    if (mContainer) mContainer.style.transition = "transform 0.5s ease-out";
 
     let bIndex = 0;
     let mIndex = 0;
@@ -163,35 +157,83 @@
     }
 
     // Iniciar animación de frames inmediatamente cada 250ms
-    setInterval(animateB, 250);
-    setInterval(animateM, 250);
+    const bInterval = setInterval(animateB, 250);
+    const mInterval = setInterval(animateM, 250);
 
-    // Al segundo 1: reducir a 75% (mientras las letras se siguen cambiando)
-    setTimeout(function () {
-      framesContainer.style.transform = "scale(0.75)";
-    }, 1000);
-
-    // A los 1.25s: desplazar cada letra de forma escalonada
-    setTimeout(function () {
-      // La B llega primero
-      if (bContainer) {
-        bContainer.style.transform = "translateX(-25%)";
+    // Esperar a que anime.js esté disponible
+    function startAnimations() {
+      if (typeof anime === "undefined") {
+        setTimeout(startAnimations, 50);
+        return;
       }
 
-      // La S llega 100ms después
-      setTimeout(function () {
-        if (sContainer) {
-          sContainer.style.transform = "translateX(-25%)";
-        }
-      }, 100);
+      // Al segundo 1: reducir a 75% con anime.js
+      anime({
+        targets: framesContainer,
+        scale: 0.75,
+        duration: 250,
+        easing: "easeInOutQuad",
+        delay: 1000,
+      });
 
-      // La M llega 100ms después de la S
-      setTimeout(function () {
-        if (mContainer) {
-          mContainer.style.transform = "translateX(-25%)";
-        }
-      }, 200);
-    }, 1250);
+      // A los 1.25s: mover cada letra POR SEPARADO
+      // Calculamos el ancho total del frames container
+      const framesWidth = framesContainer.offsetWidth;
+      const gap = 24; // gap del grid
+
+      // Proporciones del grid: 33.2fr 28.5fr 38.3fr = 100fr total
+      const totalFr = 33.2 + 28.5 + 38.3;
+      const bWidth = (framesWidth - gap * 2) * (33.2 / totalFr);
+      const sWidth = (framesWidth - gap * 2) * (28.5 / totalFr);
+
+      // Calcular desplazamiento para centrar todo hacia la izquierda
+      const targetOffset = framesWidth * 0.25; // Mover todo 25% a la izquierda
+
+      const moveTimeline = anime.timeline({
+        easing: "easeOutQuad",
+        delay: 1250,
+      });
+
+      // Cada letra se mueve su cantidad específica
+      moveTimeline.add(
+        {
+          targets: bContainer,
+          translateX: -targetOffset,
+          duration: 500,
+          easing: "easeOutQuad",
+        },
+        0
+      );
+
+      moveTimeline.add(
+        {
+          targets: sContainer,
+          translateX: -targetOffset,
+          duration: 1000,
+          easing: "easeOutQuad",
+        },
+        100
+      );
+
+      moveTimeline.add(
+        {
+          targets: mContainer,
+          translateX: -targetOffset,
+          duration: 1000,
+          easing: "easeOutQuad",
+        },
+        200
+      );
+
+      // Detener intervalos cuando termine el desplazamiento
+      // La M es la última en llegar (delay 200ms + duration 1000ms = 1200ms)
+      moveTimeline.finished.then(function () {
+        clearInterval(bInterval);
+        clearInterval(mInterval);
+      });
+    }
+
+    startAnimations();
   }
 
   // Iniciar cuando el DOM esté listo

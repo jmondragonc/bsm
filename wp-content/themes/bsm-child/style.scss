@@ -41,8 +41,8 @@ h3 {
 .bsm-hero {
   position: relative;
   background-color: #6a23cd;
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -133,11 +133,6 @@ h3 {
   color: #000;
 }
 
-/* Ajuste para compensar el header fijo */
-.bsm-hero {
-  padding-top: 100px;
-}
-
 /* Hero Title */
 .hero-title {
   text-align: center;
@@ -163,7 +158,8 @@ h3 {
     display: grid;
     flex-direction: row;
     grid-template-columns: 33.2fr 28.5fr 38.3fr;
-    gap: 24px;
+    //grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
 
     .b,
     .s,
@@ -174,28 +170,35 @@ h3 {
       img {
         width: 100%;
         height: auto;
+        display: block;
       }
     }
 
     .b {
       width: 100%;
+      //aspect-ratio: 62.79 / 66.72;
+      z-index: 2;
     }
     .s {
       width: 100%;
+      //aspect-ratio: 56.03 / 69.14;
+      z-index: 2;
     }
     .m {
       width: 100%;
+      //aspect-ratio: 75.27 / 67.93;
+      z-index: 2;
     }
   }
 
-  .b1_1,
-  .b1_2,
-  .b1_3 {
+  .b1_1 {
     display: block;
+    position: relative;
   }
 
   .b1_2,
   .b1_3 {
+    display: none;
     position: absolute;
     left: 0;
     top: 0;
@@ -204,20 +207,83 @@ h3 {
 
   .s1_1 {
     display: block;
+    position: relative;
   }
 
-  .m1_1,
-  .m1_2,
-  .m1_3 {
+  .m1_1 {
     display: block;
+    position: relative;
+    background-color: #6a23cd;
+    z-index: 2;
   }
 
   .m1_2,
   .m1_3 {
+    display: none;
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
+    background-color: #6a23cd;
+    z-index: 2;
+  }
+
+  .m1_2 {
+    img {
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .lines {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background-color: red;
+    z-index: 1;
+    transform: translateX(0%);
+
+    img {
+      width: auto !important;
+      height: auto !important;
+    }
+
+    .line-1 {
+      width: 110.667%;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    .line-2 {
+      width: 70.667%;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    .line-3 {
+      width: 53.87%;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    .registered {
+      width: 16.18%;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
   }
 }
 
