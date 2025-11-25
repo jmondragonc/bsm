@@ -80,6 +80,12 @@ h3 {
   padding: 34px 56px;
   background-color: transparent;
   mix-blend-mode: difference;
+  opacity: 0 !important;
+  transition: opacity 0.5s ease;
+}
+
+.bsm-nav.show {
+  opacity: 1 !important;
 }
 
 .nav-left {
@@ -135,6 +141,12 @@ h3 {
 .hero-title {
   text-align: center;
   margin-bottom: 60px;
+  opacity: 0 !important;
+  transition: opacity 0.5s ease;
+}
+
+.hero-title.show {
+  opacity: 1 !important;
 }
 
 .hero-title h1 {
@@ -233,33 +245,34 @@ h3 {
   flex-direction: column;
   justify-content: space-between;
 }
-.hero-image .lines img {
-  width: auto !important;
-  height: auto !important;
-}
 .hero-image .lines .line-1 {
-  width: 110.667%;
+  width: 100%;
+  position: relative;
+  top: 8px;
 }
 .hero-image .lines .line-1 img {
   width: 100%;
   height: auto;
 }
 .hero-image .lines .line-2 {
-  width: 70.667%;
+  width: 100%;
 }
 .hero-image .lines .line-2 img {
   width: 100%;
   height: auto;
 }
 .hero-image .lines .line-3 {
-  width: 53.87%;
+  width: 100%;
 }
 .hero-image .lines .line-3 img {
   width: 100%;
   height: auto;
 }
 .hero-image .lines .registered {
-  width: 16.18%;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
 }
 .hero-image .lines .registered img {
   width: 100%;
@@ -623,5 +636,3 @@ h3 {
     font-size: 16px;
   }
 }
-
-/*# sourceMappingURL=style.css.map */

@@ -7,6 +7,7 @@
   "use strict";
 
   const nav = document.querySelector(".bsm-nav");
+  const heroTitle = document.querySelector(".hero-title");
   if (!nav) return;
 
   function checkBackground() {
@@ -36,6 +37,18 @@
     }
   }
 
+  function showNavAndTitle() {
+    // Mostrar nav y hero-title cuando se hace scroll
+    if (window.scrollY > 0) {
+      if (nav) {
+        nav.classList.add("show");
+      }
+      if (heroTitle) {
+        heroTitle.classList.add("show");
+      }
+    }
+  }
+
   // Ejecutar al cargar
   window.addEventListener("load", checkBackground);
 
@@ -50,6 +63,7 @@
       if (!ticking) {
         window.requestAnimationFrame(function () {
           checkBackground();
+          showNavAndTitle();
           ticking = false;
         });
         ticking = true;
@@ -280,6 +294,9 @@
             },
             200
           );
+
+        // No mostrar menú ni hero-title automáticamente
+        // Se mostrarán cuando el usuario haga scroll
       });
     }
 
@@ -291,5 +308,46 @@
     document.addEventListener("DOMContentLoaded", initBSMAnimation);
   } else {
     initBSMAnimation();
+  }
+})();
+
+/**
+ * Acordeón de servicios
+ */
+(function () {
+  "use strict";
+
+  function initAccordion() {
+    const serviceItems = document.querySelectorAll(".service-item");
+
+    serviceItems.forEach(function (item) {
+      const header = item.querySelector(".service-header");
+      const btn = item.querySelector(".expand-btn");
+
+      header.addEventListener("click", function () {
+        // Si el item ya está activo, lo cerramos
+        if (item.classList.contains("active")) {
+          item.classList.remove("active");
+          btn.textContent = "+";
+        } else {
+          // Cerrar todos los demás items
+          serviceItems.forEach(function (otherItem) {
+            otherItem.classList.remove("active");
+            otherItem.querySelector(".expand-btn").textContent = "+";
+          });
+
+          // Abrir el item actual
+          item.classList.add("active");
+          btn.textContent = "-";
+        }
+      });
+    });
+  }
+
+  // Iniciar cuando el DOM esté listo
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAccordion);
+  } else {
+    initAccordion();
   }
 })();
