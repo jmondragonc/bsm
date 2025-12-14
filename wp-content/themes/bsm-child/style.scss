@@ -142,13 +142,19 @@ h3 {
 /* Hero Title */
 .hero-title {
   text-align: center;
-  margin-bottom: 60px;
-  opacity: 0 !important;
-  transition: opacity 0.5s ease;
+  margin-top: 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: max-height 0.8s ease, margin-top 0.8s ease, opacity 0.8s ease, transform 0.8s ease;
 }
 
 .hero-title.show {
-  opacity: 1 !important;
+  margin-top: 60px;
+  max-height: 300px;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .hero-title h1 {
@@ -161,7 +167,6 @@ h3 {
 
 .hero-image {
   text-align: center;
-  margin-bottom: 100px;
 
   .frames {
     position: relative;

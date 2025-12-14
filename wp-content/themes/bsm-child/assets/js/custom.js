@@ -295,8 +295,8 @@
             200
           );
 
-        // No mostrar menú ni hero-title automáticamente
-        // Se mostrarán cuando el usuario haga scroll
+        // No mostrar hero-title automáticamente
+        // Se mostrará solo cuando el usuario haga scroll
       });
     }
 

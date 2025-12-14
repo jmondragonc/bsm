@@ -140,13 +140,19 @@ h3 {
 /* Hero Title */
 .hero-title {
   text-align: center;
-  margin-bottom: 60px;
-  opacity: 0 !important;
-  transition: opacity 0.5s ease;
+  margin-top: 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: max-height 0.8s ease, margin-top 0.8s ease, opacity 0.8s ease, transform 0.8s ease;
 }
 
 .hero-title.show {
-  opacity: 1 !important;
+  margin-top: 60px;
+  max-height: 300px;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .hero-title h1 {
@@ -159,7 +165,6 @@ h3 {
 
 .hero-image {
   text-align: center;
-  margin-bottom: 100px;
 }
 .hero-image .frames {
   position: relative;
@@ -315,17 +320,41 @@ h3 {
 }
 
 .service-item {
+  border-bottom: 1px solid #000;
+}
+
+.service-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 0;
-  border-bottom: 1px solid #000;
+  cursor: pointer;
 }
 
 .service-item h3 {
   font-family: "Clash Grotesk", sans-serif;
   font-size: 60px;
   line-height: 1;
+}
+
+.service-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  padding: 0;
+}
+
+.service-content p {
+  font-family: "Clash Grotesk", sans-serif;
+  font-size: 25px;
+  line-height: 1.2;
+  margin: 0;
+  padding-bottom: 25px;
+}
+
+.service-item.active .service-content {
+  max-height: 200px;
+  padding-top: 10px;
 }
 
 .expand-btn {
@@ -340,6 +369,13 @@ h3 {
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+  padding-bottom: 10px;
+  padding-left: 5px;
 }
 
 .expand-btn:hover {

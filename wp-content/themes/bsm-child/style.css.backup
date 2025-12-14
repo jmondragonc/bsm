@@ -1,0 +1,638 @@
+/*
+Theme Name: BSM Theme
+Theme URI: https://bsm.com
+Description: BSM Marketing Agency Theme
+Author: BSM
+Author URI: https://bsm.com
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: bsm-theme
+*/
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Clash Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+  background-color: #fff;
+  color: #000;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1678px;
+  margin: 0 auto;
+  padding: 0 56px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Right Grotesk", sans-serif;
+}
+
+/* Hero Section */
+.bsm-hero {
+  position: relative;
+  background-color: #6a23cd;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.hero-background {
+  position: absolute;
+  bottom: 0;
+  left: -117px;
+  width: 1921px;
+  height: 864px;
+  z-index: 1;
+}
+
+.hero-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/* Navigation */
+.bsm-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 34px 56px;
+  background-color: transparent;
+  mix-blend-mode: difference;
+  opacity: 0 !important;
+  transition: opacity 0.5s ease;
+}
+
+.bsm-nav.show {
+  opacity: 1 !important;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 55px;
+}
+
+.bsm-nav .logo img {
+  width: 116px;
+  height: auto;
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
+}
+
+.nav-menu-left {
+  display: flex;
+  gap: 55px;
+  list-style: none;
+  margin: 0;
+}
+
+.nav-menu-left a,
+.nav-right a {
+  font-family: "Clash Grotesk", sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-menu-left a:hover,
+.nav-right a:hover {
+  opacity: 0.7;
+}
+
+/* Estado sobre fondo morado (#6A23CD) - Desactivar blend mode y mostrar en negro */
+.bsm-nav.on-purple {
+  mix-blend-mode: normal;
+}
+
+.bsm-nav.on-purple .logo img {
+  filter: brightness(0) saturate(100%);
+}
+
+.bsm-nav.on-purple .nav-menu-left a,
+.bsm-nav.on-purple .nav-right a {
+  color: #000;
+}
+
+/* Hero Title */
+.hero-title {
+  text-align: center;
+  margin-bottom: 60px;
+  opacity: 0 !important;
+  transition: opacity 0.5s ease;
+}
+
+.hero-title.show {
+  opacity: 1 !important;
+}
+
+.hero-title h1 {
+  font-family: "Right Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 0.83;
+  color: #000;
+}
+
+.hero-image {
+  text-align: center;
+  margin-bottom: 100px;
+}
+.hero-image .frames {
+  position: relative;
+  width: 50%;
+  margin: 0 auto;
+  display: grid;
+  flex-direction: row;
+  grid-template-columns: 33.2fr 28.5fr 38.3fr;
+  gap: 16px;
+}
+.hero-image .frames .b,
+.hero-image .frames .s,
+.hero-image .frames .m {
+  width: 100%;
+  position: relative;
+}
+.hero-image .frames .b img,
+.hero-image .frames .s img,
+.hero-image .frames .m img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.hero-image .frames .b {
+  width: 100%;
+  z-index: 2;
+}
+.hero-image .frames .s {
+  width: 100%;
+  z-index: 2;
+}
+.hero-image .frames .m {
+  width: 100%;
+  z-index: 2;
+}
+.hero-image .b1_1 {
+  display: block;
+  position: relative;
+}
+.hero-image .b1_2,
+.hero-image .b1_3 {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.hero-image .s1_1 {
+  display: block;
+  position: relative;
+}
+.hero-image .m1_1 {
+  display: block;
+  position: relative;
+  background-color: #6a23cd;
+  z-index: 2;
+}
+.hero-image .m1_2,
+.hero-image .m1_3 {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background-color: #6a23cd;
+  z-index: 2;
+}
+.hero-image .m1_2 img {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-image .lines {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.hero-image .lines .line-1 {
+  width: 100%;
+  position: relative;
+  top: 8px;
+}
+.hero-image .lines .line-1 img {
+  width: 100%;
+  height: auto;
+}
+.hero-image .lines .line-2 {
+  width: 100%;
+}
+.hero-image .lines .line-2 img {
+  width: 100%;
+  height: auto;
+}
+.hero-image .lines .line-3 {
+  width: 100%;
+}
+.hero-image .lines .line-3 img {
+  width: 100%;
+  height: auto;
+}
+.hero-image .lines .registered {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+}
+.hero-image .lines .registered img {
+  width: 100%;
+  height: auto;
+}
+
+.hero-image img {
+  max-width: 518px;
+  height: auto;
+}
+
+/* What We Do Section */
+.bsm-what-we-do {
+  padding: 100px 0;
+  background-color: #fff;
+}
+
+.bsm-what-we-do h2 {
+  font-family: "Right Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 0.85;
+  margin-bottom: 40px;
+}
+
+.bsm-what-we-do .subtitle {
+  font-family: "Clash Grotesk", sans-serif;
+  font-size: 40px;
+  line-height: 1;
+  margin-bottom: 80px;
+}
+
+/* Services Grid */
+.services-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 778px;
+  margin-left: auto;
+}
+
+.service-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #000;
+}
+
+.service-item h3 {
+  font-family: "Clash Grotesk", sans-serif;
+  font-size: 60px;
+  line-height: 1;
+}
+
+.expand-btn {
+  width: 74px;
+  height: 51px;
+  border: 1px solid #000;
+  border-radius: 50px;
+  background-color: #fff;
+  font-family: "Neureal", sans-serif;
+  font-size: 45px;
+  line-height: 1;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.expand-btn:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Full Experience Section */
+.bsm-full-experience {
+  background-color: #000;
+  padding: 92px 0;
+}
+
+.bsm-full-experience h2 {
+  font-family: "Right Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 180px;
+  line-height: 0.83;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 36px;
+}
+
+.services-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 1093px;
+  margin: 0 auto;
+}
+
+.services-tags .tag {
+  display: inline-block;
+  padding: 14px 21px;
+  background-color: #6a23cd;
+  border-radius: 50px;
+  font-family: "Neureal", sans-serif;
+  font-size: 30px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #000;
+}
+
+/* Work Section */
+.bsm-work {
+  padding: 100px 0;
+  background-color: #fff;
+}
+
+.bsm-work h2 {
+  font-family: "Right Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 0.85;
+  margin-bottom: 80px;
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.work-item {
+  position: relative;
+}
+
+.work-image {
+  margin-bottom: 20px;
+}
+
+.work-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.work-info h3 {
+  font-family: "Clash Grotesk", sans-serif;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.work-info p {
+  font-family: "Neureal", sans-serif;
+  font-size: 24px;
+  line-height: 1;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.work-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.work-tags .tag {
+  display: inline-block;
+  padding: 4px 14px;
+  border: 1px solid #000;
+  border-radius: 50px;
+  font-family: "Neureal", sans-serif;
+  font-size: 22px;
+  line-height: 1;
+  text-transform: uppercase;
+  background-color: #fff;
+  color: #000;
+}
+
+/* Testimonials Section */
+.bsm-testimonials {
+  background-color: #000;
+  padding: 100px 0;
+}
+
+.testimonials-container {
+  max-width: 1800px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  padding: 0 17px;
+}
+
+.testimonial-item {
+  position: relative;
+}
+
+.testimonial-images {
+  position: relative;
+  margin-bottom: 30px;
+  height: 400px;
+}
+
+.testimonial-images img {
+  position: absolute;
+  max-width: 100%;
+  height: auto;
+}
+
+.testimonial-images .img-1 {
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.testimonial-images .img-2 {
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.testimonial-content {
+  position: relative;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 25px 68px 25px 68px;
+}
+
+.testimonial-content .avatar {
+  position: absolute;
+  top: 18px;
+  left: 17px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+}
+
+.testimonial-content .avatar.green {
+  background-color: #0ea94b;
+}
+
+.testimonial-content .avatar.blue {
+  background-color: #3557d3;
+}
+
+.testimonial-content h4 {
+  font-family: "Clash Grotesk", sans-serif;
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 1;
+  margin-bottom: 11px;
+}
+
+.testimonial-content p {
+  font-family: "Clash Grotesk", sans-serif;
+  font-size: 25px;
+  line-height: 1;
+}
+
+/* Footer */
+.bsm-footer {
+  position: relative;
+  background-color: #6a23cd;
+  padding: 0;
+}
+
+.footer-background {
+  position: absolute;
+  bottom: 0;
+  left: -117px;
+  width: 1921px;
+  height: 864px;
+  z-index: 1;
+}
+
+.footer-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.footer-content {
+  position: relative;
+  z-index: 2;
+  padding: 100px 0 50px;
+}
+
+.footer-logo {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.footer-logo img {
+  max-width: 500px;
+  height: auto;
+}
+
+.footer-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-family: "Neureal", sans-serif;
+  font-size: 24px;
+  line-height: 1.09;
+  text-transform: uppercase;
+  color: #000;
+}
+
+.footer-social p {
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .work-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .testimonials-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bsm-full-experience h2 {
+    font-size: 120px;
+  }
+}
+@media (max-width: 768px) {
+  .container {
+    padding: 0 30px;
+  }
+  .hero-title h1 {
+    font-size: 40px;
+  }
+  .bsm-what-we-do h2,
+  .bsm-work h2 {
+    font-size: 40px;
+  }
+  .bsm-what-we-do .subtitle {
+    font-size: 24px;
+  }
+  .service-item h3 {
+    font-size: 36px;
+  }
+  .bsm-full-experience h2 {
+    font-size: 60px;
+  }
+  .services-tags .tag {
+    font-size: 20px;
+  }
+  .work-grid {
+    grid-template-columns: 1fr;
+  }
+  .testimonials-container {
+    grid-template-columns: 1fr;
+  }
+  .nav-menu {
+    gap: 20px;
+  }
+  .nav-menu a {
+    font-size: 16px;
+  }
+}
