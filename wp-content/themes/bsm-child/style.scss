@@ -1,13 +1,14 @@
 /*
-Theme Name: BSM Theme
+Theme Name: BSM Child Theme
 Theme URI: https://bsm.com
-Description: BSM Marketing Agency Theme
+Description: Child theme for BSM Marketing Agency
 Author: BSM
 Author URI: https://bsm.com
+Template: twentytwentyfive
 Version: 1.0.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: bsm-theme
+Text Domain: bsm-child
 */
 
 /* General Styles */
@@ -147,7 +148,8 @@ h3 {
   overflow: hidden;
   opacity: 0;
   transform: translateY(30px);
-  transition: max-height 0.8s ease, margin-top 0.8s ease, opacity 0.8s ease, transform 0.8s ease;
+  transition: max-height 0.8s ease, margin-top 0.8s ease, opacity 0.8s ease,
+    transform 0.8s ease;
 }
 
 .hero-title.show {
