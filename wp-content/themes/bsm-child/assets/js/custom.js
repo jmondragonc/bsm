@@ -49,6 +49,61 @@
     }
   }
 
+  // Parallax del hero cuando se hace scroll
+  function handleHeroParallax() {
+    const heroSection = document.querySelector("#primary .bsm-hero");
+    if (!heroSection) return;
+
+    const heroImage = heroSection.querySelector(".hero-image");
+    const heroTitle = heroSection.querySelector(".hero-title");
+    const heroBackground = heroSection.querySelector(".hero-background");
+
+    if (!heroImage) return;
+
+    // Obtener la posición del scroll y la altura de la sección
+    const scrollY = window.scrollY;
+    const heroHeight = heroSection.offsetHeight;
+    const scrollProgress = Math.min(scrollY / heroHeight, 1);
+
+    // Solo aplicar parallax cuando estamos saliendo del viewport
+    if (scrollProgress > 0) {
+      // Cada elemento se mueve a diferente velocidad para crear profundidad
+      const imageOffset = scrollProgress * 200; // Más rápido
+      const titleOffset = scrollProgress * 120; // Velocidad media
+      const backgroundOffset = scrollProgress * 40; // Más lento
+
+      const imageOpacity = Math.max(1 - scrollProgress * 1.8, 0);
+      const titleOpacity = Math.max(1 - scrollProgress * 1.5, 0);
+
+      if (heroImage) {
+        heroImage.style.transform = `translateY(-${imageOffset}px)`;
+        heroImage.style.opacity = imageOpacity;
+      }
+
+      if (heroTitle) {
+        heroTitle.style.transform = `translateY(-${titleOffset}px)`;
+        heroTitle.style.opacity = titleOpacity;
+      }
+
+      if (heroBackground) {
+        heroBackground.style.transform = `translateY(-${backgroundOffset}px)`;
+      }
+    } else {
+      // Reset cuando estamos en la parte superior
+      if (heroImage) {
+        heroImage.style.transform = 'translateY(0)';
+        heroImage.style.opacity = '1';
+      }
+      if (heroTitle) {
+        heroTitle.style.transform = 'translateY(0)';
+        heroTitle.style.opacity = '1';
+      }
+      if (heroBackground) {
+        heroBackground.style.transform = 'translateY(0)';
+      }
+    }
+  }
+
   // Ejecutar al cargar
   window.addEventListener("load", checkBackground);
 
@@ -64,6 +119,7 @@
         window.requestAnimationFrame(function () {
           checkBackground();
           showNavAndTitle();
+          handleHeroParallax();
           ticking = false;
         });
         ticking = true;

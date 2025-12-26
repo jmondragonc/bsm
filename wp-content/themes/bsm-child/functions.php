@@ -10,8 +10,12 @@ function bsm_child_enqueue_styles()
     wp_dequeue_style('bsm-theme-style');
     wp_dequeue_style('bsm-child-style');
 
+    // Cargar fuentes personalizadas
+    wp_enqueue_style('bsm-fonts', get_stylesheet_directory_uri() . '/assets/fonts/stylesheet.css', array(), filemtime(get_stylesheet_directory() . '/assets/fonts/stylesheet.css'));
+    wp_enqueue_style('clash-grotesk', get_stylesheet_directory_uri() . '/assets/css/clash-grotesk.css', array(), filemtime(get_stylesheet_directory() . '/assets/css/clash-grotesk.css'));
+
     // Solo cargar el child theme style minificado
-    wp_enqueue_style('child-style', get_stylesheet_directory_uri() . '/style.min.css', array(), filemtime(get_stylesheet_directory() . '/style.min.css'));
+    wp_enqueue_style('child-style', get_stylesheet_directory_uri() . '/style.min.css', array('bsm-fonts'), filemtime(get_stylesheet_directory() . '/style.min.css'));
 
     // Enqueue anime.js from local file (defer para que no bloquee)
     wp_enqueue_script('anime-js', get_stylesheet_directory_uri() . '/assets/js/anime.min.js', array(), filemtime(get_stylesheet_directory() . '/assets/js/anime.min.js'), true);

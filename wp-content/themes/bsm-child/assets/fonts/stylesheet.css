@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'Neureal Mono';
+    src: url('Neureal-Mono.woff2') format('woff2'),
+        url('Neureal-Mono.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Clash Grotesk';
+    src: url('ClashGrotesk-Regular.woff2') format('woff2'),
+        url('ClashGrotesk-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Right Grotesk Compact';
+    src: url('RightGrotesk-CompactBold.woff2') format('woff2'),
+        url('RightGrotesk-CompactBold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+

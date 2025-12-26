@@ -11,6 +11,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: bsm-child
 */
 
+@import "variables";
+
 /* General Styles */
 * {
   margin: 0;
@@ -47,6 +49,15 @@ h3 {
   overflow: hidden;
   display: flex;
   align-items: center;
+
+  .hero-title {
+    h1 {
+      font-family: $font-headings;
+      font-weight: bold;
+      font-size: 3.4rem;
+      font-style: normal;
+    }
+  }
 }
 
 .hero-background {
@@ -138,6 +149,14 @@ h3 {
 .bsm-nav.on-purple .nav-menu-left a,
 .bsm-nav.on-purple .nav-right a {
   color: #000;
+  font-family: "ClashGrotesk-Semibold";
+  font-weight: 600;
+  transition: all ease-in-out 0.35s;
+
+  &:hover {
+    transition: all ease-in-out 0.35s;
+    color: #333;
+  }
 }
 
 /* Hero Title */
@@ -153,7 +172,7 @@ h3 {
 }
 
 .hero-title.show {
-  margin-top: 60px;
+  margin-top: 70px;
   max-height: 300px;
   opacity: 1;
   transform: translateY(0);
