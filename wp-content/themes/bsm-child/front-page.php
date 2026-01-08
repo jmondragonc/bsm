@@ -77,35 +77,41 @@ get_header(); ?>
     <!-- What We Do Section -->
     <section class="bsm-what-we-do" data-bg="light">
         <div class="container">
-            <h2>¿QUÉ HACEMOS?</h2>
-            <p class="subtitle">Nos especializamos en transformar marcas con estrategia, diseño<br>y comunicación.</p>
+            <div>
+                <h2>¿QUÉ HACEMOS?</h2>
+                <p class="subtitle">Nos especializamos en transformar marcas con estrategia, diseño y comunicación.</p>
+            </div>
 
-            <div class="services-grid">
-                <div class="service-item">
-                    <div class="service-header">
-                        <h3>Estrategia</h3>
-                        <button class="expand-btn">+</button>
+            <div></div>
+
+            <div>
+                <div class="services-grid">
+                    <div class="service-item">
+                        <div class="service-header">
+                            <h3>Estrategia</h3>
+                            <button class="expand-btn">+</button>
+                        </div>
+                        <div class="service-content">
+                            <p>Nuestro trabajo es hacer que tu marca sea única, por más que el mercado este saturado. Ser auténtico es lo más preciado por la gente.</p>
+                        </div>
                     </div>
-                    <div class="service-content">
-                        <p>Nuestro trabajo es hacer que tu marca sea única, por más que el mercado este saturado. Ser auténtico es lo más preciado por la gente.</p>
+                    <div class="service-item">
+                        <div class="service-header">
+                            <h3>Creatividad</h3>
+                            <button class="expand-btn">+</button>
+                        </div>
+                        <div class="service-content">
+                            <p>Desarrollamos ideas creativas que conectan con tu audiencia y hacen que tu marca destaque en el mercado.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="service-item">
-                    <div class="service-header">
-                        <h3>Creatividad</h3>
-                        <button class="expand-btn">+</button>
-                    </div>
-                    <div class="service-content">
-                        <p>Desarrollamos ideas creativas que conectan con tu audiencia y hacen que tu marca destaque en el mercado.</p>
-                    </div>
-                </div>
-                <div class="service-item">
-                    <div class="service-header">
-                        <h3>Diseño</h3>
-                        <button class="expand-btn">+</button>
-                    </div>
-                    <div class="service-content">
-                        <p>Creamos experiencias visuales memorables que reflejan la esencia de tu marca y generan impacto.</p>
+                    <div class="service-item">
+                        <div class="service-header">
+                            <h3>Diseño</h3>
+                            <button class="expand-btn">+</button>
+                        </div>
+                        <div class="service-content">
+                            <p>Creamos experiencias visuales memorables que reflejan la esencia de tu marca y generan impacto.</p>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -46,6 +46,12 @@ h3 {
   display: flex;
   align-items: center;
 }
+.bsm-hero .hero-title h1 {
+  font-family: "Right Grotesk Compact", sans-serif;
+  font-weight: bold;
+  font-size: 3.4rem;
+  font-style: normal;
+}
 
 .hero-background {
   position: absolute;
@@ -59,7 +65,8 @@ h3 {
 .hero-background img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .hero-content {
@@ -136,6 +143,14 @@ h3 {
 .bsm-nav.on-purple .nav-menu-left a,
 .bsm-nav.on-purple .nav-right a {
   color: #000;
+  font-family: "ClashGrotesk-Semibold";
+  font-weight: 600;
+  transition: all ease-in-out 0.35s;
+}
+.bsm-nav.on-purple .nav-menu-left a:hover,
+.bsm-nav.on-purple .nav-right a:hover {
+  transition: all ease-in-out 0.35s;
+  color: #333;
 }
 
 /* Hero Title */
@@ -150,7 +165,7 @@ h3 {
 }
 
 .hero-title.show {
-  margin-top: 60px;
+  margin-top: 70px;
   max-height: 300px;
   opacity: 1;
   transform: translateY(0);
@@ -238,7 +253,8 @@ h3 {
   top: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .hero-image .lines {
   position: absolute;
@@ -591,7 +607,8 @@ h3 {
 .footer-background img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .footer-content {
@@ -672,4 +689,4 @@ h3 {
   .nav-menu a {
     font-size: 16px;
   }
-}
+}/*# sourceMappingURL=style.css.map */
