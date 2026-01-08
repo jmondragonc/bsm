@@ -91,15 +91,15 @@
     } else {
       // Reset cuando estamos en la parte superior
       if (heroImage) {
-        heroImage.style.transform = 'translateY(0)';
-        heroImage.style.opacity = '1';
+        heroImage.style.transform = "translateY(0)";
+        heroImage.style.opacity = "1";
       }
       if (heroTitle) {
-        heroTitle.style.transform = 'translateY(0)';
-        heroTitle.style.opacity = '1';
+        heroTitle.style.transform = "translateY(0)";
+        heroTitle.style.opacity = "1";
       }
       if (heroBackground) {
-        heroBackground.style.transform = 'translateY(0)';
+        heroBackground.style.transform = "translateY(0)";
       }
     }
   }
@@ -406,4 +406,80 @@
   } else {
     initAccordion();
   }
+})();
+
+/**
+ * Scroll Animations (Scroll-Linked)
+ * Animates elements based on their position in the viewport
+ */
+(function () {
+  "use strict";
+
+  const animatedElements = document.querySelectorAll(
+    ".animate-fade-up, .animate-slide-left"
+  );
+
+  if (animatedElements.length === 0) return;
+
+  function handleScrollAnimations() {
+    const viewportHeight = window.innerHeight;
+
+    animatedElements.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      const elementHeight = rect.height;
+
+      // Calcular cuánto ha entrado el elemento en el viewport
+      // Inicio (0): cuando el borde superior del elemento toca el borde inferior del viewport
+      // Fin (1): cuando el elemento ha entrado una cantidad significativa (e.g., 200px o 30% del viewport)
+
+      const entryPoint = viewportHeight; // El punto donde empieza a ser visible (bottom of viewport)
+      const visibleThreshold = 150; // Píxeles que debe entrar para completar la animación
+
+      // Distancia desde el top del elemento hasta el bottom del viewport
+      const distanceFromBottom = viewportHeight - rect.top;
+
+      let progress = 0;
+
+      if (distanceFromBottom > 0) {
+        progress = Math.min(distanceFromBottom / visibleThreshold, 1);
+      }
+
+      // Aplicar estilos basados en el progreso
+      // Opacidad: 0 a 1
+      el.style.opacity = progress;
+
+      // Transform:
+      // fade-up: translateY(30px) -> 0
+      // slide-left: translateX(50px) -> 0
+
+      if (el.classList.contains("animate-fade-up")) {
+        const translateY = 30 * (1 - progress);
+        el.style.transform = `translateY(${translateY}px)`;
+      } else if (el.classList.contains("animate-slide-left")) {
+        const translateX = 50 * (1 - progress);
+        el.style.transform = `translateX(${translateX}px)`;
+      }
+    });
+  }
+
+  let ticking = false;
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!ticking) {
+        window.requestAnimationFrame(function () {
+          handleScrollAnimations();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    },
+    { passive: true }
+  );
+
+  // Ejecutar inicial
+  handleScrollAnimations();
+
+  // Actualizar en resize
+  window.addEventListener("resize", handleScrollAnimations);
 })();

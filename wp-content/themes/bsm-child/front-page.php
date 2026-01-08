@@ -78,15 +78,15 @@ get_header(); ?>
     <section class="bsm-what-we-do" data-bg="light">
         <div class="container">
             <div>
-                <h2>¿QUÉ HACEMOS?</h2>
-                <p class="subtitle">Nos especializamos en transformar marcas con estrategia, diseño y comunicación.</p>
+                <h2 class="animate-fade-up">¿QUÉ HACEMOS?</h2>
+                <p class="subtitle animate-fade-up">Nos especializamos en transformar marcas con estrategia, diseño y comunicación.</p>
             </div>
 
             <div></div>
 
             <div>
                 <div class="services-grid">
-                    <div class="service-item">
+                    <div class="service-item animate-slide-left">
                         <div class="service-header">
                             <h3>Estrategia</h3>
                             <button class="expand-btn">+</button>
@@ -95,7 +95,7 @@ get_header(); ?>
                             <p>Nuestro trabajo es hacer que tu marca sea única, por más que el mercado este saturado. Ser auténtico es lo más preciado por la gente.</p>
                         </div>
                     </div>
-                    <div class="service-item">
+                    <div class="service-item animate-slide-left">
                         <div class="service-header">
                             <h3>Creatividad</h3>
                             <button class="expand-btn">+</button>
@@ -104,7 +104,7 @@ get_header(); ?>
                             <p>Desarrollamos ideas creativas que conectan con tu audiencia y hacen que tu marca destaque en el mercado.</p>
                         </div>
                     </div>
-                    <div class="service-item">
+                    <div class="service-item animate-slide-left">
                         <div class="service-header">
                             <h3>Diseño</h3>
                             <button class="expand-btn">+</button>
