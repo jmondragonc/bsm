@@ -652,6 +652,336 @@
     render();
   }
 
+  function initTestimonialsAnimation() {
+    const wrapper = document.querySelector(".testimonials-sticky-wrapper");
+    // Select all collage items
+    const items = document.querySelectorAll(".collage-item");
+
+    if (!wrapper || items.length === 0) return;
+
+    // Focus Sequence (Order of appearance)
+    const sequenceSelectors = [
+      ".item-tweet-cd816", // 1. Tweet Big Center
+      ".item-tweet-organa", // 2. Tweet Organa
+      ".item-smart-yellow", // 3. Smart Yellow Poster
+      ".item-tweet-garbachos", // 4. Tweet Garbachos
+      ".item-garbachos-chela", // 5. Garbachos Poster
+      ".item-tweet-smart", // 6. Tweet Smart
+      ".item-smart-storie", // 7. Smart Storie
+      ".item-organa-postres", // 8. Organa Postres
+      ".item-organa-leaf", // 9. Final Branding
+    ];
+
+    // Cache Elements
+    const sequenceItems = sequenceSelectors
+      .map((sel) => document.querySelector(sel))
+      .filter((el) => el);
+
+    function render() {
+      // Check visibility
+      const rect = wrapper.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+
+      const distance = wrapper.offsetHeight - viewportHeight;
+      const currentScroll = -rect.top;
+
+      let progress = 0;
+      if (rect.top <= 0) {
+        progress = currentScroll / distance;
+      }
+      progress = Math.max(0, Math.min(1, progress));
+
+      // TIMELINE CONFIG
+      const p1End = 0.15; // Phase 1 ends at 15%
+
+      // --- PHASE 1: COLLAGE ASSEMBLY (0% - 15%) ---
+      // We normalize this 0-0.15 range to 0-1 for the assembly animation
+      let assemblyProgress = progress / p1End;
+      assemblyProgress = Math.max(0, Math.min(1, assemblyProgress));
+
+      // --- PHASE 2: SEQUENTIAL FOCUS (15% - 100%) ---
+      // Normalize 0.15-1.0 to 0-1
+      let seqProgress = (progress - p1End) / (1 - p1End);
+      seqProgress = Math.max(0, Math.min(1, seqProgress));
+
+      // Calculate active index for sequence
+      const totalItems = sequenceItems.length;
+      // Map seqProgress 0-1 to 0-totalItems
+      const rawCurrentIndex = seqProgress * (totalItems + 1); // +1 buffer
+      const currentIndex = Math.floor(rawCurrentIndex);
+      const activeItem = sequenceItems[currentIndex];
+
+      // Sub-progress for the current item (0 to 1)
+      const itemProgress = rawCurrentIndex - currentIndex;
+
+      items.forEach((item, index) => {
+        // --- BASE STATE (Collage) ---
+        // Recalculate the Phase 1 Base State for everyone
+
+        const speed = 1.0 + (index % 4) * 0.15;
+
+        let p = assemblyProgress * 1;
+
+        const easeEntry = 1 - Math.pow(1 - assemblyProgress, 3);
+
+        const startScale = 0.5;
+        const endScale = 1.0;
+        let baseScale = startScale + (endScale - startScale) * easeEntry;
+
+        const startY = 300 * speed;
+        let currentY = startY * (1 - easeEntry);
+
+        let opacity = Math.min(1, easeEntry * 2.5);
+
+        // If Phase 2 started, base state is fully assembled
+        if (progress > p1End) {
+          baseScale = 1.0;
+          currentY = 0;
+          opacity = 1;
+        }
+
+        // --- PHASE 2 FOCUS LOGIC ---
+        let focusTransform = "";
+        let zIndex = "";
+
+        if (progress > p1End) {
+          // Check if active
+          if (item === activeItem) {
+            // FOCUS THIS ITEM
+            const style = window.getComputedStyle(item);
+            const val = (v, parent) => {
+              if (v && v.includes("px")) return parseFloat(v);
+              if (v && v.includes("%")) return (parseFloat(v) / 100) * parent;
+              return 0;
+            };
+
+            const winW = window.innerWidth;
+            const winH = window.innerHeight;
+
+            const top = val(style.top, winH);
+            const left = val(style.left, winW);
+            const width = parseFloat(style.width) || 0;
+            const height = parseFloat(style.height) || 0;
+
+            // CSS Center
+            const cx = left + width / 2;
+            const cy = top + height / 2;
+
+            // Target Center (Viewport)
+            const targetCX = winW / 2;
+            const targetCY = winH / 2;
+
+            const dx = targetCX - cx;
+            const dy = targetCY - cy;
+
+            // Transition Logic
+            // Enter: 0-0.2
+            // Hold: 0.2-0.8
+            // Exit: 0.8-1.0
+
+            let focusFactor = 0;
+            if (itemProgress < 0.2) {
+              const t = itemProgress / 0.2;
+              focusFactor = t * (2 - t);
+            } else if (itemProgress < 0.8) {
+              focusFactor = 1;
+            } else {
+              const t = (itemProgress - 0.8) / 0.2;
+              focusFactor = 1 - t * t;
+            }
+
+            const finalScale = 1.0 + 0.5 * focusFactor; // 1.0 -> 1.5
+
+            // Base Rotation Handling
+            let baseRotate = 0;
+            if (item.classList.contains("item-garbachos-bocas"))
+              baseRotate = -10;
+            if (item.classList.contains("item-smart-yellow")) baseRotate = 5;
+
+            const currentRotate = baseRotate * (1 - focusFactor); // Rotate -> 0
+
+            // Handle CSS TranslateX(-50%) on some items
+            let startX = 0;
+            if (item.classList.contains("item-tweet-cd816"))
+              startX = -0.5 * width;
+            if (item.classList.contains("item-organa-leaf"))
+              startX = -0.5 * width;
+            if (item.classList.contains("item-organa-leaf"))
+              currentY += -0.5 * height; // CSS has translate -50, -50 for this one
+
+            // Correct interpolated center
+            // dx moves from 'left' based center to 'viewport' center
+            // but transform adds to 'left'.
+            const frameX = startX + (dx - startX) * focusFactor; // Approximate interpolation
+
+            // For simplified focus:
+            // We just want to effectively translate it by (dx, dy)
+            // But preserving the start offset
+
+            // Let's use a simpler transform for focus:
+            // We know dx, dy needed to move center to center.
+            // We apply that on TOP of whatever base css positioning exists.
+            // IF we ignore the `startX` logic and just do `translate(dx, dy)`,
+            // it works IF the transform origin matches.
+            // But CSS transform origin is 50% 50% usually.
+
+            // Re-calculating proper translate:
+            // Current visual center (with no transform) = cx, cy.
+            // We want visual center = targetCX, targetCY.
+            // Translate needed = (targetCX - cx, targetCY - cy).
+
+            // Is there existing transform?
+            // cd816 has translateX(-50%). So its Visual Center X is (left + width/2) - (width/2) = left.
+            // So for cd816, cx should be `left`.
+            let visualCX = cx;
+            let visualCY = cy;
+
+            if (item.classList.contains("item-tweet-cd816"))
+              visualCX -= width / 2;
+            if (item.classList.contains("item-organa-leaf")) {
+              visualCX -= width / 2;
+              visualCY -= height / 2;
+            }
+
+            const moveX = targetCX - visualCX;
+            const moveY = targetCY - visualCY;
+
+            const curMoveX = moveX * focusFactor;
+            const curMoveY = moveY * focusFactor;
+
+            // Apply. We need to include the 'base' transform in the calculation?
+            // No, we are generating the full string.
+            // Phase 2 Base transform is translate(0,0).
+            // So we just output the move.
+            // BUT we need to add the base transform strings back if we aren't fully focused?
+            // No, FocusFactor handles the blend from 0 to 1.
+            // When FocusFactor is 0, curMoveX is 0.
+            // BUT we need `startX` (the -50%) to be there when FocusFactor is 0!
+
+            let baseTransformStr = "";
+            if (item.classList.contains("item-tweet-cd816"))
+              baseTransformStr = "translateX(-50%)";
+            if (item.classList.contains("item-organa-leaf"))
+              baseTransformStr = "translate(-50%, -50%)";
+
+            // If we just use the calculated move from Visual Center, we don't need the base transform string
+            // because `curMoveX` is the total distance from "Natural Element Position" to "Target".
+            // Wait. "Natural Element Position" is defined by top/left.
+            // `moveX` is (Target - VisualCenter).
+            // If we apply `translateX(moveX)`, the new center is VisualCenter + moveX = Target.
+            // HOWEVER, this assumes `translateX` starts at 0 relative to Natural Position.
+            // If the element has `translateX(-50%)` in CSS, that Shift is part of its Natural Visual Position?
+            // No, standard CSS flow puts it at top/left. Transform shifts it.
+            // So "Natural Top/Left Position" is `left, top`.
+            // "Visual Start" is `left - width/2`.
+            // We want to go to `Target`.
+            // Distance = Target - (left). (Using Center of element as ref).
+            // Center of element (untransformed) is `left + width/2`.
+            // We want final center to be `Target`.
+            // Translate needed = Target - (left + width/2).
+            // If we apply this Translate, the element center moves to Target.
+            // This works REGARDLESS of the CSS `translateX(-50%)` ONLY IF we remove that class shift.
+            // We are overwriting `transform`, so we ARE removing the CSS shift.
+            // So we just need to calculate `Target - UnshiftedCenter`.
+            // UnshiftedCenter = left + width/2.
+
+            const realUnshiftedCX = left + width / 2;
+            const realUnshiftedCY = top + height / 2;
+
+            const realDX = targetCX - realUnshiftedCX;
+            const realDY = targetCY - realUnshiftedCY;
+
+            // Interpolate
+            // Start State (FocusFactor 0): We want it to look like the Collage.
+            // In Collage, cd816 looks centered because of CSS `translateX(-50%)`.
+            // If we overwrite transform with `translate(0,0)`, it jumps to the right.
+            // So Start State must be `translate(-50%, 0)`.
+            // Or, in pixels: `translate(-width/2, 0)`.
+
+            let startTX = 0;
+            let startTY = 0;
+            if (item.classList.contains("item-tweet-cd816"))
+              startTX = -width / 2;
+            if (item.classList.contains("item-organa-leaf")) {
+              startTX = -width / 2;
+              startTY = -height / 2;
+            }
+
+            const currentTX = startTX + (realDX - startTX) * focusFactor;
+            const currentTY = startTY + (realDY - startTY) * focusFactor;
+
+            focusTransform = `translate(${currentTX}px, ${currentTY}px) scale(${finalScale}) rotate(${currentRotate}deg)`;
+            zIndex = 1000;
+          } else {
+            // Dim others
+            if (currentIndex >= 0 && currentIndex < totalItems) {
+              opacity = 0.1;
+            }
+          }
+        }
+
+        // APPLY
+        if (focusTransform) {
+          item.style.transform = focusTransform;
+          item.style.zIndex = zIndex;
+          item.style.opacity = 1;
+          item.style.boxShadow = "0 30px 80px rgba(0,0,0,0.5)";
+        } else {
+          let transform = `translate(${0}px, ${currentY}px) scale(${baseScale})`;
+
+          if (item.classList.contains("item-organa-leaf")) {
+            transform = `translate(-50%, calc(-50% + ${currentY}px)) scale(${baseScale})`;
+          } else if (item.classList.contains("item-tweet-cd816")) {
+            transform = `translate(-50%, ${currentY}px) scale(${baseScale})`;
+          } else {
+            if (item.classList.contains("item-garbachos-bocas"))
+              transform += " rotate(-10deg)";
+            if (item.classList.contains("item-smart-yellow"))
+              transform += " rotate(5deg)";
+          }
+
+          item.style.transform = transform;
+          item.style.zIndex = "";
+          item.style.opacity = opacity;
+          item.style.boxShadow = "";
+        }
+      });
+
+      requestAnimationFrame(render);
+    }
+
+    render();
+  }
+
+  function initFooterAnimation() {
+    const footer = document.querySelector(".bsm-footer");
+    const logoImg = document.querySelector(".footer-logo img");
+
+    if (!footer || !logoImg) return;
+
+    // Initial state: Logo down
+    logoImg.style.transform = "translateY(100%)";
+    logoImg.style.transition =
+      "transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1)";
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Reveal
+            logoImg.style.transform = "translateY(0%)";
+          } else {
+            // Reset if scrolled away (optional, maybe keep it revealed)
+            // logoImg.style.transform = "translateY(100%)";
+          }
+        });
+      },
+      { threshold: 0.1 }
+    ); // Trigger when 10% visible
+
+    observer.observe(footer);
+  }
+
   function initWorkStickyScroll() {
     const wrapper = document.querySelector(".bsm-work-sticky-wrapper");
     const container = document.querySelector(".bsm-work-container");
@@ -747,9 +1077,13 @@
     document.addEventListener("DOMContentLoaded", () => {
       initTagsScrollAnimation();
       initWorkStickyScroll();
+      initTestimonialsAnimation();
+      initFooterAnimation();
     });
   } else {
     initTagsScrollAnimation();
     initWorkStickyScroll();
+    initTestimonialsAnimation();
+    initFooterAnimation();
   }
 })();

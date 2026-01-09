@@ -216,49 +216,56 @@ get_header(); ?>
 
     <!-- Testimonials Section -->
     <section class="bsm-testimonials" data-bg="dark">
-        <div class="testimonials-container">
-            <!-- Garbachos Testimonial -->
-            <div class="testimonial-item">
-                <div class="testimonial-images">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos-bocas.svg"
-                        alt="Garbachos" class="img-1" loading="lazy">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos-chela.svg"
-                        alt="Garbachos" class="img-2" loading="lazy">
+        <div class="testimonials-sticky-wrapper">
+            <div class="testimonials-collage">
+                <!-- 1. Garbachos Bocas (Top Left Cropped) -->
+                <div class="collage-item item-garbachos-bocas">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos-bocas.svg" alt="Garbachos Bocas">
                 </div>
-                <div class="testimonial-content">
-                    <div class="avatar"></div>
-                    <h4>Garbachos_user</h4>
-                    <p>"Hoy mi marca ya está lista para crecer con solidez."</p>
-                </div>
-            </div>
 
-            <!-- Organa Testimonial -->
-            <div class="testimonial-item">
-                <div class="testimonial-images">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa-1.svg" alt="Organa"
-                        class="img-1" loading="lazy">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa-2.svg" alt="Organa"
-                        class="img-2" loading="lazy">
+                <!-- 2. Tweet Garbachos (Top Left/Mid) -->
+                <div class="collage-item item-tweet-garbachos">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/tweet1.png" alt="Tweet Garbachos">
                 </div>
-                <div class="testimonial-content">
-                    <div class="avatar green"></div>
-                    <h4>Organa</h4>
-                    <p>"El proceso fue super personalizado."</p>
+                
+                <!-- 3. Garbachos Chela Poster (Mid Left) -->
+                <div class="collage-item item-garbachos-chela">
+                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos-chela.svg" alt="Garbachos Chela">
                 </div>
-            </div>
 
-            <!-- Smart Blends Testimonial -->
-            <div class="testimonial-item">
-                <div class="testimonial-images">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends-storie.png"
-                        alt="Smart Blends" class="img-1" loading="lazy">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends-carrusel.png"
-                        alt="Smart Blends" class="img-2" loading="lazy">
+                <!-- 4. Tweet CD (Top Center - Big) -->
+                <div class="collage-item item-tweet-cd816">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/tweet2.png" alt="Tweet CD 816">
                 </div>
-                <div class="testimonial-content">
-                    <div class="avatar blue"></div>
-                    <h4>Smart Blends</h4>
-                    <p>"Me encantó trabajar con ellos."</p>
+
+                <!-- 5. Tweet Smart (Top Right) -->
+                <div class="collage-item item-tweet-smart">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/tweet4.png" alt="Tweet Smart">
+                </div>
+
+                <!-- 6. Tweet Organa (Center/Mid) -->
+                <div class="collage-item item-tweet-organa">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/tweet3.png" alt="Tweet Organa">
+                </div>
+
+                <!-- 7. Organa Leaf (Center Focus) -->
+                <div class="collage-item item-organa-leaf">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa.svg" alt="Organa Leaf">
+                </div>
+                
+                <!-- 8. Smart Yellow (Right Mid) -->
+                <div class="collage-item item-smart-yellow">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends-carrusel.png" alt="Smart Blends Yellow">
+                </div>
+
+                <!-- 9. Organa Postres (Bottom Center/Left) -->
+                <div class="collage-item item-organa-postres">
+                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa-1.svg" alt="Organa Postres">
+                </div>
+
+                <!-- 10. Smart Storie (Bottom Right) -->
+                <div class="collage-item item-smart-storie">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends-storie.png" alt="Smart Blends Storie">
                 </div>
             </div>
         </div>
@@ -272,23 +279,28 @@ get_header(); ?>
         </div>
         <div class="footer-content">
             <div class="container">
-                <div class="footer-logo">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/logo.svg" alt="BSM Logo">
-                </div>
-
-                <div class="footer-info">
-                    <div class="footer-location">Lima, PERÚ</div>
-                    <div class="footer-social">
-                        <p>síguenos</p>
-                        <p>instagram</p>
-                        <p>linkedin</p>
-                    </div>
-                    <div class="footer-copyright">©BSM 2025</div>
-                </div>
+    <!-- Footer Section -->
+    <footer class="bsm-footer">
+        <div class="footer-top">
+            <div class="footer-location">LIMA, PERÚ</div>
+            
+            <div class="footer-socials">
+                <div class="social-label">SÍGUENOS</div>
+                <a href="#" target="_blank">INSTAGRAM</a>
+                <a href="#" target="_blank">LINKEDIN</a>
             </div>
+
+            <div class="footer-copyright">©BSM 2025</div>
+        </div>
+
+        <div class="footer-logo">
+             <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/logo.svg" alt="BSM Logo">
         </div>
     </footer>
-
+    
+    <?php wp_footer(); ?>
+</body>
+</html>
 </main>
 
 <?php get_footer(); ?>
