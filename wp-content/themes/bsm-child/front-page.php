@@ -81,9 +81,7 @@ get_header(); ?>
                 <h2 class="animate-fade-up">¿QUÉ HACEMOS?</h2>
                 <p class="subtitle animate-fade-up">Nos especializamos en transformar marcas con estrategia, diseño y comunicación.</p>
             </div>
-
             <div></div>
-
             <div>
                 <div class="services-grid">
                     <div class="service-item animate-slide-left">
@@ -124,14 +122,14 @@ get_header(); ?>
             <h2>CREAMOS UNA<br>EXPERIENCIA<br>DE MARCA<br>COMPLETA</h2>
 
             <div class="services-tags">
-                <span class="tag">BRANDING</span>
-                <span class="tag">NAMING</span>
-                <span class="tag">PACKAGING</span>
-                <span class="tag">SOCIAL MEDIA</span>
-                <span class="tag">CAMPAÑAS CREATIVAS</span>
-                <span class="tag">POSICIONAMIENTO</span>
-                <span class="tag">MANUAL DE MARCA</span>
-                <span class="tag">Y MÁS</span>
+                <span class="tag tag-1">BRANDING</span>
+                <span class="tag tag-2">NAMING</span>
+                <span class="tag tag-3">PACKAGING</span>
+                <span class="tag tag-4">SOCIAL MEDIA</span>
+                <span class="tag tag-5">CAMPAÑAS CREATIVAS</span>
+                <span class="tag tag-6">POSICIONAMIENTO</span>
+                <span class="tag tag-7">MANUAL DE MARCA</span>
+                <span class="tag tag-8">Y MÁS</span>
             </div>
         </div>
     </section>

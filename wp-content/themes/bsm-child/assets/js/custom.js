@@ -480,6 +480,81 @@
   // Ejecutar inicial
   handleScrollAnimations();
 
+  // Ejecutar inicial
+  handleScrollAnimations();
+
   // Actualizar en resize
   window.addEventListener("resize", handleScrollAnimations);
+})();
+
+/**
+ * Full Experience Tags - VERSIÓN ULTRA SIMPLE QUE SÍ FUNCIONA
+ */
+(function () {
+  "use strict";
+
+  function init() {
+    const section = document.querySelector(".bsm-full-experience");
+    const tags = document.querySelectorAll(".services-tags .tag");
+
+    if (!section || !tags.length) {
+      console.log("No se encontraron tags");
+      return;
+    }
+
+    console.log("Tags encontrados:", tags.length);
+
+    // Map of final rotations matching CSS requirements
+    // Ensure these match the visual design intended
+    const rotations = [15, -15, 8, -4, -28, 15, 18, -25];
+
+    function update() {
+      const rect = section.getBoundingClientRect();
+      const vh = window.innerHeight;
+
+      // Simple: 0 = abajo, 1 = arriba
+      let progress = 1 - rect.top / vh;
+      progress = Math.max(0, Math.min(1, progress));
+
+      tags.forEach((tag, i) => {
+        // Delay por tag
+        let p = (progress - i * 0.1) / 0.5;
+        p = Math.max(0, Math.min(1, p));
+
+        // FORZAR valores
+        const opacity = p;
+        const y = 150 - 150 * p; // 150px -> 0px
+        const scale = 0.5 + 0.5 * p; // 0.5 -> 1
+        const rot = rotations[i] || 0;
+
+        // APLICAR FORZADAMENTE
+        tag.style.setProperty("opacity", String(opacity), "important");
+        tag.style.setProperty(
+          "transform",
+          `translateY(${y}px) scale(${scale}) rotate(${rot}deg)`,
+          "important"
+        );
+      });
+    }
+
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          update();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    window.addEventListener("resize", update);
+    update();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();
