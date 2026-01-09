@@ -272,25 +272,25 @@ get_header(); ?>
     </section>
 
     <!-- Footer -->
-    <footer class="bsm-footer" data-bg="purple">
-        <div class="footer-background">
-            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/hero-background.svg"
-                alt="Footer Background">
-        </div>
-        <div class="footer-content">
-            <div class="container">
+</main>
+
     <!-- Footer Section -->
     <footer class="bsm-footer">
         <div class="footer-top">
-            <div class="footer-location">LIMA, PERÚ</div>
-            
-            <div class="footer-socials">
-                <div class="social-label">SÍGUENOS</div>
-                <a href="#" target="_blank">INSTAGRAM</a>
-                <a href="#" target="_blank">LINKEDIN</a>
+            <div class="footer-info-left">
+                <div>LIMA, PERÚ</div>
             </div>
-
-            <div class="footer-copyright">©BSM 2025</div>
+            
+            <div class="footer-info-right">
+                <div class="footer-socials">
+                    <div>SÍGUENOS</div>
+                    <a href="#" target="_blank">INSTAGRAM</a>
+                    <a href="#" target="_blank">LINKEDIN</a>
+                </div>
+                <div class="footer-copyright">
+                    ©BSM 2025
+                </div>
+            </div>
         </div>
 
         <div class="footer-logo">
@@ -301,6 +301,3 @@ get_header(); ?>
     <?php wp_footer(); ?>
 </body>
 </html>
-</main>
-
-<?php get_footer(); ?>

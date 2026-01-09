@@ -955,29 +955,21 @@
 
   function initFooterAnimation() {
     const footer = document.querySelector(".bsm-footer");
-    const logoImg = document.querySelector(".footer-logo img");
+    const logoContainer = document.querySelector(".footer-logo");
 
-    if (!footer || !logoImg) return;
-
-    // Initial state: Logo down
-    logoImg.style.transform = "translateY(100%)";
-    logoImg.style.transition =
-      "transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1)";
+    if (!footer || !logoContainer) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Reveal
-            logoImg.style.transform = "translateY(0%)";
-          } else {
-            // Reset if scrolled away (optional, maybe keep it revealed)
-            // logoImg.style.transform = "translateY(100%)";
+            // Add class to trigger CSS transition
+            logoContainer.classList.add("is-visible");
           }
         });
       },
       { threshold: 0.1 }
-    ); // Trigger when 10% visible
+    );
 
     observer.observe(footer);
   }
