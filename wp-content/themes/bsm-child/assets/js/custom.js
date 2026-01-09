@@ -511,33 +511,26 @@
 
     // Spread vectors for Phase 2 (Growth)
     // As they grow, move them outwards to avoid overlapping
-    // {x, y} in pixels
+    // {x, y, r} (r = additional rotation)
     const spreadOffsets = [
-      { x: -100, y: -50 }, // Tag 1 Branding (Top Left -> Move further out)
-      { x: 100, y: -50 }, // Tag 2 Naming (Top Right -> Move further out)
-      { x: -80, y: -20 }, // Tag 3 Packaging (Center Left -> Move Left)
-      { x: 150, y: 20 }, // Tag 4 Social (Center Right -> Move Right)
-      { x: -150, y: 80 }, // Tag 5 Campañas (Bottom Left -> Move Left/Down)
-      { x: 120, y: 120 }, // Tag 6 Posicionamiento (Bottom Right -> Move Right/Down)
-      { x: -60, y: 150 }, // Tag 7 Manual (Bottom Center -> Move Down)
-      { x: 60, y: 150 }, // Tag 8 Y Mas (Bottom Center -> Move Down)
+      { x: -100, y: -50, r: -5 }, // Tag 1 Branding
+      { x: 100, y: -50, r: 5 }, // Tag 2 Naming
+      { x: -80, y: -20, r: -3 }, // Tag 3 Packaging
+      { x: 150, y: 20, r: 8 }, // Tag 4 Social
+      { x: -150, y: 80, r: -10 }, // Tag 5 Campañas
+      { x: 120, y: 120, r: 5 }, // Tag 6 Posicionamiento
+      { x: -60, y: 150, r: 4 }, // Tag 7 Manual
+      { x: 60, y: 150, r: -4 }, // Tag 8 Y Mas
     ];
 
-    let ticking = false;
+    function render() {
+      if (!isSectionVisible) {
+        requestAnimationFrame(render);
+        return;
+      }
 
-    function update() {
       const rect = wrapper.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-
-      // We have two phases driven by the scroll of the WRAPPER.
-
-      // PHASE 1: ENTRY
-      // Starts: Wrapper Top enters viewport bottom (rect.top == windowHeight)
-      // Ends: Wrapper Top hits viewport top (rect.top == 0)
-
-      // PHASE 2: GROWTH (Pinned)
-      // Starts: Wrapper Top hits viewport top (rect.top == 0)
-      // Ends: Wrapper bottom hits viewport bottom (approx) or after scrolling 100vh past top.
 
       const entryStart = windowHeight;
       const entryEnd = 0;
@@ -545,86 +538,134 @@
       // Calculate Entry Progress (0 to 1)
       let entryProgress = (entryStart - rect.top) / (entryStart - entryEnd);
 
-      // Calculate Growth Progress
-      // When rect.top is negative, we are in the pinned/growth phase.
-      // Let's say growth happens over the first 100vh of scrolling past top.
-      const growthDistance = windowHeight; // Amount of scroll to complete growth
-      let growthProgress = (0 - rect.top) / growthDistance;
+      const pinnedDist = -rect.top;
+      const growthDist = windowHeight;
+      let growthProgress = pinnedDist / growthDist;
 
-      // Clamp values
       entryProgress = Math.max(0, Math.min(1, entryProgress));
-      growthProgress = Math.max(0, Math.min(1, growthProgress));
+
+      const isShakePhase = growthProgress > 1;
+
+      // Time for shake (constant)
+      const time = Date.now() * 0.002; // Slower speed factor
 
       tags.forEach((tag, index) => {
         const rotation = rotations[index] !== undefined ? rotations[index] : 0;
         const stagger =
           staggerOffsets[index] !== undefined ? staggerOffsets[index] : 0;
-        const spread = spreadOffsets[index] || { x: 0, y: 0 };
+        const spread = spreadOffsets[index] || { x: 0, y: 0, r: 0 };
 
         let scale = 0.5;
         let transX = 0;
         let transY = 150;
         let opacity = 0;
+        let currentRot = rotation;
 
         if (entryProgress > 0) {
-          // PHASE 1: Entry Logic
-          // Map global entry progress to tag progress using stagger
+          // PHASE 1: Entry
           let p1 = (entryProgress - stagger) / 0.5;
           p1 = Math.max(0, Math.min(1, p1));
           const ease1 = p1 * (2 - p1);
 
-          scale = 0.5 + 0.5 * ease1; // 0.5 -> 1.0
-          transX = 0; // 0
-          transY = 150 * (1 - ease1); // 150 -> 0
-          opacity = ease1; // 0 -> 1
+          scale = 0.5 + 0.5 * ease1;
+          transY = 150 * (1 - ease1);
+          opacity = ease1;
         }
 
         if (growthProgress > 0) {
-          // PHASE 2: Growth Logic
-          // This layers ON TOP of the finished entry state.
-          // Logic: Grow from 1.0 to 1.5
+          // PHASE 2
+          scale = 1.0;
+          transX = 0;
+          transY = 0;
+          opacity = 1;
 
-          // We can apply stagger here too if we want, or sync it. User said "each tag must grow".
-          // Let's keep it simple/synced or slightly staggered.
+          let p2 = Math.min(1, growthProgress);
+          const ease2 = p2;
+          const growthFactor = 0.5 * ease2;
 
-          const ease2 = growthProgress; // Linear or simple ease
-          const growthFactor = 0.5 * ease2; // 0 -> 0.5
+          scale = 1.0 + growthFactor;
+          transX = spread.x * ease2;
+          transY = spread.y * ease2;
 
-          scale = 1.0 + growthFactor; // 1.0 -> 1.5
-
-          // Spread Outwards
-          transX = spread.x * ease2; // 0 -> spread.x
-          transY = spread.y * ease2; // 0 -> spread.y
-
-          opacity = 1; // Stays at 1
+          // Add extra rotation during growth
+          currentRot += (spread.r || 0) * ease2;
         }
 
-        // Apply
+        if (isShakePhase) {
+          // PHASE 3: CONSTANT SHAKE
+          const i = index + 1;
+
+          // Use TIME instead of scroll
+          const shakeX = Math.sin(time * 2.5 + i) * 6;
+          const shakeY = Math.cos(time * 3.1 + i) * 6;
+          const shakeR = Math.sin(time * 4.2 + i) * 3;
+
+          transX += shakeX;
+          transY += shakeY;
+          currentRot += shakeR;
+        }
+
         tag.style.opacity = opacity;
-        tag.style.transform = `translate(${transX}px, ${transY}px) rotate(${rotation}deg) scale(${scale})`;
+        tag.style.transform = `translate(${transX}px, ${transY}px) rotate(${currentRot}deg) scale(${scale})`;
       });
 
-      ticking = false;
+      requestAnimationFrame(render);
     }
 
-    function onScroll() {
-      if (!ticking) {
-        window.requestAnimationFrame(update);
-        ticking = true;
-      }
+    // Visibility Check Optimization
+    // To save resources, only render when near viewport
+    let isSectionVisible = true;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isSectionVisible = entry.isIntersecting;
+        });
+      },
+      { rootMargin: "200px 0px 200px 0px" }
+    );
+
+    observer.observe(wrapper);
+
+    // Start Loop
+    render();
+  }
+
+  function initWorkSwiper() {
+    const swiperContainer = document.querySelector(".bsm-work-swiper");
+    if (!swiperContainer) return;
+
+    // Check if Swiper is defined globally (from CDN or enqueue)
+    // If not, we might need to rely on the theme loading it.
+    if (typeof Swiper === "undefined") {
+      console.warn("Swiper not loaded");
+      return;
     }
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-
-    // Force initial update
-    update();
+    new Swiper(swiperContainer, {
+      slidesPerView: 1.2,
+      spaceBetween: 20,
+      grabCursor: true,
+      breakpoints: {
+        768: {
+          slidesPerView: 2.2,
+          spaceBetween: 24,
+        },
+        1024: {
+          slidesPerView: 2.9, // Exact request
+          spaceBetween: 30,
+        },
+      },
+    });
   }
 
   // Ensure DOM is ready
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initTagsScrollAnimation);
+    document.addEventListener("DOMContentLoaded", () => {
+      initTagsScrollAnimation();
+      initWorkSwiper();
+    });
   } else {
     initTagsScrollAnimation();
+    initWorkSwiper();
   }
 })();

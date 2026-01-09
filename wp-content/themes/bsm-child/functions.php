@@ -20,8 +20,12 @@ function bsm_child_enqueue_styles()
     // Enqueue anime.js from local file (defer para que no bloquee)
     wp_enqueue_script('anime-js', get_stylesheet_directory_uri() . '/assets/js/anime.min.js', array(), filemtime(get_stylesheet_directory() . '/assets/js/anime.min.js'), true);
 
+    // Enqueue Swiper (CDN)
+    wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', array(), '11.0.0');
+    wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), '11.0.0', true);
+
     // Enqueue custom JavaScript
-    wp_enqueue_script('bsm-custom-js', get_stylesheet_directory_uri() . '/assets/js/custom.js', array('anime-js'), filemtime(get_stylesheet_directory() . '/assets/js/custom.js'), true);
+    wp_enqueue_script('bsm-custom-js', get_stylesheet_directory_uri() . '/assets/js/custom.js', array('anime-js', 'swiper-js'), filemtime(get_stylesheet_directory() . '/assets/js/custom.js'), true);
 }
 add_action('wp_enqueue_scripts', 'bsm_child_enqueue_styles', 20);
 

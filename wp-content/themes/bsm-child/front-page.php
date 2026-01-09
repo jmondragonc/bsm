@@ -141,52 +141,79 @@ get_header(); ?>
         <div class="container">
             <h2>TRABAJAMOS CON CLIENTES<br>CON VISIÓN</h2>
 
-            <div class="work-grid">
-                <!-- Garbachos -->
-                <div class="work-item">
-                    <div class="work-image">
-                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos.svg"
-                            alt="Garbachos" loading="lazy">
-                    </div>
-                    <div class="work-info">
-                        <h3>Garbachos</h3>
-                        <p>Comestibles</p>
-                        <div class="work-tags">
-                            <span class="tag">branding</span>
-                            <span class="tag">packaging</span>
-                            <span class="tag">estrategia</span>
+            <!-- Swiper Container -->
+            <div class="swiper bsm-work-swiper">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1: Smart Blends -->
+                    <div class="swiper-slide">
+                        <div class="work-item">
+                            <div class="work-image">
+                                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends.svg"
+                                    alt="Smart Blends">
+                            </div>
+                            <div class="work-info">
+                                <h3>Smart Blends</h3>
+                                <p>Productos Saludables</p>
+                                <div class="work-tags">
+                                    <span class="tag">branding</span>
+                                    <span class="tag">packaging</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Organa -->
-                <div class="work-item">
-                    <div class="work-image">
-                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa.svg" alt="Organa"
-                            loading="lazy">
-                    </div>
-                    <div class="work-info">
-                        <h3>Organa</h3>
-                        <p>Retail</p>
-                        <div class="work-tags">
-                            <span class="tag">branding</span>
-                            <span class="tag">naming</span>
+                    <!-- Slide 2: Organa -->
+                    <div class="swiper-slide">
+                        <div class="work-item">
+                            <div class="work-image">
+                                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa.svg" 
+                                    alt="Organa">
+                            </div>
+                            <div class="work-info">
+                                <h3>Organa</h3>
+                                <p>Retail</p>
+                                <div class="work-tags">
+                                    <span class="tag">naming</span>
+                                    <span class="tag">branding</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Smart Blends -->
-                <div class="work-item">
-                    <div class="work-image">
-                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends.svg"
-                            alt="Smart Blends" loading="lazy">
+                    <!-- Slide 3: Garbachos -->
+                    <div class="swiper-slide">
+                        <div class="work-item">
+                            <div class="work-image">
+                                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos.svg"
+                                    alt="Garbachos">
+                            </div>
+                            <div class="work-info">
+                                <h3>Garbachos</h3>
+                                <p>Comestibles</p>
+                                <div class="work-tags">
+                                    <span class="tag">estrategia</span>
+                                    <span class="tag">branding</span>
+                                    <span class="tag">packaging</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="work-info">
-                        <h3>Smart Blends</h3>
-                        <p>Productos saludables</p>
-                        <div class="work-tags">
-                            <span class="tag">packaging</span>
-                            <span class="tag">BRANDing</span>
+
+                    <!-- Slide 4: Smart Blends (Duplicate) -->
+                    <div class="swiper-slide">
+                        <div class="work-item">
+                            <div class="work-image">
+                                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends.svg"
+                                    alt="Smart Blends">
+                            </div>
+                            <div class="work-info">
+                                <h3>Smart Blends</h3>
+                                <p>Productos Saludables</p>
+                                <div class="work-tags">
+                                    <span class="tag">branding</span>
+                                    <span class="tag">packaging</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
