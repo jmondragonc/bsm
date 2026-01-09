@@ -117,6 +117,7 @@ get_header(); ?>
     </section>
 
     <!-- Full Experience Section -->
+    <div class="bsm-experience-wrapper">
     <section class="bsm-full-experience" data-bg="dark">
         <div class="container">
             <h2>CREAMOS UNA<br>EXPERIENCIA<br>DE MARCA<br>COMPLETA</h2>
@@ -133,6 +134,7 @@ get_header(); ?>
             </div>
         </div>
     </section>
+    </div>
 
     <!-- Work Section -->
     <section class="bsm-work" id="work" data-bg="light">

@@ -493,68 +493,138 @@
 (function () {
   "use strict";
 
-  function init() {
+  function initTagsScrollAnimation() {
+    const wrapper = document.querySelector(".bsm-experience-wrapper");
     const section = document.querySelector(".bsm-full-experience");
-    const tags = document.querySelectorAll(".services-tags .tag");
+    // Ensure we select all tags properly
+    const tags = Array.from(document.querySelectorAll(".services-tags .tag"));
 
-    if (!section || !tags.length) {
-      console.log("No se encontraron tags");
+    if (!wrapper || !section || tags.length === 0) {
       return;
     }
 
-    console.log("Tags encontrados:", tags.length);
-
     // Map of final rotations matching CSS requirements
-    // Ensure these match the visual design intended
     const rotations = [15, -15, 8, -4, -28, 15, 18, -25];
 
-    function update() {
-      const rect = section.getBoundingClientRect();
-      const vh = window.innerHeight;
+    // Stagger delays to create wave effect
+    const staggerOffsets = [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35];
 
-      // Simple: 0 = abajo, 1 = arriba
-      let progress = 1 - rect.top / vh;
-      progress = Math.max(0, Math.min(1, progress));
-
-      tags.forEach((tag, i) => {
-        // Delay por tag
-        let p = (progress - i * 0.1) / 0.5;
-        p = Math.max(0, Math.min(1, p));
-
-        // FORZAR valores
-        const opacity = p;
-        const y = 150 - 150 * p; // 150px -> 0px
-        const scale = 0.5 + 0.5 * p; // 0.5 -> 1
-        const rot = rotations[i] || 0;
-
-        // APLICAR FORZADAMENTE
-        tag.style.setProperty("opacity", String(opacity), "important");
-        tag.style.setProperty(
-          "transform",
-          `translateY(${y}px) scale(${scale}) rotate(${rot}deg)`,
-          "important"
-        );
-      });
-    }
+    // Spread vectors for Phase 2 (Growth)
+    // As they grow, move them outwards to avoid overlapping
+    // {x, y} in pixels
+    const spreadOffsets = [
+      { x: -100, y: -50 }, // Tag 1 Branding (Top Left -> Move further out)
+      { x: 100, y: -50 }, // Tag 2 Naming (Top Right -> Move further out)
+      { x: -80, y: -20 }, // Tag 3 Packaging (Center Left -> Move Left)
+      { x: 150, y: 20 }, // Tag 4 Social (Center Right -> Move Right)
+      { x: -150, y: 80 }, // Tag 5 Campañas (Bottom Left -> Move Left/Down)
+      { x: 120, y: 120 }, // Tag 6 Posicionamiento (Bottom Right -> Move Right/Down)
+      { x: -60, y: 150 }, // Tag 7 Manual (Bottom Center -> Move Down)
+      { x: 60, y: 150 }, // Tag 8 Y Mas (Bottom Center -> Move Down)
+    ];
 
     let ticking = false;
-    window.addEventListener("scroll", () => {
+
+    function update() {
+      const rect = wrapper.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // We have two phases driven by the scroll of the WRAPPER.
+
+      // PHASE 1: ENTRY
+      // Starts: Wrapper Top enters viewport bottom (rect.top == windowHeight)
+      // Ends: Wrapper Top hits viewport top (rect.top == 0)
+
+      // PHASE 2: GROWTH (Pinned)
+      // Starts: Wrapper Top hits viewport top (rect.top == 0)
+      // Ends: Wrapper bottom hits viewport bottom (approx) or after scrolling 100vh past top.
+
+      const entryStart = windowHeight;
+      const entryEnd = 0;
+
+      // Calculate Entry Progress (0 to 1)
+      let entryProgress = (entryStart - rect.top) / (entryStart - entryEnd);
+
+      // Calculate Growth Progress
+      // When rect.top is negative, we are in the pinned/growth phase.
+      // Let's say growth happens over the first 100vh of scrolling past top.
+      const growthDistance = windowHeight; // Amount of scroll to complete growth
+      let growthProgress = (0 - rect.top) / growthDistance;
+
+      // Clamp values
+      entryProgress = Math.max(0, Math.min(1, entryProgress));
+      growthProgress = Math.max(0, Math.min(1, growthProgress));
+
+      tags.forEach((tag, index) => {
+        const rotation = rotations[index] !== undefined ? rotations[index] : 0;
+        const stagger =
+          staggerOffsets[index] !== undefined ? staggerOffsets[index] : 0;
+        const spread = spreadOffsets[index] || { x: 0, y: 0 };
+
+        let scale = 0.5;
+        let transX = 0;
+        let transY = 150;
+        let opacity = 0;
+
+        if (entryProgress > 0) {
+          // PHASE 1: Entry Logic
+          // Map global entry progress to tag progress using stagger
+          let p1 = (entryProgress - stagger) / 0.5;
+          p1 = Math.max(0, Math.min(1, p1));
+          const ease1 = p1 * (2 - p1);
+
+          scale = 0.5 + 0.5 * ease1; // 0.5 -> 1.0
+          transX = 0; // 0
+          transY = 150 * (1 - ease1); // 150 -> 0
+          opacity = ease1; // 0 -> 1
+        }
+
+        if (growthProgress > 0) {
+          // PHASE 2: Growth Logic
+          // This layers ON TOP of the finished entry state.
+          // Logic: Grow from 1.0 to 1.5
+
+          // We can apply stagger here too if we want, or sync it. User said "each tag must grow".
+          // Let's keep it simple/synced or slightly staggered.
+
+          const ease2 = growthProgress; // Linear or simple ease
+          const growthFactor = 0.5 * ease2; // 0 -> 0.5
+
+          scale = 1.0 + growthFactor; // 1.0 -> 1.5
+
+          // Spread Outwards
+          transX = spread.x * ease2; // 0 -> spread.x
+          transY = spread.y * ease2; // 0 -> spread.y
+
+          opacity = 1; // Stays at 1
+        }
+
+        // Apply
+        tag.style.opacity = opacity;
+        tag.style.transform = `translate(${transX}px, ${transY}px) rotate(${rotation}deg) scale(${scale})`;
+      });
+
+      ticking = false;
+    }
+
+    function onScroll() {
       if (!ticking) {
-        requestAnimationFrame(() => {
-          update();
-          ticking = false;
-        });
+        window.requestAnimationFrame(update);
         ticking = true;
       }
-    });
+    }
 
-    window.addEventListener("resize", update);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    // Force initial update
     update();
   }
 
+  // Ensure DOM is ready
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
+    document.addEventListener("DOMContentLoaded", initTagsScrollAnimation);
   } else {
-    init();
+    initTagsScrollAnimation();
   }
 })();
