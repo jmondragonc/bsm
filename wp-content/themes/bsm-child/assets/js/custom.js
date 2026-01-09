@@ -630,42 +630,104 @@
     render();
   }
 
-  function initWorkSwiper() {
-    const swiperContainer = document.querySelector(".bsm-work-swiper");
-    if (!swiperContainer) return;
+  function initWorkStickyScroll() {
+    const wrapper = document.querySelector(".bsm-work-sticky-wrapper");
+    const container = document.querySelector(".bsm-work-container");
+    const track = document.querySelector(".bsm-work-track");
 
-    // Check if Swiper is defined globally (from CDN or enqueue)
-    // If not, we might need to rely on the theme loading it.
-    if (typeof Swiper === "undefined") {
-      console.warn("Swiper not loaded");
-      return;
+    if (!wrapper || !container || !track) return;
+
+    function updateDimensions() {
+      const trackWidth = track.scrollWidth;
+      const viewportWidth = window.innerWidth;
+
+      // Calculate how much we need to scroll horizontally
+      const scrollDist = trackWidth - viewportWidth;
+
+      // If content fits in viewport, no need for sticky scroll
+      if (scrollDist <= 0) {
+        wrapper.style.height = "auto";
+        track.style.transform = "translateX(0)";
+        return;
+      }
+
+      // Set the height of the wrapper to accommodate the horizontal scroll duration
+      // Added vertical scroll buffer (e.g. 100vh) to make it feel natural
+      // 300vh creates a moderate speed scroll
+      wrapper.style.height = `${scrollDist + window.innerHeight}px`;
     }
 
-    new Swiper(swiperContainer, {
-      slidesPerView: 1.2,
-      spaceBetween: 20,
-      grabCursor: true,
-      breakpoints: {
-        768: {
-          slidesPerView: 2.2,
-          spaceBetween: 24,
-        },
-        1024: {
-          slidesPerView: 2.9, // Exact request
-          spaceBetween: 30,
-        },
+    function onScroll() {
+      const rect = wrapper.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+
+      // Distance from top of viewport to top of wrapper
+      // When rect.top is 0, we are at the start of pinning
+      // When rect.top is -(wrapperHeight - viewportHeight), we are at the end
+
+      const start = 0; // Stick immediately when hitting top
+      const end = -(wrapper.offsetHeight - viewportHeight);
+
+      // Calculate progress
+      let progress = 0;
+
+      if (rect.top <= start && rect.top >= end) {
+        // We are in the sticky zone
+        progress = -rect.top / (wrapper.offsetHeight - viewportHeight);
+      } else if (rect.top < end) {
+        // We passed the section
+        progress = 1;
+      } else {
+        // We haven't reached it yet
+        progress = 0;
+      }
+
+      // Clamp progress
+      progress = Math.max(0, Math.min(1, progress));
+
+      // Calculate horizontal move
+      const trackWidth = track.scrollWidth;
+      const viewportWidth = window.innerWidth;
+      const maxTranslate = trackWidth - viewportWidth;
+
+      if (maxTranslate > 0) {
+        const translateX = -progress * maxTranslate;
+        track.style.transform = `translateX(${translateX}px)`;
+      }
+    }
+
+    // Initialize
+    updateDimensions();
+    onScroll();
+
+    // Event Listeners
+    window.addEventListener("resize", updateDimensions);
+
+    // Add scroll listener (using requestAnimationFrame for performance)
+    let ticking = false;
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            onScroll();
+            ticking = false;
+          });
+          ticking = true;
+        }
       },
-    });
+      { passive: true }
+    );
   }
 
   // Ensure DOM is ready
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
       initTagsScrollAnimation();
-      initWorkSwiper();
+      initWorkStickyScroll();
     });
   } else {
     initTagsScrollAnimation();
-    initWorkSwiper();
+    initWorkStickyScroll();
   }
 })();

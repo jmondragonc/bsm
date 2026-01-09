@@ -139,13 +139,12 @@ get_header(); ?>
     <!-- Work Section -->
     <section class="bsm-work" id="work" data-bg="light">
         <div class="container">
-            <h2>TRABAJAMOS CON CLIENTES<br>CON VISIÓN</h2>
-
-            <!-- Swiper Container -->
-            <div class="swiper bsm-work-swiper">
-                <div class="swiper-wrapper">
-                    <!-- Slide 1: Smart Blends -->
-                    <div class="swiper-slide">
+            <!-- Horizontal Scroll Container -->
+            <div class="bsm-work-sticky-wrapper">
+                <div class="bsm-work-container">
+                    <h2>TRABAJAMOS CON CLIENTES<br>CON VISIÓN</h2>
+                    <div class="bsm-work-track">
+                        <!-- Item 1: Smart Blends -->
                         <div class="work-item">
                             <div class="work-image">
                                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends.svg"
@@ -160,10 +159,8 @@ get_header(); ?>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Slide 2: Organa -->
-                    <div class="swiper-slide">
+                        <!-- Item 2: Organa -->
                         <div class="work-item">
                             <div class="work-image">
                                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa.svg" 
@@ -178,10 +175,8 @@ get_header(); ?>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Slide 3: Garbachos -->
-                    <div class="swiper-slide">
+                        <!-- Item 3: Garbachos -->
                         <div class="work-item">
                             <div class="work-image">
                                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos.svg"
@@ -197,10 +192,8 @@ get_header(); ?>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Slide 4: Smart Blends (Duplicate) -->
-                    <div class="swiper-slide">
+                        <!-- Item 4: Smart Blends (Duplicate) -->
                         <div class="work-item">
                             <div class="work-image">
                                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends.svg"
