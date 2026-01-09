@@ -495,12 +495,20 @@
 
   function initTagsScrollAnimation() {
     const wrapper = document.querySelector(".bsm-experience-wrapper");
-    const section = document.querySelector(".bsm-full-experience");
+    // const section = document.querySelector(".bsm-full-experience"); // Not strictly needed if we target H2 directly
+    const title = document.querySelector(".bsm-full-experience h2");
+
     // Ensure we select all tags properly
     const tags = Array.from(document.querySelectorAll(".services-tags .tag"));
 
-    if (!wrapper || !section || tags.length === 0) {
+    if (!wrapper || tags.length === 0) {
       return;
+    }
+
+    // Initial styles
+    if (title) {
+      title.style.opacity = 0;
+      title.style.willChange = "opacity";
     }
 
     // Map of final rotations matching CSS requirements
@@ -511,16 +519,16 @@
 
     // Spread vectors for Phase 2 (Growth)
     // As they grow, move them outwards to avoid overlapping
-    // {x, y, r} (r = additional rotation)
+    // {x, y, r, speed} (r = additional rotation, speed = parallax speed factor)
     const spreadOffsets = [
-      { x: -100, y: -50, r: -5 }, // Tag 1 Branding
-      { x: 100, y: -50, r: 5 }, // Tag 2 Naming
-      { x: -80, y: -20, r: -3 }, // Tag 3 Packaging
-      { x: 150, y: 20, r: 8 }, // Tag 4 Social
-      { x: -150, y: 80, r: -10 }, // Tag 5 Campañas
-      { x: 120, y: 120, r: 5 }, // Tag 6 Posicionamiento
-      { x: -60, y: 150, r: 4 }, // Tag 7 Manual
-      { x: 60, y: 150, r: -4 }, // Tag 8 Y Mas
+      { x: -100, y: -50, r: -5, speed: 1.2 }, // Tag 1 Branding (Fast)
+      { x: 100, y: -50, r: 5, speed: 0.8 }, // Tag 2 Naming (Slow)
+      { x: -80, y: -20, r: -3, speed: 1.1 }, // Tag 3 Packaging
+      { x: 150, y: 20, r: 8, speed: 0.9 }, // Tag 4 Social
+      { x: -150, y: 80, r: -10, speed: 1.3 }, // Tag 5 Campañas (Fastest)
+      { x: 120, y: 120, r: 5, speed: 0.7 }, // Tag 6 Posicionamiento (Slowest)
+      { x: -60, y: 150, r: 4, speed: 1.0 }, // Tag 7 Manual (Normal)
+      { x: 60, y: 150, r: -4, speed: 1.15 }, // Tag 8 Y Mas
     ];
 
     function render() {
@@ -532,77 +540,92 @@
       const rect = wrapper.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
+      // START calculations
       const entryStart = windowHeight;
       const entryEnd = 0;
 
-      // Calculate Entry Progress (0 to 1)
+      // 1. Entry Progress (0 to 1) - While wrapper is entering viewport
       let entryProgress = (entryStart - rect.top) / (entryStart - entryEnd);
-
-      const pinnedDist = -rect.top;
-      const growthDist = windowHeight;
-      let growthProgress = pinnedDist / growthDist;
-
       entryProgress = Math.max(0, Math.min(1, entryProgress));
 
-      const isShakePhase = growthProgress > 1;
+      // 2. Growth Progress (0 -> infinite) - While wrapper is pinned and scrolling
+      const pinnedDist = -rect.top;
+      const growthDist = windowHeight;
+      // growthProgress goes from 0 to 1+
+      let growthProgress = pinnedDist / growthDist;
 
-      // Time for shake (constant)
-      const time = Date.now() * 0.002; // Slower speed factor
+      // Calculate Scroll Up Progress (starts after growth/pinning is done or during)
+      // We want continuous upward movement.
+      // Let's use the raw pinned distance
+      // MOVED: Calculation happens per tag now for variable speed
+
+      // --- ANIMATION LOGIC ---
+
+      // A. Text Fade In
+      if (title) {
+        // Fade in during the first 50% of entry
+        let textOpacity = entryProgress / 0.8;
+        title.style.opacity = Math.min(1, Math.max(0, textOpacity));
+      }
+
+      const initialTransY = 400; // Deep entry as requested
 
       tags.forEach((tag, index) => {
         const rotation = rotations[index] !== undefined ? rotations[index] : 0;
         const stagger =
           staggerOffsets[index] !== undefined ? staggerOffsets[index] : 0;
-        const spread = spreadOffsets[index] || { x: 0, y: 0, r: 0 };
+        const spread = spreadOffsets[index] || { x: 0, y: 0, r: 0, speed: 1 };
+        const speedFactor = spread.speed !== undefined ? spread.speed : 1;
 
         let scale = 0.5;
         let transX = 0;
-        let transY = 150;
+        let transY = initialTransY;
         let opacity = 0;
         let currentRot = rotation;
 
+        // PHASE 1: Entry (Coming up from bottom)
         if (entryProgress > 0) {
-          // PHASE 1: Entry
-          let p1 = (entryProgress - stagger) / 0.5;
+          // Normalized progress for this specific tag considering stagger
+          // Stagger is 0 to 0.35. We want all to finish by entryProgress = 1
+          let p1 = (entryProgress - stagger) / (1 - stagger);
           p1 = Math.max(0, Math.min(1, p1));
-          const ease1 = p1 * (2 - p1);
 
-          scale = 0.5 + 0.5 * ease1;
-          transY = 150 * (1 - ease1);
+          const ease1 = p1 * (2 - p1); // Ease Out Quad
+
+          scale = 0.5 + 0.5 * ease1; // 0.5 -> 1.0
+          transY = initialTransY * (1 - ease1); // 400 -> 0
           opacity = ease1;
         }
 
+        // PHASE 2 & 3: Growth and Continuous Upward Scroll
         if (growthProgress > 0) {
-          // PHASE 2
+          // Base state is end of Phase 1
           scale = 1.0;
           transX = 0;
           transY = 0;
           opacity = 1;
 
-          let p2 = Math.min(1, growthProgress);
-          const ease2 = p2;
-          const growthFactor = 0.5 * ease2;
+          // Growth
+          // Scale up to 1.5x max
+          let pGrowth = Math.min(1, growthProgress); // Cap growth phase at 1
+          const easeGrowth = pGrowth; // Linear or ease
 
-          scale = 1.0 + growthFactor;
-          transX = spread.x * ease2;
-          transY = spread.y * ease2;
+          const maxScaleAdd = 0.5; // 1.0 + 0.5 = 1.5
+          scale = 1.0 + maxScaleAdd * easeGrowth;
 
-          // Add extra rotation during growth
-          currentRot += (spread.r || 0) * ease2;
-        }
+          // Spreading out
+          transX = spread.x * easeGrowth;
+          transY = spread.y * easeGrowth;
 
-        if (isShakePhase) {
-          // PHASE 3: CONSTANT SHAKE
-          const i = index + 1;
+          currentRot += (spread.r || 0) * easeGrowth;
 
-          // Use TIME instead of scroll
-          const shakeX = Math.sin(time * 2.5 + i) * 6;
-          const shakeY = Math.cos(time * 3.1 + i) * 6;
-          const shakeR = Math.sin(time * 4.2 + i) * 3;
-
-          transX += shakeX;
-          transY += shakeY;
-          currentRot += shakeR;
+          // CONTINUOUS UPWARD SCROLL (Parallax)
+          // As we scroll past, move everything UP further
+          // This happens on top of the spread
+          // Using growthProgress directly for continuous movement
+          // Apply unique speed factor
+          const upwardMovement = growthProgress * 250 * speedFactor;
+          transY -= upwardMovement;
         }
 
         tag.style.opacity = opacity;
@@ -613,7 +636,6 @@
     }
 
     // Visibility Check Optimization
-    // To save resources, only render when near viewport
     let isSectionVisible = true;
     const observer = new IntersectionObserver(
       (entries) => {
