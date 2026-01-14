@@ -44,7 +44,7 @@ get_header(); ?>
                             <div class="m1_3"><img
                                     src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/m3.svg"
                                     alt="Frame M3"></div>
-                            <div class="lines">
+                            <!-- <div class="lines">
                                 <div class="line-1">
                                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/line1.svg"
                                         alt="Frame L1">
@@ -61,12 +61,12 @@ get_header(); ?>
                                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/r.svg"
                                         alt="Registered Trademark">
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
                 <div class="hero-title">
-                    <h1>SOMOS LA AGENCIA PARA CUANDO<br>NECESITAS UN CAMBIO</h1>
+                    <h1>CREAMOS MARCAS<br>PARA EL FUTURO</h1>
                 </div>
 
 

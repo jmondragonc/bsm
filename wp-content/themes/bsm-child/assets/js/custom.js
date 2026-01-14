@@ -230,133 +230,14 @@
     const bInterval = setInterval(animateB, 250);
     const mInterval = setInterval(animateM, 250);
 
-    // Esperar a que anime.js esté disponible
-    function startAnimations() {
-      if (typeof anime === "undefined") {
-        setTimeout(startAnimations, 50);
-        return;
-      }
+    // Detener la animación después de 2.5 segundos (tiempo estimado de la animación original)
+    setTimeout(function () {
+      clearInterval(bInterval);
+      clearInterval(mInterval);
 
-      // Al segundo 1: reducir a 75% con anime.js
-      anime({
-        targets: framesContainer,
-        scale: 0.75,
-        duration: 250,
-        easing: "easeInOutQuad",
-        delay: 1000,
-      });
-
-      // A los 1.25s: mover cada letra POR SEPARADO
-      // Calculamos el ancho total del frames container
-      const framesWidth = framesContainer.offsetWidth;
-      const gap = 24; // gap del grid
-
-      // Proporciones del grid: 33.2fr 28.5fr 38.3fr = 100fr total
-      const totalFr = 33.2 + 28.5 + 38.3;
-      const bWidth = (framesWidth - gap * 2) * (33.2 / totalFr);
-      const sWidth = (framesWidth - gap * 2) * (28.5 / totalFr);
-
-      // Calcular desplazamiento para centrar todo hacia la izquierda
-      const targetOffset = framesWidth * 0.25; // Mover todo 25% a la izquierda
-
-      const moveTimeline = anime.timeline({
-        easing: "easeOutQuad",
-        delay: 1250,
-      });
-
-      // Cada letra se mueve su cantidad específica
-      moveTimeline.add(
-        {
-          targets: bContainer,
-          translateX: -targetOffset,
-          duration: 500,
-          easing: "easeOutQuad",
-        },
-        0
-      );
-
-      moveTimeline.add(
-        {
-          targets: sContainer,
-          translateX: -targetOffset,
-          duration: 1000,
-          easing: "easeOutQuad",
-        },
-        100
-      );
-
-      moveTimeline.add(
-        {
-          targets: mContainer,
-          translateX: -targetOffset,
-          duration: 1000,
-          easing: "easeOutQuad",
-        },
-        200
-      );
-
-      // Detener intervalos cuando termine el desplazamiento
-      // La M es la última en llegar (delay 200ms + duration 1000ms = 1200ms)
-      moveTimeline.finished.then(function () {
-        clearInterval(bInterval);
-        clearInterval(mInterval);
-
-        // Animar las 3 líneas hacia la derecha
-        const line1 = document.querySelector(".line-1");
-        const line2 = document.querySelector(".line-2");
-        const line3 = document.querySelector(".line-3");
-        const r = document.querySelector(".registered");
-
-        // Timeline para las líneas
-        const linesTimeline = anime.timeline({
-          easing: "easeOutQuad",
-        });
-
-        // Animar cada línea hacia la derecha para alinearse con line-1
-        linesTimeline
-          .add(
-            {
-              targets: line1,
-              translateX: "calc(100% + 24px)",
-              duration: 600,
-              easing: "easeOutQuad",
-            },
-            0
-          )
-          .add(
-            {
-              targets: line2,
-              translateX: "calc(100% + 24px)",
-              duration: 600,
-              easing: "easeOutQuad",
-            },
-            100
-          )
-          .add(
-            {
-              targets: line3,
-              translateX: "calc(100% + 24px)",
-              duration: 600,
-              easing: "easeOutQuad",
-            },
-            200
-          )
-          .add(
-            {
-              targets: r,
-              translateX: "calc(100% + 24px)",
-              duration: 600,
-              easing: "easeOutQuad",
-            },
-            200
-          );
-
-        // No mostrar hero-title automáticamente
-        // Se mostrará solo cuando el usuario haga scroll
-      });
-    }
-
-    startAnimations();
+      // Asegurarse de que termine en el frame principal (opcional, si se ve mal detenido en otro frame)
+      // resetToMainFrame();
+    }, 2500);
   }
 
   // Iniciar cuando el DOM esté listo
@@ -959,17 +840,26 @@
 
     if (!footer || !logoContainer) return;
 
+    // Remove any inline styles left by the previous scroll logic
+    const img = logoContainer.querySelector("img");
+    if (img) img.style.transform = "";
+    // And ensure transition is active in CSS, removing the 'none' override
+    if (img) img.style.transition = "";
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             // Add class to trigger CSS transition
             logoContainer.classList.add("is-visible");
+          } else {
+            // Remove class to reset animation when scrolling away
+            logoContainer.classList.remove("is-visible");
           }
         });
       },
-      { threshold: 0.1 }
-    );
+      { threshold: 0 }
+    ); // Trigger immediately on enter/exit check
 
     observer.observe(footer);
   }
