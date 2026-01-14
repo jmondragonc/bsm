@@ -10,66 +10,66 @@ get_header(); ?>
 
     <!-- Hero Section -->
     <section class="bsm-hero" data-bg="purple">
-        <div class="hero-background">
-            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/hero-background.svg"
-                alt="Hero Background">
-        </div>
-        <div class="hero-content">
-            <div class="container">
-                <div class="hero-image">
-                    <div class="frames">
-                        <div class="b">
-                            <div class="b1_1"><img
-                                    src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/b1.svg"
-                                    alt="Frame B1"></div>
-                            <div class="b1_2"><img
-                                    src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/b2.svg"
-                                    alt="Frame B2"></div>
-                            <div class="b1_3"><img
-                                    src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/b3.svg"
-                                    alt="Frame B3"></div>
-                        </div>
-                        <div class="s">
-                            <div class="s1_1"><img
-                                    src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/s1.svg"
-                                    alt="Frame S1"></div>
-                        </div>
-                        <div class="m">
-                            <div class="m1_1"><img
-                                    src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/m1.svg"
-                                    alt="Frame M1"></div>
-                            <div class="m1_2"><img
-                                    src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/m2.svg"
-                                    alt="Frame M2"></div>
-                            <div class="m1_3"><img
-                                    src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/m3.svg"
-                                    alt="Frame M3"></div>
-                            <!-- <div class="lines">
-                                <div class="line-1">
-                                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/line1.svg"
-                                        alt="Frame L1">
-                                </div>
-                                <div class="line-2">
-                                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/line2.svg"
-                                        alt="Frame L2">
-                                </div>
-                                <div class="line-3">
-                                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/line3.svg"
-                                        alt="Frame L3">
-                                </div>
-                                <div class="registered">
-                                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/r.svg"
-                                        alt="Registered Trademark">
-                                </div>
-                            </div> -->
+        <div class="bsm-hero-sticky-wrapper">
+            <div class="hero-background">
+                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/hero-background.svg"
+                    alt="Hero Background">
+            </div>
+            <div class="hero-content">
+                <div class="container">
+                    <div class="hero-image">
+                        <div class="frames">
+                            <div class="b">
+                                <div class="b1_1"><img
+                                        src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/b1.svg"
+                                        alt="Frame B1"></div>
+                                <div class="b1_2"><img
+                                        src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/b2.svg"
+                                        alt="Frame B2"></div>
+                                <div class="b1_3"><img
+                                        src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/b3.svg"
+                                        alt="Frame B3"></div>
+                            </div>
+                            <div class="s">
+                                <div class="s1_1"><img
+                                        src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/s1.svg"
+                                        alt="Frame S1"></div>
+                            </div>
+                            <div class="m">
+                                <div class="m1_1"><img
+                                        src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/m1.svg"
+                                        alt="Frame M1"></div>
+                                <div class="m1_2"><img
+                                        src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/m2.svg"
+                                        alt="Frame M2"></div>
+                                <div class="m1_3"><img
+                                        src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/m3.svg"
+                                        alt="Frame M3"></div>
+                                <!-- <div class="lines">
+                                    <div class="line-1">
+                                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/line1.svg"
+                                            alt="Frame L1">
+                                    </div>
+                                    <div class="line-2">
+                                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/line2.svg"
+                                            alt="Frame L2">
+                                    </div>
+                                    <div class="line-3">
+                                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/line3.svg"
+                                            alt="Frame L3">
+                                    </div>
+                                    <div class="registered">
+                                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/r.svg"
+                                            alt="Registered Trademark">
+                                    </div>
+                                </div> -->
+                            </div>
                         </div>
                     </div>
+                    <div class="hero-title">
+                        <h1>CREAMOS MARCAS<br>PARA EL FUTURO</h1>
+                    </div>
                 </div>
-                <div class="hero-title">
-                    <h1>CREAMOS MARCAS<br>PARA EL FUTURO</h1>
-                </div>
-
-
             </div>
         </div>
     </section>

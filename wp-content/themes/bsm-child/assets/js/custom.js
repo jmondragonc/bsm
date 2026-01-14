@@ -39,13 +39,18 @@
 
   function showNavAndTitle() {
     // Mostrar nav y hero-title cuando se hace scroll
-    if (window.scrollY > 0) {
+    // Aumentamos el umbral para que primero se haga "pin" y luego aparezcan
+    if (window.scrollY > 50) {
       if (nav) {
         nav.classList.add("show");
       }
       if (heroTitle) {
         heroTitle.classList.add("show");
       }
+    } else {
+      // Opcional: ocultarlos si vuelve arriba (el usuario no especificó quitarlos, pero es consistente)
+      // if (nav) nav.classList.remove("show");
+      // if (heroTitle) heroTitle.classList.remove("show");
     }
   }
 
