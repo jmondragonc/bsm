@@ -406,15 +406,32 @@
     // Spread vectors for Phase 2 (Growth)
     // As they grow, move them outwards to avoid overlapping
     // {x, y, r, speed} (r = additional rotation, speed = parallax speed factor)
+    const isMobile = window.innerWidth < 768;
+    const isTablet = window.innerWidth < 1200 && window.innerWidth >= 768;
+
+    // Disable complex animations on mobile
+    if (isMobile) {
+      // Simple fade in only for mobile - no scale or movement
+      tags.forEach((tag) => {
+        tag.style.opacity = 1;
+        tag.style.transform = 'none';
+      });
+      if (title) title.style.opacity = 1;
+      return; // Exit early, no animation loop
+    }
+
+    // Reduce movements for smaller screens
+    const mobileFactor = isTablet ? 0.6 : 1;
+
     const spreadOffsets = [
-      { x: -100, y: -50, r: -5, speed: 1.2 }, // Tag 1 Branding (Fast)
-      { x: 100, y: -50, r: 5, speed: 0.8 }, // Tag 2 Naming (Slow)
-      { x: -80, y: -20, r: -3, speed: 1.1 }, // Tag 3 Packaging
-      { x: 150, y: 20, r: 8, speed: 0.9 }, // Tag 4 Social
-      { x: -150, y: 80, r: -10, speed: 1.3 }, // Tag 5 Campañas (Fastest)
-      { x: 120, y: 120, r: 5, speed: 0.7 }, // Tag 6 Posicionamiento (Slowest)
-      { x: -60, y: 150, r: 4, speed: 1.0 }, // Tag 7 Manual (Normal)
-      { x: 60, y: 150, r: -4, speed: 1.15 }, // Tag 8 Y Mas
+      { x: -100 * mobileFactor, y: -50 * mobileFactor, r: -5, speed: 1.2 },
+      { x: 100 * mobileFactor, y: -50 * mobileFactor, r: 5, speed: 0.8 },
+      { x: -80 * mobileFactor, y: -20 * mobileFactor, r: -3, speed: 1.1 },
+      { x: 150 * mobileFactor, y: 20 * mobileFactor, r: 8, speed: 0.9 },
+      { x: -150 * mobileFactor, y: 80 * mobileFactor, r: -10, speed: 1.3 },
+      { x: 120 * mobileFactor, y: 120 * mobileFactor, r: 5, speed: 0.7 },
+      { x: -60 * mobileFactor, y: 150 * mobileFactor, r: 4, speed: 1.0 },
+      { x: 60 * mobileFactor, y: 150 * mobileFactor, r: -4, speed: 1.15 },
     ];
 
     function render() {
@@ -492,12 +509,12 @@
           opacity = 1;
 
           // Growth
-          // Scale up to 1.5x max
+          // Scale DISABLED to prevent oversized tags
           let pGrowth = Math.min(1, growthProgress); // Cap growth phase at 1
           const easeGrowth = pGrowth; // Linear or ease
 
-          const maxScaleAdd = 0.5; // 1.0 + 0.5 = 1.5
-          scale = 1.0 + maxScaleAdd * easeGrowth;
+          // No scale - keep tags at original size
+          scale = 1.0;
 
           // Spreading out
           transX = spread.x * easeGrowth;
@@ -509,8 +526,9 @@
           // As we scroll past, move everything UP further
           // This happens on top of the spread
           // Using growthProgress directly for continuous movement
-          // Apply unique speed factor
-          const upwardMovement = growthProgress * 250 * speedFactor;
+          // Apply unique speed factor (reduced for mobile)
+          const baseUpward = isMobile ? 80 : (isTablet ? 150 : 250);
+          const upwardMovement = growthProgress * baseUpward * speedFactor;
           transY -= upwardMovement;
         }
 
