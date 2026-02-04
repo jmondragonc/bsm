@@ -610,10 +610,10 @@
 
       // Calculate active index for sequence
       const totalItems = sequenceItems.length;
-      // Map seqProgress 0-1 to 0-totalItems
-      const rawCurrentIndex = seqProgress * (totalItems + 1); // +1 buffer
+      // Map seqProgress 0-1 to 0-totalItems (sin buffer extra)
+      const rawCurrentIndex = seqProgress * totalItems;
       const currentIndex = Math.floor(rawCurrentIndex);
-      const activeItem = sequenceItems[currentIndex];
+      const activeItem = sequenceItems[Math.min(currentIndex, totalItems - 1)];
 
       // Sub-progress for the current item (0 to 1)
       const itemProgress = rawCurrentIndex - currentIndex;
@@ -628,11 +628,11 @@
 
         const easeEntry = 1 - Math.pow(1 - assemblyProgress, 3);
 
-        const startScale = 0.5;
+        const startScale = 0;
         const endScale = 1.0;
         let baseScale = startScale + (endScale - startScale) * easeEntry;
 
-        const startY = 300 * speed;
+        const startY = 0; // Elementos aparecen desde su posición final
         let currentY = startY * (1 - easeEntry);
 
         let opacity = Math.min(1, easeEntry * 2.5);
@@ -641,7 +641,13 @@
         if (progress > p1End) {
           baseScale = 1.0;
           currentY = 0;
-          opacity = 1;
+          // Si ya pasamos todos los elementos, ocultar todo inmediatamente
+          if (currentIndex >= totalItems) {
+            opacity = 0;
+            baseScale = 0;
+          } else {
+            opacity = 1;
+          }
         }
 
         // --- PHASE 2 FOCUS LOGIC ---
@@ -678,23 +684,44 @@
             const dx = targetCX - cx;
             const dy = targetCY - cy;
 
-            // Transition Logic
-            // Enter: 0-0.2
-            // Hold: 0.2-0.8
-            // Exit: 0.8-1.0
+            // Transition Logic - Improved for smooth enter/exit
+            // Enter: 0-0.25 (escala desde pequeño + fadeIn)
+            // Hold: 0.25-0.75
+            // Exit: 0.75-1.0 (escala hacia pequeño + fadeOut)
 
             let focusFactor = 0;
-            if (itemProgress < 0.2) {
-              const t = itemProgress / 0.2;
-              focusFactor = t * (2 - t);
-            } else if (itemProgress < 0.8) {
+            let enterFactor = 0; // 0 = recién aparece, 1 = completamente visible
+            let exitFactor = 0;  // 0 = aún visible, 1 = completamente saliendo
+
+            if (itemProgress < 0.25) {
+              // Entrada suave con easing
+              const t = itemProgress / 0.25;
+              enterFactor = t;
+              focusFactor = t * t * (3 - 2 * t); // smoothstep easing
+            } else if (itemProgress < 0.75) {
+              enterFactor = 1;
               focusFactor = 1;
             } else {
-              const t = (itemProgress - 0.8) / 0.2;
-              focusFactor = 1 - t * t;
+              // Salida suave con easing
+              const t = (itemProgress - 0.75) / 0.25;
+              exitFactor = t;
+              enterFactor = 1;
+              focusFactor = 1 - (t * t * (3 - 2 * t)); // smoothstep inverso
             }
 
-            const finalScale = 1.0 + 0.5 * focusFactor; // 1.0 -> 1.5
+            // Escala: empieza pequeño (0.3), crece a 1.5, y sale pequeño (0.3)
+            const minScale = 0.4;
+            const maxScale = 1.5;
+            let finalScale;
+            if (itemProgress < 0.25) {
+              // Entrada: de minScale a maxScale
+              finalScale = minScale + (maxScale - minScale) * (enterFactor * enterFactor * (3 - 2 * enterFactor));
+            } else if (itemProgress < 0.75) {
+              finalScale = maxScale;
+            } else {
+              // Salida: de maxScale a minScale
+              finalScale = maxScale - (maxScale - minScale) * (exitFactor * exitFactor * (3 - 2 * exitFactor));
+            }
 
             // Base Rotation Handling
             let baseRotate = 0;
@@ -814,12 +841,24 @@
             const currentTX = startTX + (realDX - startTX) * focusFactor;
             const currentTY = startTY + (realDY - startTY) * focusFactor;
 
+            // Opacidad del elemento activo con fadeIn/fadeOut suave
+            let activeOpacity = 1;
+            if (itemProgress < 0.25) {
+              // FadeIn suave
+              activeOpacity = enterFactor * enterFactor * (3 - 2 * enterFactor);
+            } else if (itemProgress >= 0.75) {
+              // FadeOut suave
+              activeOpacity = 1 - (exitFactor * exitFactor * (3 - 2 * exitFactor));
+            }
+
             focusTransform = `translate(${currentTX}px, ${currentTY}px) scale(${finalScale}) rotate(${currentRotate}deg)`;
             zIndex = 1000;
+            opacity = activeOpacity;
           } else {
-            // Dim others
+            // Dim others - transición más suave
             if (currentIndex >= 0 && currentIndex < totalItems) {
-              opacity = 0.1;
+              // Mantener algo de visibilidad pero muy tenue
+              opacity = 0.05;
             }
           }
         }
@@ -828,8 +867,8 @@
         if (focusTransform) {
           item.style.transform = focusTransform;
           item.style.zIndex = zIndex;
-          item.style.opacity = 1;
-          item.style.boxShadow = "0 30px 80px rgba(0,0,0,0.5)";
+          item.style.opacity = opacity;
+          item.style.boxShadow = `0 30px 80px rgba(0,0,0,${0.5 * opacity})`;
         } else {
           let transform = `translate(${0}px, ${currentY}px) scale(${baseScale})`;
 

@@ -746,7 +746,7 @@ h3 {
   /* overflow: hidden; Removed to allow sticky positioning to work */
 
   .container {
-    padding: 0 0 0 48px; /* Left padding for title alignment */
+    padding: 0 0 96px 48px; /* Left padding for title alignment */
     /* Ensure container allows swiper to overflow right */
     max-width: 100%;
     padding-right: 0;
@@ -895,7 +895,7 @@ h3 {
 .testimonials-sticky-wrapper {
   position: relative;
   width: 100%;
-  height: 800vh; /* Scroll distance extended for Phase 2 Focus sequence */
+  height: 550vh; /* Ajustado para terminar justo con el último elemento */
 }
 
 .testimonials-collage {
