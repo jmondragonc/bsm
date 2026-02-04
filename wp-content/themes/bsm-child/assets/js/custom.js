@@ -610,10 +610,13 @@
 
       // Calculate active index for sequence
       const totalItems = sequenceItems.length;
-      // Map seqProgress 0-1 to 0-totalItems (sin buffer extra)
+      // El último elemento completa su fadeOut al final del scroll
       const rawCurrentIndex = seqProgress * totalItems;
-      const currentIndex = Math.floor(rawCurrentIndex);
-      const activeItem = sequenceItems[Math.min(currentIndex, totalItems - 1)];
+      const currentIndex = Math.min(Math.floor(rawCurrentIndex), totalItems - 1);
+      const activeItem = sequenceItems[currentIndex];
+
+      // Para el último elemento, verificar si ya terminó
+      const isLastElementExiting = currentIndex === totalItems - 1 && (rawCurrentIndex - currentIndex) > 0.75;
 
       // Sub-progress for the current item (0 to 1)
       const itemProgress = rawCurrentIndex - currentIndex;
@@ -641,13 +644,7 @@
         if (progress > p1End) {
           baseScale = 1.0;
           currentY = 0;
-          // Si ya pasamos todos los elementos, ocultar todo inmediatamente
-          if (currentIndex >= totalItems) {
-            opacity = 0;
-            baseScale = 0;
-          } else {
-            opacity = 1;
-          }
+          opacity = 1;
         }
 
         // --- PHASE 2 FOCUS LOGIC ---
@@ -889,6 +886,20 @@
           item.style.boxShadow = "";
         }
       });
+
+      // Desvanecer el contenedor cuando el último elemento está saliendo (>75%)
+      const collage = document.querySelector(".testimonials-collage");
+      if (collage) {
+        if (isLastElementExiting) {
+          // Calcular progreso de salida del último elemento (0.75 a 1.0 -> 0 a 1)
+          const lastItemProgress = rawCurrentIndex - (totalItems - 1);
+          const exitProgress = (lastItemProgress - 0.75) / 0.25; // 0 a 1
+          const collageOpacity = Math.max(0, 1 - exitProgress);
+          collage.style.opacity = collageOpacity;
+        } else {
+          collage.style.opacity = 1;
+        }
+      }
 
       requestAnimationFrame(render);
     }
