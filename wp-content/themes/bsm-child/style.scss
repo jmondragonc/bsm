@@ -651,7 +651,7 @@ h3 {
   line-height: 0.83;
   text-align: center;
   color: #fff;
-  margin-bottom: 0; /* Removed margin as tags overlay now */
+  margin-bottom: 0;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -661,6 +661,11 @@ h3 {
   &:focus {
     outline: none;
     caret-color: transparent;
+  }
+
+  // Desktop: hide first br to keep "CREAMOS UNA" on same line
+  br:first-of-type {
+    display: none;
   }
 }
 
@@ -1202,8 +1207,13 @@ h3 {
   }
 
   /* ------------------------------------------------------------------
-     ANIMATIONS - Keep scroll animations working on mobile
+     ANIMATIONS - Ensure content is visible on mobile
      ------------------------------------------------------------------ */
+  .animate-fade-up,
+  .animate-slide-left {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 
   /* ------------------------------------------------------------------
      MOBILE NAVIGATION
@@ -1213,7 +1223,7 @@ h3 {
   .bsm-nav {
     padding: 20px;
     opacity: 1 !important; // Override desktop hidden state
-    mix-blend-mode: normal; // Disable blend mode on mobile
+    // Keep mix-blend-mode: difference for logo color change like desktop
 
     .nav-left {
       gap: 0;
@@ -1226,7 +1236,6 @@ h3 {
 
     .logo img {
       width: 80px;
-      filter: brightness(0) saturate(100%); // Black logo on purple
     }
   }
 
@@ -1254,8 +1263,9 @@ h3 {
     }
   }
 
-  .bsm-nav.on-purple .mobile-menu-btn .hamburger-line {
-    background-color: #000;
+  // Hamburger lines inherit blend mode behavior from nav
+  .mobile-menu-btn .hamburger-line {
+    background-color: #fff; // Will invert with blend mode
   }
 
   // Hamburger animation when menu is open
@@ -1424,21 +1434,85 @@ h3 {
      ------------------------------------------------------------------ */
 
   .bsm-experience-wrapper {
-    height: 250vh; // Enough for scroll animation
+    height: 250vh; // Height for scroll/parallax animation
+    overflow: hidden;
+    position: relative;
+    z-index: 5;
   }
 
   .bsm-full-experience {
-    // Keep sticky for animation
+    // Keep sticky positioning for parallax effect
+    padding: 50px 0;
+
+    .container {
+      width: 100%;
+      position: relative;
+      padding: 0;
+      min-height: auto;
+    }
+
     h2 {
-      font-size: 48px;
-      line-height: 0.9;
+      font-size: 17vw;
+      line-height: 0.92;
+      text-align: center;
+      margin: 0;
+
+      br {
+        display: block !important;
+      }
     }
   }
 
-  // Mobile tags - smaller size
+  // Mobile tags - small size with proper positions
   .services-tags .tag {
-    font-size: 12px;
-    padding: 8px 14px;
+    font-size: 9px !important;
+    padding: 4px 10px !important;
+
+    // Mobile positions - spread across the large text
+    &.tag-1 {
+      top: 5% !important;
+      left: 15% !important;
+      bottom: auto !important;
+    }
+    &.tag-2 {
+      top: 18% !important;
+      right: 10% !important;
+      left: auto !important;
+      bottom: auto !important;
+    }
+    &.tag-3 {
+      top: 32% !important;
+      left: 25% !important;
+      bottom: auto !important;
+    }
+    &.tag-4 {
+      top: 45% !important;
+      right: 15% !important;
+      left: auto !important;
+      bottom: auto !important;
+    }
+    &.tag-5 {
+      top: 55% !important;
+      left: 5% !important;
+      bottom: auto !important;
+    }
+    &.tag-6 {
+      top: 68% !important;
+      right: 8% !important;
+      left: auto !important;
+      bottom: auto !important;
+    }
+    &.tag-7 {
+      top: 78% !important;
+      left: 20% !important;
+      bottom: auto !important;
+    }
+    &.tag-8 {
+      top: 88% !important;
+      right: 20% !important;
+      left: auto !important;
+      bottom: auto !important;
+    }
   }
 
   /* ------------------------------------------------------------------
@@ -1481,15 +1555,24 @@ h3 {
   }
 
   /* ------------------------------------------------------------------
-     TESTIMONIALS SECTION - MOBILE (Animated collage)
+     TESTIMONIALS SECTION - MOBILE (Simplified collage)
      ------------------------------------------------------------------ */
 
+  .bsm-testimonials {
+    overflow: hidden; // Prevent items from leaking
+  }
+
   .testimonials-sticky-wrapper {
-    height: 400vh; // Enough for animation
+    height: 300vh;
+  }
+
+  .testimonials-collage {
+    overflow: hidden; // Contain all items
   }
 
   .collage-item {
-    width: 140px; // Smaller items on mobile
+    width: 100px;
+    opacity: 0; // Start hidden, JS will animate
 
     img {
       border-radius: 8px;
@@ -1497,24 +1580,49 @@ h3 {
   }
 
   .item-tweet-cd816 {
-    width: 200px;
-  }
-
-  .item-organa-leaf {
     width: 160px;
   }
 
+  .item-organa-leaf {
+    width: 120px;
+  }
+
+  // Testimonials section - contain everything
+  .bsm-testimonials {
+    position: relative;
+    z-index: 1;
+  }
+
+  .testimonials-sticky-wrapper {
+    height: 250vh;
+    position: relative;
+  }
+
+  .testimonials-collage {
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+  }
+
+  .collage-item {
+    width: 100px;
+    opacity: 0; // JS will animate
+  }
+
+  .item-tweet-cd816 {
+    width: 150px;
+  }
+
+  .item-organa-leaf {
+    width: 100px;
+  }
+
   /* ------------------------------------------------------------------
-     FOOTER - MOBILE (Stack Vertical)
+     FOOTER - MOBILE (With animation)
      ------------------------------------------------------------------ */
 
   .bsm-footer {
-    height: auto;
-    min-height: 100vh;
     padding: 40px 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
   }
 
   .footer-top {
@@ -1542,22 +1650,8 @@ h3 {
   }
 
   .footer-logo {
-    position: relative;
-    left: auto !important;
-    width: 100% !important;
-    bottom: auto;
-    margin-top: auto;
-    padding-bottom: 20px;
-
-    img {
-      width: 100% !important;
-      transform: none !important;
-      transition: none !important;
-    }
-  }
-
-  .footer-logo.is-visible img {
-    transform: none !important;
+    left: 5vw !important;
+    width: 90vw !important;
   }
 
   .footer-background {

@@ -120,7 +120,7 @@ get_header(); ?>
     <div class="bsm-experience-wrapper">
     <section class="bsm-full-experience" data-bg="dark">
         <div class="container">
-            <h2>CREAMOS UNA <br>EXPERIENCIA <br>DE <br class="mobile-br">MARCA <br>COMPLETA</h2>
+            <h2 class="mobile-break">CREAMOS<br>UNA<br>EXPERIENCIA<br>DE<br>MARCA<br>COMPLETA</h2>
 
             <div class="services-tags">
                 <span class="tag tag-1">BRANDING</span>
