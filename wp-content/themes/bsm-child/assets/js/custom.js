@@ -3,6 +3,60 @@
  * Detectar fondo morado para aplicar estilo específico
  */
 
+// Mobile detection helper
+const isMobileDevice = () => window.innerWidth <= 768;
+
+/**
+ * Mobile Menu Toggle
+ */
+(function () {
+  "use strict";
+
+  function initMobileMenu() {
+    const menuBtn = document.querySelector(".mobile-menu-btn");
+    const menuOverlay = document.querySelector(".mobile-menu-overlay");
+    const menuLinks = document.querySelectorAll(".mobile-menu-list a");
+
+    if (!menuBtn || !menuOverlay) return;
+
+    // Toggle menu on button click
+    menuBtn.addEventListener("click", function () {
+      menuBtn.classList.toggle("is-active");
+      menuOverlay.classList.toggle("is-active");
+      document.body.style.overflow = menuOverlay.classList.contains("is-active")
+        ? "hidden"
+        : "";
+    });
+
+    // Close menu when clicking a link
+    menuLinks.forEach(function (link) {
+      link.addEventListener("click", function () {
+        menuBtn.classList.remove("is-active");
+        menuOverlay.classList.remove("is-active");
+        document.body.style.overflow = "";
+      });
+    });
+
+    // Close menu on escape key
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && menuOverlay.classList.contains("is-active")) {
+        menuBtn.classList.remove("is-active");
+        menuOverlay.classList.remove("is-active");
+        document.body.style.overflow = "";
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMobileMenu);
+  } else {
+    initMobileMenu();
+  }
+})();
+
+/**
+ * Nav and Background Detection
+ */
 (function () {
   "use strict";
 
@@ -409,14 +463,8 @@
     const isMobile = window.innerWidth < 768;
     const isTablet = window.innerWidth < 1200 && window.innerWidth >= 768;
 
-    // Mobile-specific rotation values matching CSS
-    const mobileRotations = [-15, 12, -10, 18, -22, 15, -18, 10];
-
-    // Mobile stagger delays
-    const mobileStaggerOffsets = [0, 0.08, 0.16, 0.24, 0.32, 0.40, 0.48, 0.56];
-
     // Reduce movements for smaller screens
-    const mobileFactor = isTablet ? 0.6 : 1;
+    const mobileFactor = isMobile ? 0.4 : (isTablet ? 0.6 : 1);
 
     const spreadOffsets = [
       { x: -100 * mobileFactor, y: -50 * mobileFactor, r: -5, speed: 1.2 },
@@ -452,6 +500,11 @@
       // growthProgress goes from 0 to 1+
       let growthProgress = pinnedDist / growthDist;
 
+      // Calculate Scroll Up Progress (starts after growth/pinning is done or during)
+      // We want continuous upward movement.
+      // Let's use the raw pinned distance
+      // MOVED: Calculation happens per tag now for variable speed
+
       // --- ANIMATION LOGIC ---
 
       // A. Text Fade In
@@ -461,46 +514,6 @@
         title.style.opacity = Math.min(1, Math.max(0, textOpacity));
       }
 
-      // MOBILE ANIMATION - Simpler entry animation
-      if (isMobile) {
-        const mobileInitialTransY = 150; // Smaller entry distance for mobile
-
-        tags.forEach((tag, index) => {
-          const rotation = mobileRotations[index] !== undefined ? mobileRotations[index] : 0;
-          const stagger = mobileStaggerOffsets[index] !== undefined ? mobileStaggerOffsets[index] : 0;
-
-          let scale = 0.5;
-          let transY = mobileInitialTransY;
-          let opacity = 0;
-
-          // Entry animation with stagger
-          if (entryProgress > 0) {
-            let p1 = (entryProgress - stagger) / (1 - stagger);
-            p1 = Math.max(0, Math.min(1, p1));
-
-            const ease1 = p1 * (2 - p1); // Ease Out Quad
-
-            scale = 0.5 + 0.5 * ease1; // 0.5 -> 1.0
-            transY = mobileInitialTransY * (1 - ease1); // 150 -> 0
-            opacity = ease1;
-          }
-
-          // Once fully entered, keep visible
-          if (entryProgress >= 1) {
-            scale = 1;
-            transY = 0;
-            opacity = 1;
-          }
-
-          tag.style.opacity = opacity;
-          tag.style.transform = `translateY(${transY}px) rotate(${rotation}deg) scale(${scale})`;
-        });
-
-        requestAnimationFrame(render);
-        return;
-      }
-
-      // DESKTOP/TABLET ANIMATION
       const initialTransY = 400; // Deep entry as requested
 
       tags.forEach((tag, index) => {
@@ -557,7 +570,7 @@
           // This happens on top of the spread
           // Using growthProgress directly for continuous movement
           // Apply unique speed factor (reduced for mobile)
-          const baseUpward = isTablet ? 150 : 250;
+          const baseUpward = isMobile ? 80 : (isTablet ? 150 : 250);
           const upwardMovement = growthProgress * baseUpward * speedFactor;
           transY -= upwardMovement;
         }
@@ -968,9 +981,6 @@
   }
 
   function initWorkStickyScroll() {
-    // Desactivar en mobile
-    if (window.innerWidth <= 768) return;
-
     const wrapper = document.querySelector(".bsm-work-sticky-wrapper");
     const container = document.querySelector(".bsm-work-container");
     const track = document.querySelector(".bsm-work-track");
@@ -1060,50 +1070,15 @@
     );
   }
 
-  // Mobile Menu Toggle
-  function initMobileMenu() {
-    const menuBtn = document.querySelector(".mobile-menu-btn");
-    const menuOverlay = document.querySelector(".mobile-menu-overlay");
-    const menuLinks = document.querySelectorAll(".mobile-menu-links a");
-
-    if (!menuBtn || !menuOverlay) return;
-
-    menuBtn.addEventListener("click", () => {
-      menuBtn.classList.toggle("active");
-      menuOverlay.classList.toggle("active");
-      document.body.style.overflow = menuOverlay.classList.contains("active") ? "hidden" : "";
-    });
-
-    // Close menu when clicking a link
-    menuLinks.forEach((link) => {
-      link.addEventListener("click", () => {
-        menuBtn.classList.remove("active");
-        menuOverlay.classList.remove("active");
-        document.body.style.overflow = "";
-      });
-    });
-
-    // Close menu when clicking outside
-    menuOverlay.addEventListener("click", (e) => {
-      if (e.target === menuOverlay) {
-        menuBtn.classList.remove("active");
-        menuOverlay.classList.remove("active");
-        document.body.style.overflow = "";
-      }
-    });
-  }
-
   // Ensure DOM is ready
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
-      initMobileMenu();
       initTagsScrollAnimation();
       initWorkStickyScroll();
       initTestimonialsAnimation();
       initFooterAnimation();
     });
   } else {
-    initMobileMenu();
     initTagsScrollAnimation();
     initWorkStickyScroll();
     initTestimonialsAnimation();

@@ -21,10 +21,10 @@
         </ul>
     </div>
     <div class="nav-right">
-        <a href="#contact" class="nav-cta">¿LISTO PARA CAMBIAR?</a>
+        <a href="#contact">¿LISTO PARA CAMBIAR?</a>
     </div>
     <!-- Mobile Menu Button -->
-    <button class="mobile-menu-btn" aria-label="Menu">
+    <button class="mobile-menu-btn" aria-label="Abrir menú">
         <span class="hamburger-line"></span>
         <span class="hamburger-line"></span>
         <span class="hamburger-line"></span>
@@ -34,7 +34,7 @@
 <!-- Mobile Menu Overlay -->
 <div class="mobile-menu-overlay">
     <div class="mobile-menu-content">
-        <ul class="mobile-menu-links">
+        <ul class="mobile-menu-list">
             <li><a href="#work">WORK</a></li>
             <li><a href="#about">ABOUT US</a></li>
             <li><a href="#contact">¿LISTO PARA CAMBIAR?</a></li>
