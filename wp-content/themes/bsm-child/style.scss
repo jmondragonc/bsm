@@ -1434,7 +1434,7 @@ h3 {
      ------------------------------------------------------------------ */
 
   .bsm-experience-wrapper {
-    height: 250vh; // Height for scroll/parallax animation
+    height: 150vh; // Reduced to avoid black gap after scroll
     overflow: hidden;
     position: relative;
     z-index: 5;
