@@ -91,20 +91,9 @@ const isMobileDevice = () => window.innerWidth <= 768;
     }
   }
 
-  function showNavAndTitle() {
-    // Mostrar nav y hero-title cuando se hace scroll
-    // Aumentamos el umbral para que primero se haga "pin" y luego aparezcan
+  function showNavOnScroll() {
     if (window.scrollY > 50) {
-      if (nav) {
-        nav.classList.add("show");
-      }
-      if (heroTitle) {
-        heroTitle.classList.add("show");
-      }
-    } else {
-      // Opcional: ocultarlos si vuelve arriba (el usuario no especificó quitarlos, pero es consistente)
-      // if (nav) nav.classList.remove("show");
-      // if (heroTitle) heroTitle.classList.remove("show");
+      if (nav) nav.classList.add("show");
     }
   }
 
@@ -119,43 +108,41 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
     if (!heroImage) return;
 
-    // Obtener la posición del scroll y la altura de la sección
     const scrollY = window.scrollY;
     const heroHeight = heroSection.offsetHeight;
     const scrollProgress = Math.min(scrollY / heroHeight, 1);
 
-    // Solo aplicar parallax cuando estamos saliendo del viewport
-    if (scrollProgress > 0) {
-      // Cada elemento se mueve a diferente velocidad para crear profundidad
-      const imageOffset = scrollProgress * 200; // Más rápido
-      const titleOffset = scrollProgress * 120; // Velocidad media
-      const backgroundOffset = scrollProgress * 40; // Más lento
+    // Fase 1 (0% → 35%): hero-title sube desde abajo hasta su posición final
+    const titleThreshold = heroHeight * 0.35;
+    if (heroTitle) {
+      const titleProgress = Math.min(scrollY / titleThreshold, 1);
+      const titleOffset = 100 * (1 - titleProgress);
+      heroTitle.style.transform = `translateY(${titleOffset}px)`;
+      heroTitle.style.opacity = titleProgress;
+    }
 
-      const imageOpacity = Math.max(1 - scrollProgress * 1.8, 0);
-      const titleOpacity = Math.max(1 - scrollProgress * 1.5, 0);
+    // Fase 2 (35% → 100%): letras salen hacia arriba SOLO después de que el título llegó
+    const exitStart = titleThreshold;
+    const exitRange = heroHeight - exitStart;
+    const exitProgress = Math.max(scrollY - exitStart, 0) / exitRange;
+    const exitClamped = Math.min(exitProgress, 1);
+
+    if (exitClamped > 0) {
+      const imageOffset = exitClamped * 200;
+      const backgroundOffset = exitClamped * 40;
+      const imageOpacity = Math.max(1 - exitClamped * 1.8, 0);
 
       if (heroImage) {
         heroImage.style.transform = `translateY(-${imageOffset}px)`;
         heroImage.style.opacity = imageOpacity;
       }
-
-      if (heroTitle) {
-        heroTitle.style.transform = `translateY(-${titleOffset}px)`;
-        heroTitle.style.opacity = titleOpacity;
-      }
-
       if (heroBackground) {
         heroBackground.style.transform = `translateY(-${backgroundOffset}px)`;
       }
     } else {
-      // Reset cuando estamos en la parte superior
       if (heroImage) {
         heroImage.style.transform = "translateY(0)";
         heroImage.style.opacity = "1";
-      }
-      if (heroTitle) {
-        heroTitle.style.transform = "translateY(0)";
-        heroTitle.style.opacity = "1";
       }
       if (heroBackground) {
         heroBackground.style.transform = "translateY(0)";
@@ -177,7 +164,7 @@ const isMobileDevice = () => window.innerWidth <= 768;
       if (!ticking) {
         window.requestAnimationFrame(function () {
           checkBackground();
-          showNavAndTitle();
+          showNavOnScroll();
           handleHeroParallax();
           ticking = false;
         });
@@ -195,7 +182,8 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
 /**
  * Animación de las letras BSM
- * Anima las letras B y M alternando entre 3 variantes cada 250ms (cambio instantáneo)
+ * Fases: rápida → media → lenta → pausa final
+ * B y M animan de forma ligeramente desincronizada para efecto orgánico
  */
 (function () {
   "use strict";
@@ -209,7 +197,7 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
     // Configurar estado inicial
     bFrames.forEach(function (selector, index) {
-      const el = document.querySelector(selector);
+      var el = document.querySelector(selector);
       if (el) {
         if (index === 0) {
           el.style.display = "block";
@@ -222,7 +210,7 @@ const isMobileDevice = () => window.innerWidth <= 768;
     });
 
     mFrames.forEach(function (selector, index) {
-      const el = document.querySelector(selector);
+      var el = document.querySelector(selector);
       if (el) {
         if (index === 0) {
           el.style.display = "block";
@@ -234,72 +222,83 @@ const isMobileDevice = () => window.innerWidth <= 768;
       }
     });
 
-    // Configurar contenedor
     framesContainer.style.position = "relative";
 
-    // Obtener contenedores individuales de cada letra
-    const bContainer = document.querySelector(".b");
-    const sContainer = document.querySelector(".s");
-    const mContainer = document.querySelector(".m");
+    // Secuencia de frames con timing por paso: [frameIndex, msHastaProximoCambio]
+    // B: empieza en 0, termina en 0
+    var bSequence = [
+      // Fase 1: ráfaga rápida (80ms)
+      [1, 80], [2, 80], [0, 80], [1, 80], [2, 80], [0, 80], [1, 80], [2, 80],
+      // Fase 2: velocidad media (150ms)
+      [0, 150], [1, 150], [2, 150], [0, 150], [1, 150], [2, 150],
+      [0, 150], [1, 150], [2, 150], [0, 150],
+      // Fase 3: desacelerando (250ms)
+      [1, 250], [2, 250], [0, 250], [1, 250], [2, 250], [0, 250],
+      // Fase 4: pausa dramática antes del final (400ms)
+      [1, 400], [2, 400], [0, 400], [1, 400],
+      // Frame final
+      [0, 0]
+    ];
 
-    let bIndex = 0;
-    let mIndex = 0;
+    // M: arranca 120ms después, secuencia propia para desincronizar
+    var mSequence = [
+      // Fase 1: ráfaga rápida
+      [2, 80], [1, 80], [0, 80], [2, 80], [1, 80], [0, 80], [2, 80], [1, 80],
+      // Fase 2: velocidad media
+      [0, 150], [2, 150], [1, 150], [0, 150], [2, 150], [1, 150],
+      [0, 150], [2, 150], [1, 150], [0, 150],
+      // Fase 3: desacelerando
+      [2, 250], [1, 250], [0, 250], [2, 250], [1, 250], [0, 250],
+      // Fase 4: pausa dramática
+      [2, 400], [1, 400], [0, 400], [2, 400],
+      // Frame final
+      [0, 0]
+    ];
 
-    // Función para cambiar frame de B
-    function animateB() {
-      // Ocultar frame actual y cambiar a absolute
-      const currentB = document.querySelector(bFrames[bIndex]);
-      if (currentB) {
-        currentB.style.display = "none";
-        currentB.style.position = "absolute";
-      }
+    function showFrame(frames, index) {
+      frames.forEach(function (selector, i) {
+        var el = document.querySelector(selector);
+        if (!el) return;
+        if (i === index) {
+          el.style.position = "relative";
+          el.style.display = "block";
+        } else {
+          el.style.display = "none";
+          el.style.position = "absolute";
+        }
+      });
+    }
 
-      // Siguiente frame
-      bIndex = (bIndex + 1) % 3;
+    function playSequence(frames, sequence, step) {
+      if (step >= sequence.length) return;
+      var entry = sequence[step];
+      var frameIndex = entry[0];
+      var delay = entry[1];
 
-      // Mostrar nuevo frame y cambiar a relative
-      const nextB = document.querySelector(bFrames[bIndex]);
-      if (nextB) {
-        nextB.style.position = "relative";
-        nextB.style.display = "block";
+      showFrame(frames, frameIndex);
+
+      if (delay > 0) {
+        setTimeout(function () {
+          playSequence(frames, sequence, step + 1);
+        }, delay);
       }
     }
 
-    // Función para cambiar frame de M
-    function animateM() {
-      // Ocultar frame actual y cambiar a absolute
-      const currentM = document.querySelector(mFrames[mIndex]);
-      if (currentM) {
-        currentM.style.display = "none";
-        currentM.style.position = "absolute";
-      }
-
-      // Siguiente frame
-      mIndex = (mIndex + 1) % 3;
-
-      // Mostrar nuevo frame y cambiar a relative
-      const nextM = document.querySelector(mFrames[mIndex]);
-      if (nextM) {
-        nextM.style.position = "relative";
-        nextM.style.display = "block";
-      }
-    }
-
-    // Iniciar animación de frames inmediatamente cada 250ms
-    const bInterval = setInterval(animateB, 250);
-    const mInterval = setInterval(animateM, 250);
-
-    // Detener la animación después de 2.5 segundos (tiempo estimado de la animación original)
+    // B inicia de inmediato, M con 120ms de offset para efecto orgánico
+    playSequence(bFrames, bSequence, 0);
     setTimeout(function () {
-      clearInterval(bInterval);
-      clearInterval(mInterval);
+      playSequence(mFrames, mSequence, 0);
+    }, 120);
 
-      // Asegurarse de que termine en el frame principal (opcional, si se ve mal detenido en otro frame)
-      // resetToMainFrame();
-    }, 2500);
+    // Al terminar la animación (~5250ms), mostrar solo el nav (cae desde arriba)
+    // El hero-title aparece al hacer scroll, no aquí
+    var BSM_ANIM_DURATION = 5250;
+    setTimeout(function () {
+      var nav = document.querySelector(".bsm-nav");
+      if (nav) nav.classList.add("show");
+    }, BSM_ANIM_DURATION);
   }
 
-  // Iniciar cuando el DOM esté listo
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initBSMAnimation);
   } else {

@@ -127,11 +127,15 @@ h3 {
   background-color: transparent;
   mix-blend-mode: difference;
   opacity: 0 !important;
-  transition: opacity 0.5s ease;
+  transform: translateY(-100%);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .bsm-nav.show {
   opacity: 1 !important;
+  transform: translateY(0);
 }
 
 .nav-left {
@@ -200,26 +204,13 @@ h3 {
   }
 }
 
-/* Hero Title */
+/* Hero Title — animado por scroll vía JS */
 .hero-title {
   text-align: center;
-  margin-top: 0;
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(30px);
-  transition:
-    max-height 0.8s ease,
-    margin-top 0.8s ease,
-    opacity 0.8s ease,
-    transform 0.8s ease;
-}
-
-.hero-title.show {
   margin-top: 70px;
-  max-height: 300px;
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 0;
+  transform: translateY(100px);
+  will-change: transform, opacity;
 }
 
 .hero-title h1 {
@@ -1296,7 +1287,9 @@ h3 {
     justify-content: center;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
+    transition:
+      opacity 0.4s ease,
+      visibility 0.4s ease;
 
     &.is-active {
       display: flex;
