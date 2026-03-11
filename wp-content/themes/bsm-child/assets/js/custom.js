@@ -295,7 +295,14 @@ const isMobileDevice = () => window.innerWidth <= 768;
     var BSM_ANIM_DURATION = 5250;
     setTimeout(function () {
       var nav = document.querySelector(".bsm-nav");
-      if (nav) nav.classList.add("show");
+      if (!nav) return;
+      // Si el usuario no ha hecho scroll, el nav cae sobre el hero púrpura.
+      // checkBackground() no puede detectarlo (el nav estaba fuera del viewport),
+      // así que añadimos on-purple manualmente para evitar el mix-blend-mode verde.
+      if (window.scrollY < 50) {
+        nav.classList.add("on-purple");
+      }
+      nav.classList.add("show");
     }, BSM_ANIM_DURATION);
   }
 
