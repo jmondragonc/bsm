@@ -877,107 +877,102 @@ h3 {
   border-radius: 12px;
 }
 
-/* Item Positions (Exact match to Reference) */
+/* Item Positions (Exact match to Figma reference) */
 /* 1. Garbachos Bocas (Top Left Cropped) */
 .item-garbachos-bocas {
-  top: -10%;
+  top: -8%;
   left: -5%;
-  width: 200px;
+  width: 220px;
   z-index: 1;
   transform: rotate(-10deg);
 }
 
-/* 2. Tweet Garbachos User (Top Left/Mid) */
+/* 2. Tweet Garbachos User (Left/Mid) */
 .item-tweet-garbachos {
-  top: 18%;
+  top: 20%;
   left: 10%;
-  width: 300px;
+  width: 310px;
   z-index: 4;
 }
 
-/* 3. Garbachos Chela (Mid Left) */
+/* 3. Garbachos Chela (Mid Left - prominent) */
 .item-garbachos-chela {
-  top: 35%;
-  left: 2%;
-  width: 300px;
-  max-width: 25vw;
+  top: 30%;
+  left: -2%;
+  width: 330px;
   z-index: 2;
 }
 
 /* 4. Tweet CD 816 (Top Center - Main) */
 .item-tweet-cd816 {
-  top: 8%;
+  top: 6%;
   left: 40%;
   transform: translateX(-50%);
-  width: 400px;
+  width: 480px;
   z-index: 5;
 }
 
-/* 5. Tweet Smart (Top Right) */
+/* 5. Tweet Smart / Smart Blends (Top Right) */
 .item-tweet-smart {
-  top: 10%;
-  right: 12%;
-  width: 320px;
+  top: 6%;
+  right: 5%;
+  width: 400px;
   z-index: 4;
 }
 
-/* 6. Tweet Organa (Center/Mid) */
+/* 6. Tweet Organa (Center) */
 .item-tweet-organa {
-  top: 38%;
-  left: 35%;
-  width: 350px;
-  z-index: 6; /* On top of leaf? */
+  top: 40%;
+  left: 28%;
+  width: 380px;
+  z-index: 6;
 }
 
-/* 7. Organa Leaf (Center Focus) */
+/* 7. Organa Leaf (Center Right - large) */
 .item-organa-leaf {
   top: 50%;
-  left: 55%;
-  transform: translate(-50%, -50%); /* Centered */
-  width: 380px;
+  left: 62%;
+  transform: translate(-50%, -50%);
+  width: 430px;
   z-index: 3;
 }
 
-/* 8. Smart Yellow Poster (Right Mid) */
+/* 8. Smart Yellow Poster (Far Right) */
 .item-smart-yellow {
-  top: 25%;
-  right: 5%;
+  top: 5%;
+  right: 0%;
   width: 300px;
-  max-width: 25vw;
   z-index: 2;
   transform: rotate(5deg);
 }
 
-/* 9. Organa Postres (Bottom Center/Left) */
+/* 9. Organa Postres (Bottom Center) */
 .item-organa-postres {
-  bottom: 0%;
-  left: 30%;
-  width: 300px;
+  bottom: 8%;
+  left: 38%;
+  width: 180px;
   z-index: 1;
 }
 
-/* 10. Smart Storie (Bottom Right) */
+/* 10. Smart Storie / Eres lo que decides (Bottom Right) */
 .item-smart-storie {
-  bottom: 15%;
-  right: 5%;
-  width: 300px;
+  bottom: 8%;
+  right: 8%;
+  width: 260px;
   z-index: 4;
 }
 
 /* Responsive Tweaks */
 @media (max-width: 1440px) {
-  /* Scale down slightly */
   .testimonials-collage {
-    font-size: 14px; /* If em units used */
+    font-size: 14px;
   }
-  .collage-item {
-    width: 250px;
-  }
+  /* No blanket width override — items use their base sizes at desktop */
   .item-tweet-cd816 {
-    width: 350px;
+    width: 420px;
   }
   .item-organa-leaf {
-    width: 300px;
+    width: 380px;
   }
 }
 @media (max-width: 1024px) {
