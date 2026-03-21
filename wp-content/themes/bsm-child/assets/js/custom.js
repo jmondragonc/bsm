@@ -644,14 +644,15 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
       // Assembly starts when section bottom enters viewport
       const earlyStart = viewportHeight;
+      const totalRange = distance + earlyStart;
       let progress = 0;
       if (rect.top <= earlyStart) {
-        progress = (earlyStart - rect.top) / distance;
+        progress = (earlyStart - rect.top) / totalRange;
       }
       progress = Math.max(0, Math.min(1, progress));
 
       // TIMELINE: assembly completes before pin, focus starts at pin
-      const progressAtPin = viewportHeight / distance;
+      const progressAtPin = earlyStart / totalRange;
       const p1End = progressAtPin * 0.75; // assembly done at 75% of approach
       const seqStart = progressAtPin;      // focus starts exactly when section pins
 
@@ -663,10 +664,14 @@ const isMobileDevice = () => window.innerWidth <= 768;
       let seqProgress = seqStart < 1 ? (progress - seqStart) / (1 - seqStart) : 0;
       seqProgress = Math.max(0, Math.min(1, seqProgress));
 
-      const totalItems = sequenceItems.length;
+      // Fix B: exclude hidden items (e.g. display:none on mobile)
+      const visibleSeqItems = sequenceItems.filter(
+        (el) => window.getComputedStyle(el).display !== "none"
+      );
+      const totalItems = visibleSeqItems.length;
       const rawCurrentIndex = seqProgress * totalItems;
       const currentIndex = Math.min(Math.floor(rawCurrentIndex), totalItems - 1);
-      const activeItem = sequenceItems[currentIndex];
+      const activeItem = visibleSeqItems[currentIndex];
       const itemProgress = rawCurrentIndex - currentIndex;
 
       const smoothstep = (t) => t * t * (3 - 2 * t);
@@ -685,21 +690,15 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
         if (progress > seqStart) {
           if (item === activeItem) {
-            // Compute translate to center
-            const style = window.getComputedStyle(item);
-            const val = (v, parent) => {
-              if (v && v.includes("px")) return parseFloat(v);
-              if (v && v.includes("%")) return (parseFloat(v) / 100) * parent;
-              return 0;
-            };
+            // Fix A: use offsetLeft/offsetTop — correctly resolves bottom:/right: items
             const winW = window.innerWidth;
             const winH = window.innerHeight;
-            const top  = val(style.top,  winH);
-            const left = val(style.left, winW);
-            const w    = parseFloat(style.width)  || 0;
-            const h    = parseFloat(style.height) || 0;
+            const left = item.offsetLeft;
+            const top  = item.offsetTop;
+            const w    = item.offsetWidth;
+            const h    = item.offsetHeight;
 
-            // Center of item (ignoring any CSS-level transforms like translateX(-50%))
+            // Center of item in collage coordinates (collage is sticky at top:0)
             const unshiftedCX = left + w / 2;
             const unshiftedCY = top  + h / 2;
             const targetCX = winW / 2;
@@ -709,8 +708,8 @@ const isMobileDevice = () => window.innerWidth <= 768;
             const tx = targetCX - unshiftedCX;
             const ty = targetCY - unshiftedCY;
 
-            // Scale: 0 → 1.5 → 0 (no opacity animation)
-            const maxFocusScale = 1.5;
+            // Scale: 0 → peak → 0 (larger on mobile to fill screen)
+            const maxFocusScale = window.innerWidth <= 768 ? 2.5 : 1.5;
             let finalScale;
             if (itemProgress < 0.25) {
               finalScale = smoothstep(itemProgress / 0.25) * maxFocusScale;
@@ -741,9 +740,6 @@ const isMobileDevice = () => window.innerWidth <= 768;
             transform = `translate(-50%, -50%) scale(${baseScale})`;
           } else if (item.classList.contains("item-tweet-cd816")) {
             transform = `translate(-50%, 0px) scale(${baseScale})`;
-          } else {
-            if (item.classList.contains("item-garbachos-bocas")) transform += " rotate(-10deg)";
-            if (item.classList.contains("item-smart-yellow"))    transform += " rotate(5deg)";
           }
           item.style.transform = transform;
           item.style.zIndex = "";

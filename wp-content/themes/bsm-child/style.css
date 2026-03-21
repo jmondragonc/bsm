@@ -884,7 +884,6 @@ h3 {
   left: -5%;
   width: 220px;
   z-index: 1;
-  transform: rotate(-10deg);
 }
 
 /* 2. Tweet Garbachos User (Left/Mid) */
@@ -943,7 +942,6 @@ h3 {
   right: 0%;
   width: 300px;
   z-index: 2;
-  transform: rotate(5deg);
 }
 
 /* 9. Organa Postres (Bottom Center) */
@@ -991,32 +989,70 @@ h3 {
 }
 @media (max-width: 768px) {
   .testimonials-sticky-wrapper {
-    height: 250vh;
+    height: 350vh;
   }
+
+  /* Hide items that don't fit well on mobile */
+  .item-garbachos-bocas,
+  .item-tweet-smart,
+  .item-smart-yellow,
+  .item-organa-postres {
+    display: none;
+  }
+
+  /* Reposition remaining 6 items using only top/left (no bottom/right)
+     so JS offsetLeft/offsetTop calculations are accurate */
   .collage-item {
     width: 150px;
+    bottom: unset;
+    right: unset;
   }
-  /* Simplified Layout for Mobile */
+
+  /* 1. Tweet CD816 — top center */
   .item-tweet-cd816 {
-    width: 250px;
-    left: 50%;
+    width: 260px;
     top: 5%;
-  }
-  .item-tweet-smart {
-    display: none;
-  } /* Hide less important */
-  .item-garbachos-bocas {
-    display: none;
-  }
-  .item-organa-leaf {
-    width: 180px;
-    top: 40%;
     left: 50%;
+    transform: translateX(-50%);
   }
+
+  /* 2. Tweet Garbachos — mid left */
+  .item-tweet-garbachos {
+    width: 200px;
+    top: 22%;
+    left: 4%;
+  }
+
+  /* 3. Garbachos Chela — lower left */
+  .item-garbachos-chela {
+    width: 190px;
+    top: 45%;
+    left: 2%;
+  }
+
+  /* 4. Tweet Organa — center */
   .item-tweet-organa {
-    top: 60%;
-    left: 10%;
-    width: 250px;
+    width: 220px;
+    top: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* 5. Organa Leaf — right center */
+  .item-organa-leaf {
+    width: 190px;
+    top: 20%;
+    left: 55%;
+    transform: none;
+  }
+
+  /* 6. Smart Storie — lower right */
+  .item-smart-storie {
+    width: 175px;
+    top: 55%;
+    left: 55%;
+    bottom: unset;
+    right: unset;
   }
 }
 /* Footer */
@@ -1405,54 +1441,7 @@ h3 {
     font-size: 11px;
     padding: 4px 10px;
   }
-  /* ------------------------------------------------------------------
-     TESTIMONIALS SECTION - MOBILE (Simplified collage)
-     ------------------------------------------------------------------ */
-  .bsm-testimonials {
-    overflow: hidden;
-  }
-  .testimonials-sticky-wrapper {
-    height: 300vh;
-  }
-  .testimonials-collage {
-    overflow: hidden;
-  }
-  .collage-item {
-    width: 100px;
-    opacity: 0;
-  }
-  .collage-item img {
-    border-radius: 8px;
-  }
-  .item-tweet-cd816 {
-    width: 160px;
-  }
-  .item-organa-leaf {
-    width: 120px;
-  }
-  .bsm-testimonials {
-    position: relative;
-    z-index: 1;
-  }
-  .testimonials-sticky-wrapper {
-    height: 250vh;
-    position: relative;
-  }
-  .testimonials-collage {
-    position: sticky;
-    top: 0;
-    overflow: hidden;
-  }
-  .collage-item {
-    width: 100px;
-    opacity: 0;
-  }
-  .item-tweet-cd816 {
-    width: 150px;
-  }
-  .item-organa-leaf {
-    width: 100px;
-  }
+  /* Testimonials mobile overrides consolidated in the earlier @media (max-width: 768px) block */
   /* ------------------------------------------------------------------
      FOOTER - MOBILE (With animation)
      ------------------------------------------------------------------ */
