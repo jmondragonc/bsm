@@ -992,16 +992,16 @@ const isMobileDevice = () => window.innerWidth <= 768;
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Add class to trigger CSS transition
             logoContainer.classList.add("is-visible");
+            footer.classList.add("texts-visible");
           } else {
-            // Remove class to reset animation when scrolling away
             logoContainer.classList.remove("is-visible");
+            footer.classList.remove("texts-visible");
           }
         });
       },
       { threshold: 0 }
-    ); // Trigger immediately on enter/exit check
+    );
 
     observer.observe(footer);
   }

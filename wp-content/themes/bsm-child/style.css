@@ -530,8 +530,8 @@ h3 {
 .footer-logo {
   position: absolute;
   bottom: 0;
-  left: 10vw !important; /* Explicit viewport centering */
-  width: 80vw !important; /* Explicit viewport width */
+  left: 2.5vw !important;
+  width: 95vw !important;
   z-index: 1;
   line-height: 0;
   pointer-events: none;
@@ -539,8 +539,8 @@ h3 {
   padding: 0 !important;
 }
 .footer-logo img {
-  width: 100% !important; /* Fill the 80vw container */
-  max-width: none !important; /* Remove constraints */
+  width: 100% !important;
+  max-width: none !important;
   height: auto !important;
   display: block;
   margin: 0 auto !important;
@@ -549,9 +549,39 @@ h3 {
   transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Animation State */
+/* Logo visible */
 .footer-logo.is-visible img {
   transform: translateY(0);
+}
+
+/* Footer texts — slide from below, no opacity */
+.footer-info-left > div,
+.footer-socials > div,
+.footer-socials > a,
+.footer-copyright {
+  transform: translateY(60px);
+  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.bsm-footer.texts-visible .footer-info-left > div {
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+.bsm-footer.texts-visible .footer-socials > div {
+  transform: translateY(0);
+  transition-delay: 0.1s;
+}
+.bsm-footer.texts-visible .footer-socials > a:nth-child(2) {
+  transform: translateY(0);
+  transition-delay: 0.2s;
+}
+.bsm-footer.texts-visible .footer-socials > a:nth-child(3) {
+  transform: translateY(0);
+  transition-delay: 0.3s;
+}
+.bsm-footer.texts-visible .footer-copyright {
+  transform: translateY(0);
+  transition-delay: 0.15s;
 }
 
 /* Responsive Footer */
