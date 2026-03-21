@@ -451,11 +451,17 @@ const isMobileDevice = () => window.innerWidth <= 768;
       return;
     }
 
-    // Initial styles
+    // Initial styles — título entra desde abajo (sin opacity)
     if (title) {
-      title.style.opacity = 0;
-      title.style.willChange = "opacity";
+      title.style.opacity = 1;
+      title.style.transform = "translateY(100vh)";
+      title.style.willChange = "transform";
     }
+
+    // Patillas visibles desde el inicio (sin opacity), el overflow las oculta
+    tags.forEach((tag) => {
+      tag.style.opacity = 1;
+    });
 
     // Map of final rotations matching CSS requirements
     const rotations = [15, -15, 8, -4, -28, 15, 18, -25];
@@ -476,11 +482,11 @@ const isMobileDevice = () => window.innerWidth <= 768;
       { x: -100 * mobileFactor, y: -50 * mobileFactor, r: -5, speed: 1.2 },
       { x: 100 * mobileFactor, y: -50 * mobileFactor, r: 5, speed: 0.8 },
       { x: -80 * mobileFactor, y: -20 * mobileFactor, r: -3, speed: 1.1 },
-      { x: 150 * mobileFactor, y: 20 * mobileFactor, r: 8, speed: 0.9 },
-      { x: -150 * mobileFactor, y: 80 * mobileFactor, r: -10, speed: 1.3 },
-      { x: 120 * mobileFactor, y: 120 * mobileFactor, r: 5, speed: 0.7 },
-      { x: -60 * mobileFactor, y: 150 * mobileFactor, r: 4, speed: 1.0 },
-      { x: 60 * mobileFactor, y: 150 * mobileFactor, r: -4, speed: 1.15 },
+      { x: 150 * mobileFactor, y:  20 * mobileFactor, r: 8,  speed: 0.9 },
+      { x: -150 * mobileFactor, y: -40 * mobileFactor, r: -10, speed: 1.3 }, // era y:80
+      { x:  120 * mobileFactor, y: -60 * mobileFactor, r: 5,  speed: 1.0 },  // era y:120, speed:0.7
+      { x:  -60 * mobileFactor, y: -60 * mobileFactor, r: 4,  speed: 1.0 },  // era y:150
+      { x:   60 * mobileFactor, y: -60 * mobileFactor, r: -4, speed: 1.15 }, // era y:150
     ];
 
     function render() {
@@ -513,14 +519,33 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
       // --- ANIMATION LOGIC ---
 
-      // A. Text Fade In
+      // A. Título: entra desde abajo durante Phase 2 (pinned), no durante Phase 1 (entry)
       if (title) {
-        // Fade in during the first 50% of entry
-        let textOpacity = entryProgress / 0.8;
-        title.style.opacity = Math.min(1, Math.max(0, textOpacity));
+        const windowH = window.innerHeight;
+        let titleTransY;
+
+        const titleEntryEnd  = 0.4; // termina de entrar al 40% del scroll pinned
+        const collapseStart  = 1.2; // arranca al soltar el pin (220vh wrapper → G_max=1.2)
+        const baseTitleUp    = isMobile ? 80 : (isTablet ? 150 : 280);
+
+        if (growthProgress <= 0) {
+          titleTransY = windowH;
+        } else if (growthProgress < titleEntryEnd) {
+          const p    = growthProgress / titleEntryEnd;
+          const ease = p * (2 - p);
+          titleTransY = windowH * (1 - ease);
+        } else if (growthProgress < collapseStart) {
+          // Frame estable
+          titleTransY = 0;
+        } else {
+          // Colapsa hacia arriba — corre mientras el sticky sale del viewport
+          titleTransY = -((growthProgress - collapseStart) * baseTitleUp);
+        }
+
+        title.style.transform = `translateY(${titleTransY}px)`;
       }
 
-      const initialTransY = 400; // Deep entry as requested
+      const initialTransY = 400; // Patillas entran desde abajo
 
       tags.forEach((tag, index) => {
         const rotation = rotations[index] !== undefined ? rotations[index] : 0;
@@ -532,13 +557,10 @@ const isMobileDevice = () => window.innerWidth <= 768;
         let scale = 0.5;
         let transX = 0;
         let transY = initialTransY;
-        let opacity = 0;
         let currentRot = rotation;
 
-        // PHASE 1: Entry (Coming up from bottom)
+        // PHASE 1: Patillas suben desde abajo (sin opacity, solo translateY)
         if (entryProgress > 0) {
-          // Normalized progress for this specific tag considering stagger
-          // Stagger is 0 to 0.35. We want all to finish by entryProgress = 1
           let p1 = (entryProgress - stagger) / (1 - stagger);
           p1 = Math.max(0, Math.min(1, p1));
 
@@ -546,42 +568,27 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
           scale = 0.5 + 0.5 * ease1; // 0.5 -> 1.0
           transY = initialTransY * (1 - ease1); // 400 -> 0
-          opacity = ease1;
         }
 
-        // PHASE 2 & 3: Growth and Continuous Upward Scroll
+        // PHASE 2: Patillas se dispersan y colapsan hacia arriba al soltar el pin
+        const tagCollapseDelay = 1.2; // mismo punto que collapseStart del título
         if (growthProgress > 0) {
-          // Base state is end of Phase 1
           scale = 1.0;
           transX = 0;
           transY = 0;
-          opacity = 1;
 
-          // Growth
-          // Scale DISABLED to prevent oversized tags
-          let pGrowth = Math.min(1, growthProgress); // Cap growth phase at 1
-          const easeGrowth = pGrowth; // Linear or ease
+          const pGrowth = Math.min(1, growthProgress);
 
-          // No scale - keep tags at original size
-          scale = 1.0;
+          transX = spread.x * pGrowth;
+          transY = spread.y * pGrowth;
+          currentRot += (spread.r || 0) * pGrowth;
 
-          // Spreading out
-          transX = spread.x * easeGrowth;
-          transY = spread.y * easeGrowth;
-
-          currentRot += (spread.r || 0) * easeGrowth;
-
-          // CONTINUOUS UPWARD SCROLL (Parallax)
-          // As we scroll past, move everything UP further
-          // This happens on top of the spread
-          // Using growthProgress directly for continuous movement
-          // Apply unique speed factor (reduced for mobile)
-          const baseUpward = isMobile ? 80 : (isTablet ? 150 : 250);
-          const upwardMovement = growthProgress * baseUpward * speedFactor;
-          transY -= upwardMovement;
+          // Colapso hacia arriba sincronizado con el scroll-off del sticky
+          const effectiveCollapse = Math.max(0, growthProgress - tagCollapseDelay);
+          const baseUpward = isMobile ? 60 : (isTablet ? 120 : 250);
+          transY -= effectiveCollapse * baseUpward * speedFactor;
         }
 
-        tag.style.opacity = opacity;
         tag.style.transform = `translate(${transX}px, ${transY}px) rotate(${currentRot}deg) scale(${scale})`;
       });
 
