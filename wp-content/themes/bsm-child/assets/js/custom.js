@@ -643,25 +643,27 @@ const isMobileDevice = () => window.innerWidth <= 768;
       const viewportHeight = window.innerHeight;
 
       const distance = wrapper.offsetHeight - viewportHeight;
-      const currentScroll = -rect.top;
 
+      // Punto 7: start assembly as section enters viewport (earlyStart = viewportHeight)
+      const earlyStart = viewportHeight; // begin when section bottom edge hits viewport bottom
       let progress = 0;
-      if (rect.top <= 0) {
-        progress = currentScroll / distance;
+      if (rect.top <= earlyStart) {
+        const adjustedScroll = earlyStart - rect.top;
+        progress = adjustedScroll / distance;
       }
       progress = Math.max(0, Math.min(1, progress));
 
       // TIMELINE CONFIG
-      const p1End = 0.15; // Phase 1 ends at 15%
+      const p1End = 0.15; // Phase 1 (assembly) ends at 15%
+      const p2End = 0.30; // Phase 2 (collage zoom) ends at 30%
 
       // --- PHASE 1: COLLAGE ASSEMBLY (0% - 15%) ---
-      // We normalize this 0-0.15 range to 0-1 for the assembly animation
       let assemblyProgress = progress / p1End;
       assemblyProgress = Math.max(0, Math.min(1, assemblyProgress));
 
-      // --- PHASE 2: SEQUENTIAL FOCUS (15% - 100%) ---
-      // Normalize 0.15-1.0 to 0-1
-      let seqProgress = (progress - p1End) / (1 - p1End);
+      // --- PHASE 3: SEQUENTIAL FOCUS (30% - 100%) ---
+      // Normalize p2End-1.0 to 0-1
+      let seqProgress = (progress - p2End) / (1 - p2End);
       seqProgress = Math.max(0, Math.min(1, seqProgress));
 
       // Calculate active index for sequence
@@ -696,18 +698,18 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
         let opacity = Math.min(1, easeEntry * 2.5);
 
-        // If Phase 2 started, base state is fully assembled
+        // If zoom/focus phase started, base state is fully assembled
         if (progress > p1End) {
           baseScale = 1.0;
           currentY = 0;
           opacity = 1;
         }
 
-        // --- PHASE 2 FOCUS LOGIC ---
+        // --- PHASE 3 FOCUS LOGIC ---
         let focusTransform = "";
         let zIndex = "";
 
-        if (progress > p1End) {
+        if (progress > p2End) {
           // Check if active
           if (item === activeItem) {
             // FOCUS THIS ITEM
@@ -908,9 +910,8 @@ const isMobileDevice = () => window.innerWidth <= 768;
             zIndex = 1000;
             opacity = activeOpacity;
           } else {
-            // Dim others - transición más suave
+            // Dim others during sequential focus
             if (currentIndex >= 0 && currentIndex < totalItems) {
-              // Mantener algo de visibilidad pero muy tenue
               opacity = 0.05;
             }
           }
@@ -943,16 +944,28 @@ const isMobileDevice = () => window.innerWidth <= 768;
         }
       });
 
-      // Desvanecer el contenedor cuando el último elemento está saliendo (>75%)
+      // Collage container: zoom phase (p1End→p2End), then reset for sequential focus
       const collage = document.querySelector(".testimonials-collage");
       if (collage) {
-        if (isLastElementExiting) {
-          // Calcular progreso de salida del último elemento (0.75 a 1.0 -> 0 a 1)
-          const lastItemProgress = rawCurrentIndex - (totalItems - 1);
-          const exitProgress = (lastItemProgress - 0.75) / 0.25; // 0 a 1
-          const collageOpacity = Math.max(0, 1 - exitProgress);
-          collage.style.opacity = collageOpacity;
+        if (progress > p2End) {
+          // Sequential focus phase — collage at normal scale
+          collage.style.transform = "";
+          if (isLastElementExiting) {
+            const lastItemProgress = rawCurrentIndex - (totalItems - 1);
+            const exitProgress = (lastItemProgress - 0.75) / 0.25;
+            collage.style.opacity = Math.max(0, 1 - exitProgress);
+          } else {
+            collage.style.opacity = 1;
+          }
+        } else if (progress > p1End) {
+          // Zoom phase: scale collage 1 → 1.6
+          const zoomP = (progress - p1End) / (p2End - p1End);
+          const easeZoom = zoomP * (2 - zoomP); // ease-out
+          const zoom = 1 + easeZoom * 0.6;
+          collage.style.transform = `scale(${zoom})`;
+          collage.style.opacity = 1;
         } else {
+          collage.style.transform = "";
           collage.style.opacity = 1;
         }
       }
