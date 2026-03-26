@@ -260,7 +260,7 @@ get_header(); ?>
 
                 <!-- 9. Organa Postres (Bottom Center/Left) -->
                 <div class="collage-item item-organa-postres">
-                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa-1.svg" alt="Organa Postres">
+                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa-1.png" alt="Organa Postres">
                 </div>
 
                 <!-- 10. Smart Storie (Bottom Right) -->
@@ -298,6 +298,41 @@ get_header(); ?>
         </div>
     </footer>
     
+    <!-- Contact Drawer Overlay -->
+    <div class="contact-drawer-overlay" id="contactDrawerOverlay"></div>
+
+    <!-- Contact Drawer -->
+    <aside class="contact-drawer" id="contactDrawer" aria-hidden="true">
+        <button class="contact-drawer-close" id="contactDrawerClose" aria-label="Cerrar formulario">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="1" y1="1" x2="19" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="19" y1="1" x2="1" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+
+        <div class="contact-drawer-content">
+            <h2 class="contact-drawer-title">SEA CUAL SEA<br>TU OBJETIVO,<br>TE AYUDAMOS<br>A LOGRARLO</h2>
+
+            <form class="contact-drawer-form" id="contactDrawerForm">
+                <div class="contact-field">
+                    <input type="text" name="nombre" placeholder="Nombre" required>
+                </div>
+                <div class="contact-field">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="contact-field">
+                    <input type="text" name="asunto" placeholder="Asunto" required>
+                </div>
+                <div class="contact-field contact-field--textarea">
+                    <textarea name="mensaje" rows="5">Hola equipo de BSM,</textarea>
+                </div>
+                <div class="contact-field contact-field--submit">
+                    <button type="submit" class="contact-drawer-submit">EMPECEMOS</button>
+                </div>
+            </form>
+        </div>
+    </aside>
+
     <?php wp_footer(); ?>
 </body>
 </html>

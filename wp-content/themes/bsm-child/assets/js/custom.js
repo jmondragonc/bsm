@@ -896,3 +896,66 @@ const isMobileDevice = () => window.innerWidth <= 768;
     initFooterAnimation();
   }
 })();
+
+/**
+ * Contact Drawer
+ * Slides in from the right when clicking "¿LISTO PARA CAMBIAR?"
+ */
+(function () {
+  "use strict";
+
+  function initContactDrawer() {
+    const drawer = document.getElementById("contactDrawer");
+    const overlay = document.getElementById("contactDrawerOverlay");
+    const closeBtn = document.getElementById("contactDrawerClose");
+    const openBtns = document.querySelectorAll(
+      "#openContactDrawer, #openContactDrawerMobile"
+    );
+
+    if (!drawer || !overlay) return;
+
+    function openDrawer() {
+      drawer.classList.add("is-open");
+      overlay.classList.add("is-open");
+      drawer.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove("is-open");
+      overlay.classList.remove("is-open");
+      drawer.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    openBtns.forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        // Also close mobile menu if open
+        const mobileOverlay = document.querySelector(".mobile-menu-overlay");
+        const mobileBtn = document.querySelector(".mobile-menu-btn");
+        if (mobileOverlay && mobileOverlay.classList.contains("is-active")) {
+          mobileOverlay.classList.remove("is-active");
+          if (mobileBtn) mobileBtn.classList.remove("is-active");
+          document.body.style.overflow = "";
+        }
+        openDrawer();
+      });
+    });
+
+    if (closeBtn) closeBtn.addEventListener("click", closeDrawer);
+    overlay.addEventListener("click", closeDrawer);
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && drawer.classList.contains("is-open")) {
+        closeDrawer();
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initContactDrawer);
+  } else {
+    initContactDrawer();
+  }
+})();

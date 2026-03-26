@@ -21,7 +21,7 @@
         </ul>
     </div>
     <div class="nav-right">
-        <a href="#contact">¿LISTO PARA CAMBIAR?</a>
+        <a href="#" id="openContactDrawer" data-open-drawer>¿LISTO PARA CAMBIAR?</a>
     </div>
     <!-- Mobile Menu Button -->
     <button class="mobile-menu-btn" aria-label="Abrir menú">
@@ -37,7 +37,7 @@
         <ul class="mobile-menu-list">
             <li><a href="#work">WORK</a></li>
             <li><a href="#about">ABOUT US</a></li>
-            <li><a href="#contact">¿LISTO PARA CAMBIAR?</a></li>
+            <li><a href="#" id="openContactDrawerMobile" data-open-drawer>¿LISTO PARA CAMBIAR?</a></li>
         </ul>
     </div>
 </div>

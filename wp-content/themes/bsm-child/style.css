@@ -460,7 +460,8 @@ h3 {
 .bsm-experience-wrapper {
   position: relative;
   width: 100%;
-  height: 220vh;
+  height: 350vh;
+  background-color: #000;
 }
 
 .bsm-full-experience {
@@ -530,8 +531,8 @@ h3 {
 .footer-logo {
   position: absolute;
   bottom: 0;
-  left: 2.5vw !important;
-  width: 95vw !important;
+  left: 10vw !important; /* Explicit viewport centering */
+  width: 80vw !important; /* Explicit viewport width */
   z-index: 1;
   line-height: 0;
   pointer-events: none;
@@ -539,8 +540,8 @@ h3 {
   padding: 0 !important;
 }
 .footer-logo img {
-  width: 100% !important;
-  max-width: none !important;
+  width: 100% !important; /* Fill the 80vw container */
+  max-width: none !important; /* Remove constraints */
   height: auto !important;
   display: block;
   margin: 0 auto !important;
@@ -549,39 +550,9 @@ h3 {
   transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Logo visible */
+/* Animation State */
 .footer-logo.is-visible img {
   transform: translateY(0);
-}
-
-/* Footer texts — slide from below, no opacity */
-.footer-info-left > div,
-.footer-socials > div,
-.footer-socials > a,
-.footer-copyright {
-  transform: translateY(60px);
-  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.bsm-footer.texts-visible .footer-info-left > div {
-  transform: translateY(0);
-  transition-delay: 0s;
-}
-.bsm-footer.texts-visible .footer-socials > div {
-  transform: translateY(0);
-  transition-delay: 0.1s;
-}
-.bsm-footer.texts-visible .footer-socials > a:nth-child(2) {
-  transform: translateY(0);
-  transition-delay: 0.2s;
-}
-.bsm-footer.texts-visible .footer-socials > a:nth-child(3) {
-  transform: translateY(0);
-  transition-delay: 0.3s;
-}
-.bsm-footer.texts-visible .footer-copyright {
-  transform: translateY(0);
-  transition-delay: 0.15s;
 }
 
 /* Responsive Footer */
@@ -655,9 +626,9 @@ h3 {
   color: #000;
   position: absolute;
   white-space: nowrap;
-  opacity: 1;
+  opacity: 0;
   transform-origin: center center;
-  will-change: transform;
+  will-change: transform, opacity;
 }
 .services-tags .tag.tag-1 {
   top: 5%;
@@ -877,100 +848,107 @@ h3 {
   border-radius: 12px;
 }
 
-/* Item Positions (Exact match to Figma reference) */
+/* Item Positions (Exact match to Reference) */
 /* 1. Garbachos Bocas (Top Left Cropped) */
 .item-garbachos-bocas {
-  top: -8%;
+  top: -10%;
   left: -5%;
-  width: 220px;
+  width: 200px;
   z-index: 1;
+  transform: rotate(-10deg);
 }
 
-/* 2. Tweet Garbachos User (Left/Mid) */
+/* 2. Tweet Garbachos User (Top Left/Mid) */
 .item-tweet-garbachos {
-  top: 20%;
+  top: 18%;
   left: 10%;
-  width: 310px;
+  width: 300px;
   z-index: 4;
 }
 
-/* 3. Garbachos Chela (Mid Left - prominent) */
+/* 3. Garbachos Chela (Mid Left) */
 .item-garbachos-chela {
-  top: 30%;
-  left: -2%;
-  width: 330px;
+  top: 35%;
+  left: 2%;
+  width: 300px;
+  max-width: 25vw;
   z-index: 2;
 }
 
 /* 4. Tweet CD 816 (Top Center - Main) */
 .item-tweet-cd816 {
-  top: 6%;
+  top: 8%;
   left: 40%;
   transform: translateX(-50%);
-  width: 480px;
+  width: 400px;
   z-index: 5;
 }
 
-/* 5. Tweet Smart / Smart Blends (Top Right) */
+/* 5. Tweet Smart (Top Right) */
 .item-tweet-smart {
-  top: 6%;
-  right: 5%;
-  width: 400px;
+  top: 10%;
+  right: 12%;
+  width: 320px;
   z-index: 4;
 }
 
-/* 6. Tweet Organa (Center) */
+/* 6. Tweet Organa (Center/Mid) */
 .item-tweet-organa {
-  top: 40%;
-  left: 28%;
-  width: 380px;
-  z-index: 6;
+  top: 38%;
+  left: 35%;
+  width: 350px;
+  z-index: 6; /* On top of leaf? */
 }
 
-/* 7. Organa Leaf (Center Right - large) */
+/* 7. Organa Leaf (Center Focus) */
 .item-organa-leaf {
   top: 50%;
-  left: 62%;
-  transform: translate(-50%, -50%);
-  width: 430px;
+  left: 55%;
+  transform: translate(-50%, -50%); /* Centered */
+  width: 380px;
   z-index: 3;
 }
 
-/* 8. Smart Yellow Poster (Far Right) */
+/* 8. Smart Yellow Poster (Right Mid) */
 .item-smart-yellow {
-  top: 5%;
-  right: 0%;
+  top: 25%;
+  right: 5%;
   width: 300px;
+  max-width: 25vw;
   z-index: 2;
+  transform: rotate(5deg);
 }
 
-/* 9. Organa Postres (Bottom Center) */
+/* 9. Organa Postres (Bottom Center/Left) */
 .item-organa-postres {
-  bottom: 8%;
-  left: 38%;
-  width: 180px;
+  bottom: 0%;
+  left: 30%;
+  width: 300px;
   z-index: 1;
 }
 
-/* 10. Smart Storie / Eres lo que decides (Bottom Right) */
+/* 10. Smart Storie (Bottom Right) */
 .item-smart-storie {
-  bottom: 8%;
-  right: 8%;
-  width: 260px;
+  bottom: 15%;
+  right: 5%;
+  width: 300px;
   z-index: 4;
 }
 
 /* Responsive Tweaks */
 @media (max-width: 1440px) {
+  /* Scale down slightly */
   .testimonials-collage {
-    font-size: 14px;
+    font-size: 14px; /* If em units used */
   }
-  /* No blanket width override — items use their base sizes at desktop */
+  .collage-item {
+    width: 250px;
+  }
   .item-tweet-cd816 {
-    width: 420px;
+    width: 350px;
   }
   .item-organa-leaf {
-    width: 380px;
+    width: 300px;
   }
 }
 @media (max-width: 1024px) {
@@ -989,70 +967,32 @@ h3 {
 }
 @media (max-width: 768px) {
   .testimonials-sticky-wrapper {
-    height: 350vh;
+    height: 250vh;
   }
-
-  /* Hide items that don't fit well on mobile */
-  .item-garbachos-bocas,
-  .item-tweet-smart,
-  .item-smart-yellow,
-  .item-organa-postres {
-    display: none;
-  }
-
-  /* Reposition remaining 6 items using only top/left (no bottom/right)
-     so JS offsetLeft/offsetTop calculations are accurate */
   .collage-item {
     width: 150px;
-    bottom: unset;
-    right: unset;
   }
-
-  /* 1. Tweet CD816 — top center */
+  /* Simplified Layout for Mobile */
   .item-tweet-cd816 {
-    width: 260px;
+    width: 250px;
+    left: 50%;
     top: 5%;
-    left: 50%;
-    transform: translateX(-50%);
   }
-
-  /* 2. Tweet Garbachos — mid left */
-  .item-tweet-garbachos {
-    width: 200px;
-    top: 22%;
-    left: 4%;
+  .item-tweet-smart {
+    display: none;
+  } /* Hide less important */
+  .item-garbachos-bocas {
+    display: none;
   }
-
-  /* 3. Garbachos Chela — lower left */
-  .item-garbachos-chela {
-    width: 190px;
-    top: 45%;
-    left: 2%;
-  }
-
-  /* 4. Tweet Organa — center */
-  .item-tweet-organa {
-    width: 220px;
-    top: 35%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  /* 5. Organa Leaf — right center */
   .item-organa-leaf {
-    width: 190px;
-    top: 20%;
-    left: 55%;
-    transform: none;
+    width: 180px;
+    top: 40%;
+    left: 50%;
   }
-
-  /* 6. Smart Storie — lower right */
-  .item-smart-storie {
-    width: 175px;
-    top: 55%;
-    left: 55%;
-    bottom: unset;
-    right: unset;
+  .item-tweet-organa {
+    top: 60%;
+    left: 10%;
+    width: 250px;
   }
 }
 /* Footer */
@@ -1441,7 +1381,54 @@ h3 {
     font-size: 11px;
     padding: 4px 10px;
   }
-  /* Testimonials mobile overrides consolidated in the earlier @media (max-width: 768px) block */
+  /* ------------------------------------------------------------------
+     TESTIMONIALS SECTION - MOBILE (Simplified collage)
+     ------------------------------------------------------------------ */
+  .bsm-testimonials {
+    overflow: hidden;
+  }
+  .testimonials-sticky-wrapper {
+    height: 300vh;
+  }
+  .testimonials-collage {
+    overflow: hidden;
+  }
+  .collage-item {
+    width: 100px;
+    opacity: 0;
+  }
+  .collage-item img {
+    border-radius: 8px;
+  }
+  .item-tweet-cd816 {
+    width: 160px;
+  }
+  .item-organa-leaf {
+    width: 120px;
+  }
+  .bsm-testimonials {
+    position: relative;
+    z-index: 1;
+  }
+  .testimonials-sticky-wrapper {
+    height: 250vh;
+    position: relative;
+  }
+  .testimonials-collage {
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+  }
+  .collage-item {
+    width: 100px;
+    opacity: 0;
+  }
+  .item-tweet-cd816 {
+    width: 150px;
+  }
+  .item-organa-leaf {
+    width: 100px;
+  }
   /* ------------------------------------------------------------------
      FOOTER - MOBILE (With animation)
      ------------------------------------------------------------------ */
@@ -1474,5 +1461,142 @@ h3 {
   }
   .footer-background {
     display: none;
+  }
+}
+.contact-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1100;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.contact-drawer-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.contact-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 520px;
+  height: 100vh;
+  height: 100dvh;
+  background-color: #000;
+  z-index: 1200;
+  transform: translateX(100%);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.contact-drawer.is-open {
+  transform: translateX(0);
+}
+
+.contact-drawer-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+  flex-shrink: 0;
+}
+.contact-drawer-close:hover {
+  opacity: 0.7;
+}
+
+.contact-drawer-content {
+  padding: 80px 48px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  height: 100%;
+}
+
+.contact-drawer-title {
+  font-family: "Right Grotesk Compact", sans-serif;
+  font-weight: 700;
+  font-size: 2.8rem;
+  line-height: 1;
+  color: #6a23cd;
+  text-transform: uppercase;
+}
+
+.contact-drawer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1;
+}
+
+.contact-field {
+  border-bottom: 1px solid #fff;
+}
+.contact-field--textarea {
+  border-bottom: none;
+}
+.contact-field--submit {
+  border-bottom: none;
+  margin-top: 8px;
+}
+.contact-field input,
+.contact-field textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: "Clash Grotesk", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #fff;
+  padding: 8px 0;
+  resize: none;
+}
+.contact-field input::placeholder,
+.contact-field textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.contact-drawer-submit {
+  display: inline-block;
+  font-family: "Clash Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 32px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.contact-drawer-submit:hover {
+  background-color: #6a23cd;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .contact-drawer {
+    width: 100%;
+  }
+  .contact-drawer-content {
+    padding: 70px 24px 48px;
+  }
+  .contact-drawer-title {
+    font-size: 2.2rem;
   }
 }
