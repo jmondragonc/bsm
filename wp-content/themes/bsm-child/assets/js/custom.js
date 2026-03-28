@@ -224,33 +224,30 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
     framesContainer.style.position = "relative";
 
-    // Secuencia de frames con timing por paso: [frameIndex, msHastaProximoCambio]
-    // B: empieza en 0, termina en 0
+    // Secuencia de frames: duración ~1500ms, 13 frames. B: termina en 0
     var bSequence = [
-      // Fase 1: ráfaga rápida (80ms)
-      [1, 80], [2, 80], [0, 80], [1, 80], [2, 80], [0, 80], [1, 80], [2, 80],
-      // Fase 2: velocidad media (150ms)
-      [0, 150], [1, 150], [2, 150], [0, 150], [1, 150], [2, 150],
-      [0, 150], [1, 150], [2, 150], [0, 150],
-      // Fase 3: desacelerando (250ms)
-      [1, 250], [2, 250], [0, 250], [1, 250], [2, 250], [0, 250],
-      // Fase 4: pausa dramática antes del final (400ms)
-      [1, 400], [2, 400], [0, 400], [1, 400],
+      // Fase 1: ráfaga rápida (50ms × 4 = 200ms)
+      [1, 50], [2, 50], [0, 50], [1, 50],
+      // Fase 2: velocidad media (100ms × 4 = 400ms)
+      [2, 100], [0, 100], [1, 100], [2, 100],
+      // Fase 3: desacelerando (150ms × 3 = 450ms)
+      [0, 150], [1, 150], [2, 150],
+      // Fase 4: pausa dramática (225ms × 2 = 450ms)
+      [0, 225], [1, 225],
       // Frame final
       [0, 0]
     ];
 
-    // M: arranca 120ms después, secuencia propia para desincronizar
+    // M: arranca 120ms después, secuencia propia. Frame final: m3.svg (índice 2)
     var mSequence = [
-      // Fase 1: ráfaga rápida
-      [2, 80], [1, 80], [0, 80], [2, 80], [1, 80], [0, 80], [2, 80], [1, 80],
-      // Fase 2: velocidad media
-      [0, 150], [2, 150], [1, 150], [0, 150], [2, 150], [1, 150],
-      [0, 150], [2, 150], [1, 150], [0, 150],
-      // Fase 3: desacelerando
-      [2, 250], [1, 250], [0, 250], [2, 250], [1, 250], [0, 250],
-      // Fase 4: pausa dramática
-      [2, 400], [1, 400], [0, 400], [2, 400],
+      // Fase 1: ráfaga rápida (50ms × 4 = 200ms)
+      [2, 50], [1, 50], [0, 50], [2, 50],
+      // Fase 2: velocidad media (100ms × 4 = 400ms)
+      [1, 100], [0, 100], [2, 100], [1, 100],
+      // Fase 3: desacelerando (150ms × 3 = 450ms)
+      [0, 150], [2, 150], [1, 150],
+      // Fase 4: pausa dramática (225ms × 2 = 450ms)
+      [0, 225], [2, 225],
       // Frame final: m3.svg (índice 2)
       [2, 0]
     ];
@@ -284,21 +281,26 @@ const isMobileDevice = () => window.innerWidth <= 768;
       }
     }
 
-    // B inicia de inmediato, M con 120ms de offset para efecto orgánico
+    // 1) Logo grande: scale 1.2 → 1.0 en 0.2s
+    // Scale 1 → 0.8 en paralelo con la animación de letras
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        framesContainer.style.transition = "transform 0.75s ease-out";
+        framesContainer.style.transform = "scale(0.8)";
+      });
+    });
+
+    // Animación de letras arranca al mismo tiempo
     playSequence(bFrames, bSequence, 0);
     setTimeout(function () {
       playSequence(mFrames, mSequence, 0);
     }, 120);
 
-    // Al terminar la animación (~5250ms), mostrar solo el nav (cae desde arriba)
-    // El hero-title aparece al hacer scroll, no aquí
-    var BSM_ANIM_DURATION = 5250;
+    // 3) Header cae al terminar la animación: 200ms scale + 1500ms letras + 300ms buffer
+    var BSM_ANIM_DURATION = 2000;
     setTimeout(function () {
       var nav = document.querySelector(".bsm-nav");
       if (!nav) return;
-      // Si el usuario no ha hecho scroll, el nav cae sobre el hero púrpura.
-      // checkBackground() no puede detectarlo (el nav estaba fuera del viewport),
-      // así que añadimos on-purple manualmente para evitar el mix-blend-mode verde.
       if (window.scrollY < 50) {
         nav.classList.add("on-purple");
       }
