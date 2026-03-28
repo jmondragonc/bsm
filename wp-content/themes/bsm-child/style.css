@@ -189,9 +189,9 @@ h3 {
 .hero-title {
   text-align: center;
   margin-top: 70px;
-  opacity: 0;
-  transform: translateY(100px);
-  will-change: transform, opacity;
+  opacity: 1;
+  transform: translateY(100vh);
+  will-change: transform;
 }
 
 .hero-title h1 {

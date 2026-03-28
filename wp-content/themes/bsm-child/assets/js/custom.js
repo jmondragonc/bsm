@@ -112,13 +112,13 @@ const isMobileDevice = () => window.innerWidth <= 768;
     const heroHeight = heroSection.offsetHeight;
     const scrollProgress = Math.min(scrollY / heroHeight, 1);
 
-    // Fase 1 (0% → 35%): hero-title sube desde abajo hasta su posición final
+    // Fase 1 (0% → 35%): hero-title sube desde 100vh hasta su posición final, sin fade
     const titleThreshold = heroHeight * 0.35;
     if (heroTitle) {
       const titleProgress = Math.min(scrollY / titleThreshold, 1);
-      const titleOffset = 100 * (1 - titleProgress);
+      const titleOffset = window.innerHeight * (1 - titleProgress);
       heroTitle.style.transform = `translateY(${titleOffset}px)`;
-      heroTitle.style.opacity = titleProgress;
+      heroTitle.style.opacity = "1";
     }
 
     // Fase 2 (35% → 100%): letras salen hacia arriba SOLO después de que el título llegó
