@@ -86,7 +86,7 @@ h3 {
     h1 {
       font-family: $font-headings;
       font-weight: bold;
-      font-size: 3.4rem;
+      font-size: 4rem;
       font-style: normal;
     }
   }
@@ -1664,7 +1664,9 @@ h3 {
   z-index: 1100;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s ease;
 
   &.is-open {
     opacity: 1;
@@ -1787,7 +1789,9 @@ h3 {
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  transition: background-color $transition-base, color $transition-base;
+  transition:
+    background-color $transition-base,
+    color $transition-base;
 
   &:hover {
     background-color: $color-primary;

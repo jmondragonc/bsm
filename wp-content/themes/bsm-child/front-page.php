@@ -324,7 +324,7 @@ get_header(); ?>
                     <input type="text" name="asunto" placeholder="Asunto" required>
                 </div>
                 <div class="contact-field contact-field--textarea">
-                    <textarea name="mensaje" rows="5">Hola equipo de BSM,</textarea>
+                    <textarea name="mensaje" rows="3" placeholder="Hola equipo de BSM,"></textarea>
                 </div>
                 <div class="contact-field contact-field--submit">
                     <button type="submit" class="contact-drawer-submit">EMPECEMOS</button>

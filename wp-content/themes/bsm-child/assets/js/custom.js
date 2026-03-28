@@ -251,8 +251,8 @@ const isMobileDevice = () => window.innerWidth <= 768;
       [2, 250], [1, 250], [0, 250], [2, 250], [1, 250], [0, 250],
       // Fase 4: pausa dramática
       [2, 400], [1, 400], [0, 400], [2, 400],
-      // Frame final
-      [0, 0]
+      // Frame final: m3.svg (índice 2)
+      [2, 0]
     ];
 
     function showFrame(frames, index) {
