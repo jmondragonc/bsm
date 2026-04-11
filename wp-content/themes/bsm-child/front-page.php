@@ -147,9 +147,9 @@ get_header(); ?>
                         $proyectos = get_field('work_proyectos');
                         if ($proyectos) :
                             foreach ($proyectos as $proyecto) :
-                                $img      = get_field('proyecto_imagen_card', $proyecto->ID);
-                                $img_url  = $img ? $img['url'] : '';
-                                $img_alt  = $img ? $img['alt'] : get_the_title($proyecto->ID);
+                                $img       = get_field('proyecto_imagen_card', $proyecto->ID);
+                                $img_url   = $img ? $img['url'] : '';
+                                $img_alt   = $img ? $img['alt'] : get_the_title($proyecto->ID);
                                 $categoria = get_field('proyecto_categoria', $proyecto->ID) ?: '';
                                 $tags_raw  = get_field('proyecto_tags', $proyecto->ID) ?: array();
                         ?>
@@ -171,8 +171,31 @@ get_header(); ?>
                         </a>
                         <?php
                             endforeach;
-                        endif;
-                        ?>
+                        else :
+                            // Fallback hardcodeado mientras no se configuren proyectos en ACF
+                            $fallback = array(
+                                array('href' => home_url('/proyecto/smart-blends'), 'img' => get_stylesheet_directory_uri() . '/assets/images/smart-blends.svg', 'alt' => 'Smart Blends', 'nombre' => 'Smart Blends', 'cat' => 'Productos Saludables', 'tags' => array('branding','packaging')),
+                                array('href' => home_url('/proyecto/organa'),       'img' => get_stylesheet_directory_uri() . '/assets/images/organa.svg',       'alt' => 'Organa',       'nombre' => 'Organa',       'cat' => 'Retail',              'tags' => array('naming','branding')),
+                                array('href' => home_url('/proyecto/garbachos'),    'img' => get_stylesheet_directory_uri() . '/assets/images/garbachos.svg',    'alt' => 'Garbachos',    'nombre' => 'Garbachos',    'cat' => 'Comestibles',         'tags' => array('estrategia','branding','packaging')),
+                                array('href' => home_url('/proyecto/smart-blends'), 'img' => get_stylesheet_directory_uri() . '/assets/images/smart-blends.svg', 'alt' => 'Smart Blends', 'nombre' => 'Smart Blends', 'cat' => 'Productos Saludables', 'tags' => array('branding','packaging')),
+                            );
+                            foreach ($fallback as $item) : ?>
+                        <a class="work-item" href="<?php echo esc_url($item['href']); ?>">
+                            <div class="work-image">
+                                <img src="<?php echo esc_url($item['img']); ?>" alt="<?php echo esc_attr($item['alt']); ?>">
+                            </div>
+                            <div class="work-info">
+                                <h3><?php echo esc_html($item['nombre']); ?></h3>
+                                <p><?php echo esc_html($item['cat']); ?></p>
+                                <div class="work-tags">
+                                    <?php foreach ($item['tags'] as $tag) : ?>
+                                    <span class="tag"><?php echo esc_html($tag); ?></span>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </a>
+                        <?php endforeach;
+                        endif; ?>
                     </div>
                 </div>
             </div>
