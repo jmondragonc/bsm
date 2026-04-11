@@ -67,7 +67,7 @@ get_header(); ?>
                         </div>
                     </div>
                     <div class="hero-title">
-                        <h1>CREAMOS MARCAS<br>PARA EL FUTURO</h1>
+                        <h1><?php echo wp_kses(get_field('hero_titulo') ?: 'CREAMOS MARCAS<br>PARA EL FUTURO', array('br' => array())); ?></h1>
                     </div>
                 </div>
             </div>
@@ -78,39 +78,30 @@ get_header(); ?>
     <section class="bsm-what-we-do" data-bg="light">
         <div class="container">
             <div>
-                <h2 class="animate-fade-up">¿QUÉ HACEMOS?</h2>
-                <p class="subtitle animate-fade-up">Nos especializamos en transformar marcas con estrategia, diseño y comunicación.</p>
+                <h2 class="animate-fade-up"><?php echo esc_html(get_field('qh_titulo') ?: '¿QUÉ HACEMOS?'); ?></h2>
+                <p class="subtitle animate-fade-up"><?php echo esc_html(get_field('qh_subtitulo') ?: 'Nos especializamos en transformar marcas con estrategia, diseño y comunicación.'); ?></p>
             </div>
             <div></div>
             <div>
                 <div class="services-grid">
+                    <?php
+                    $servicios_default = array(
+                        array('nombre' => 'Estrategia',  'descripcion' => 'Nuestro trabajo es hacer que tu marca sea única, por más que el mercado este saturado. Ser auténtico es lo más preciado por la gente.'),
+                        array('nombre' => 'Creatividad', 'descripcion' => 'Desarrollamos ideas creativas que conectan con tu audiencia y hacen que tu marca destaque en el mercado.'),
+                        array('nombre' => 'Diseño',      'descripcion' => 'Creamos experiencias visuales memorables que reflejan la esencia de tu marca y generan impacto.'),
+                    );
+                    $servicios = get_field('qh_servicios') ?: $servicios_default;
+                    foreach ($servicios as $servicio) : ?>
                     <div class="service-item animate-slide-left">
                         <div class="service-header">
-                            <h3>Estrategia</h3>
+                            <h3><?php echo esc_html($servicio['nombre']); ?></h3>
                             <button class="expand-btn">+</button>
                         </div>
                         <div class="service-content">
-                            <p>Nuestro trabajo es hacer que tu marca sea única, por más que el mercado este saturado. Ser auténtico es lo más preciado por la gente.</p>
+                            <p><?php echo esc_html($servicio['descripcion']); ?></p>
                         </div>
                     </div>
-                    <div class="service-item animate-slide-left">
-                        <div class="service-header">
-                            <h3>Creatividad</h3>
-                            <button class="expand-btn">+</button>
-                        </div>
-                        <div class="service-content">
-                            <p>Desarrollamos ideas creativas que conectan con tu audiencia y hacen que tu marca destaque en el mercado.</p>
-                        </div>
-                    </div>
-                    <div class="service-item animate-slide-left">
-                        <div class="service-header">
-                            <h3>Diseño</h3>
-                            <button class="expand-btn">+</button>
-                        </div>
-                        <div class="service-content">
-                            <p>Creamos experiencias visuales memorables que reflejan la esencia de tu marca y generan impacto.</p>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
@@ -120,17 +111,25 @@ get_header(); ?>
     <div class="bsm-experience-wrapper">
     <section class="bsm-full-experience" data-bg="dark">
         <div class="container">
-            <h2 class="mobile-break">CREAMOS<br>UNA<br>EXPERIENCIA<br>DE<br>MARCA<br>COMPLETA</h2>
+            <h2 class="mobile-break"><?php echo wp_kses(get_field('exp_titulo') ?: 'CREAMOS <br>UNA<br>EXPERIENCIA<br>DE<br>MARCA<br>COMPLETA', array('br' => array())); ?></h2>
 
             <div class="services-tags">
-                <span class="tag tag-1">BRANDING</span>
-                <span class="tag tag-2">NAMING</span>
-                <span class="tag tag-3">PACKAGING</span>
-                <span class="tag tag-4">SOCIAL MEDIA</span>
-                <span class="tag tag-5">CAMPAÑAS CREATIVAS</span>
-                <span class="tag tag-6">POSICIONAMIENTO</span>
-                <span class="tag tag-7">MANUAL DE MARCA</span>
-                <span class="tag tag-8">Y MÁS</span>
+                <?php
+                $tags_default = array(
+                    array('texto' => 'BRANDING'),
+                    array('texto' => 'NAMING'),
+                    array('texto' => 'PACKAGING'),
+                    array('texto' => 'SOCIAL MEDIA'),
+                    array('texto' => 'CAMPAÑAS CREATIVAS'),
+                    array('texto' => 'POSICIONAMIENTO'),
+                    array('texto' => 'MANUAL DE MARCA'),
+                    array('texto' => 'Y MÁS'),
+                );
+                $exp_tags = get_field('exp_tags') ?: $tags_default;
+                foreach ($exp_tags as $i => $tag) :
+                    $n = $i + 1; ?>
+                <span class="tag tag-<?php echo $n; ?>"><?php echo esc_html($tag['texto']); ?></span>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>
@@ -142,132 +141,81 @@ get_header(); ?>
             <!-- Horizontal Scroll Container -->
             <div class="bsm-work-sticky-wrapper">
                 <div class="bsm-work-container">
-                    <h2>TRABAJAMOS CON CLIENTES<br>CON VISIÓN</h2>
+                    <h2><?php echo wp_kses(get_field('work_titulo') ?: 'TRABAJAMOS CON CLIENTES<br>CON VISIÓN', array('br' => array())); ?></h2>
                     <div class="bsm-work-track">
-                        <!-- Item 1: Smart Blends -->
-                        <div class="work-item">
+                        <?php
+                        $proyectos = get_field('work_proyectos');
+                        if ($proyectos) :
+                            foreach ($proyectos as $proyecto) :
+                                $img      = get_field('proyecto_imagen_card', $proyecto->ID);
+                                $img_url  = $img ? $img['url'] : '';
+                                $img_alt  = $img ? $img['alt'] : get_the_title($proyecto->ID);
+                                $categoria = get_field('proyecto_categoria', $proyecto->ID) ?: '';
+                                $tags_raw  = get_field('proyecto_tags', $proyecto->ID) ?: array();
+                        ?>
+                        <a class="work-item" href="<?php echo esc_url(get_permalink($proyecto->ID)); ?>">
                             <div class="work-image">
-                                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends.svg"
-                                    alt="Smart Blends">
+                                <?php if ($img_url) : ?>
+                                <img src="<?php echo esc_url($img_url); ?>" alt="<?php echo esc_attr($img_alt); ?>">
+                                <?php endif; ?>
                             </div>
                             <div class="work-info">
-                                <h3>Smart Blends</h3>
-                                <p>Productos Saludables</p>
+                                <h3><?php echo esc_html(get_the_title($proyecto->ID)); ?></h3>
+                                <p><?php echo esc_html($categoria); ?></p>
                                 <div class="work-tags">
-                                    <span class="tag">branding</span>
-                                    <span class="tag">packaging</span>
+                                    <?php foreach ($tags_raw as $tag) : ?>
+                                    <span class="tag"><?php echo esc_html($tag['texto']); ?></span>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Item 2: Organa -->
-                        <div class="work-item">
-                            <div class="work-image">
-                                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa.svg" 
-                                    alt="Organa">
-                            </div>
-                            <div class="work-info">
-                                <h3>Organa</h3>
-                                <p>Retail</p>
-                                <div class="work-tags">
-                                    <span class="tag">naming</span>
-                                    <span class="tag">branding</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Item 3: Garbachos -->
-                        <div class="work-item">
-                            <div class="work-image">
-                                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos.svg"
-                                    alt="Garbachos">
-                            </div>
-                            <div class="work-info">
-                                <h3>Garbachos</h3>
-                                <p>Comestibles</p>
-                                <div class="work-tags">
-                                    <span class="tag">estrategia</span>
-                                    <span class="tag">branding</span>
-                                    <span class="tag">packaging</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Item 4: Smart Blends (Duplicate) -->
-                        <div class="work-item">
-                            <div class="work-image">
-                                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends.svg"
-                                    alt="Smart Blends">
-                            </div>
-                            <div class="work-info">
-                                <h3>Smart Blends</h3>
-                                <p>Productos Saludables</p>
-                                <div class="work-tags">
-                                    <span class="tag">branding</span>
-                                    <span class="tag">packaging</span>
-                                </div>
-                            </div>
-                        </div>
+                        </a>
+                        <?php
+                            endforeach;
+                        endif;
+                        ?>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="bsm-testimonials" data-bg="dark">
-        <div class="testimonials-sticky-wrapper">
-            <div class="testimonials-collage">
-                <!-- 1. Garbachos Bocas (Top Left Cropped) -->
-                <div class="collage-item item-garbachos-bocas">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos-bocas.svg" alt="Garbachos Bocas">
-                </div>
+    <!-- Reconocimientos Section -->
+    <section class="bsm-reconocimientos" data-bg="light">
+        <h2 class="reconocimientos-titulo"><?php echo esc_html(get_field('rec_titulo') ?: 'RECONOCIMIENTOS:'); ?></h2>
 
-                <!-- 2. Tweet Garbachos (Top Left/Mid) -->
-                <div class="collage-item item-tweet-garbachos">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/tweet1.png" alt="Tweet Garbachos">
-                </div>
-                
-                <!-- 3. Garbachos Chela Poster (Mid Left) -->
-                <div class="collage-item item-garbachos-chela">
-                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/garbachos-chela.svg" alt="Garbachos Chela">
-                </div>
+        <div class="reconocimientos-carousel-wrapper">
+            <div class="reconocimientos-track" id="reconocimientosTrack">
 
-                <!-- 4. Tweet CD (Top Center - Big) -->
-                <div class="collage-item item-tweet-cd816">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/tweet2.png" alt="Tweet CD 816">
+                <?php
+                $slides_acf = get_field('rec_slides');
+                // Fallback hardcoded si aún no hay datos en ACF
+                $slides_default = array(
+                    array('logo' => array('url' => get_stylesheet_directory_uri() . '/assets/images/interna/1.organa.svg',       'alt' => 'Organa'),       'quote' => '"Nos crearon el nombre, el branding, el E-commerce, la estrategia y nuestra franquicia de vitaminas y suplementos"', 'autor' => 'Arturo H',         'cargo' => 'Fundador y Gerente'),
+                    array('logo' => array('url' => get_stylesheet_directory_uri() . '/assets/images/interna/2.smart-blends.svg', 'alt' => 'Smart Blends'), 'quote' => '"Sorprendidos con la transformación de nuestro Branding; llevaron nuestros empaques a otro nivel."',             'autor' => 'Scarly T',         'cargo' => 'Gerente General'),
+                    array('logo' => array('url' => get_stylesheet_directory_uri() . '/assets/images/interna/3.plaza-vea.svg',    'alt' => 'Plaza Vea'),    'quote' => '"Rediseñaron nuestro programa \'Bueno por dentro\', logrando transmitir nuestro propósito social"',            'autor' => 'Paulina y Micaela', 'cargo' => 'Equipo de sostenibilidad'),
+                    array('logo' => array('url' => get_stylesheet_directory_uri() . '/assets/images/interna/4.crocantitos.svg',  'alt' => 'Crocantitos'),  'quote' => '"Rediseñaron nuestros empaques para competir en el mercado de USA"',                                           'autor' => 'Mr. D',            'cargo' => 'Gerente General'),
+                    array('logo' => array('url' => get_stylesheet_directory_uri() . '/assets/images/interna/5.cosecha-andina.svg','alt'=> 'Cosecha Andina'),'quote' => '"Crearon nuestra nueva línea de snacks: desde el nombre hasta el empaque, quedó Increíble"',                'autor' => 'Susan F',          'cargo' => 'Gerente General'),
+                );
+                $slides = $slides_acf ?: $slides_default;
+                foreach ($slides as $slide) :
+                    $logo = $slide['logo'];
+                ?>
+                <div class="reconocimiento-slide">
+                    <div class="reconocimiento-logo">
+                        <img src="<?php echo esc_url($logo['url']); ?>" alt="<?php echo esc_attr($logo['alt']); ?>">
+                    </div>
+                    <blockquote class="reconocimiento-quote"><?php echo esc_html($slide['quote']); ?></blockquote>
+                    <div class="reconocimiento-autor">
+                        <span class="reconocimiento-nombre"><?php echo esc_html($slide['autor']); ?></span>
+                        <span class="reconocimiento-cargo"><?php echo esc_html($slide['cargo']); ?></span>
+                    </div>
                 </div>
+                <?php endforeach; ?>
 
-                <!-- 5. Tweet Smart (Top Right) -->
-                <div class="collage-item item-tweet-smart">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/tweet4.png" alt="Tweet Smart">
-                </div>
-
-                <!-- 6. Tweet Organa (Center/Mid) -->
-                <div class="collage-item item-tweet-organa">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/tweet3.png" alt="Tweet Organa">
-                </div>
-
-                <!-- 7. Organa Leaf (Center Focus) -->
-                <div class="collage-item item-organa-leaf">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa.svg" alt="Organa Leaf">
-                </div>
-                
-                <!-- 8. Smart Yellow (Right Mid) -->
-                <div class="collage-item item-smart-yellow">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends-carrusel.png" alt="Smart Blends Yellow">
-                </div>
-
-                <!-- 9. Organa Postres (Bottom Center/Left) -->
-                <div class="collage-item item-organa-postres">
-                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/organa-1.png" alt="Organa Postres">
-                </div>
-
-                <!-- 10. Smart Storie (Bottom Right) -->
-                <div class="collage-item item-smart-storie">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/smart-blends-storie.png" alt="Smart Blends Storie">
-                </div>
             </div>
+
+            <!-- Dots -->
+            <div class="reconocimientos-dots" id="reconocimientosDots"></div>
         </div>
     </section>
 
@@ -278,17 +226,24 @@ get_header(); ?>
     <footer class="bsm-footer">
         <div class="footer-top">
             <div class="footer-info-left">
-                <div>LIMA, PERÚ</div>
+                <div><?php echo esc_html(get_field('footer_ciudad') ?: 'LIMA, PERÚ'); ?></div>
             </div>
-            
+
             <div class="footer-info-right">
                 <div class="footer-socials">
                     <div>SÍGUENOS</div>
-                    <a href="#" target="_blank">INSTAGRAM</a>
-                    <a href="#" target="_blank">LINKEDIN</a>
+                    <?php
+                    $redes_default = array(
+                        array('nombre' => 'INSTAGRAM', 'url' => '#'),
+                        array('nombre' => 'LINKEDIN',  'url' => '#'),
+                    );
+                    $redes = get_field('footer_redes') ?: $redes_default;
+                    foreach ($redes as $red) : ?>
+                    <a href="<?php echo esc_url($red['url']); ?>" target="_blank"><?php echo esc_html($red['nombre']); ?></a>
+                    <?php endforeach; ?>
                 </div>
                 <div class="footer-copyright">
-                    ©BSM 2025
+                    <?php echo esc_html(get_field('footer_anio') ?: '©BSM 2025'); ?>
                 </div>
             </div>
         </div>

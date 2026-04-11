@@ -41,7 +41,64 @@ function disable_emojis() {
 }
 add_action('init', 'disable_emojis');
 
-// Remove unnecessary WordPress CSS
+// Register custom post type: Proyecto
+function bsm_register_proyecto_cpt() {
+    register_post_type('proyecto', array(
+        'labels' => array(
+            'name'          => 'Proyectos',
+            'singular_name' => 'Proyecto',
+            'add_new_item'  => 'Añadir Proyecto',
+            'edit_item'     => 'Editar Proyecto',
+        ),
+        'public'        => true,
+        'has_archive'   => false,
+        'rewrite'       => array('slug' => 'proyecto'),
+        'supports'      => array('title', 'thumbnail'),
+        'show_in_rest'  => true,
+        'menu_icon'     => 'dashicons-portfolio',
+    ));
+}
+add_action('init', 'bsm_register_proyecto_cpt');
+
+// ─── ACF Field Groups ─────────────────────────────────────────────────────────
+add_action('acf/init', function() {
+    require_once get_stylesheet_directory() . '/acf-fields.php';
+});
+
+// ─── Deshabilitar editor clásico y de bloques en todos los CPTs ──────────────
+add_filter('use_block_editor_for_post', '__return_false');
+add_filter('use_block_editor_for_post_type', '__return_false');
+
+// Ocultar el metabox del editor clásico (si Classic Editor plugin está activo)
+add_filter('classic_editor_enabled_editors_for_post_type', function($editors) {
+    return array('classic_editor' => false, 'block_editor' => false);
+});
+
+// ─── Soporte para SVG, WebP y AVIF ───────────────────────────────────────────
+function bsm_allow_mime_types($mimes) {
+    $mimes['svg']  = 'image/svg+xml';
+    $mimes['webp'] = 'image/webp';
+    $mimes['avif'] = 'image/avif';
+    return $mimes;
+}
+add_filter('upload_mimes', 'bsm_allow_mime_types');
+
+// Validación correcta de SVG (evita el check de tipo por extensión)
+function bsm_fix_svg_mime_type($data, $file, $filename, $mimes) {
+    $ext = pathinfo($filename, PATHINFO_EXTENSION);
+    if ($ext === 'svg') {
+        $data['type'] = 'image/svg+xml';
+        $data['ext']  = 'svg';
+    }
+    if ($ext === 'avif') {
+        $data['type'] = 'image/avif';
+        $data['ext']  = 'avif';
+    }
+    return $data;
+}
+add_filter('wp_check_filetype_and_ext', 'bsm_fix_svg_mime_type', 10, 4);
+
+// ─── Remove unnecessary WordPress CSS ────────────────────────────────────────
 function remove_wp_block_library_css() {
     wp_dequeue_style('wp-block-library');
     wp_dequeue_style('wp-block-library-theme');
