@@ -7,49 +7,6 @@
 const isMobileDevice = () => window.innerWidth <= 768;
 
 /**
- * Smooth scroll para links de ancla (#work, #about, etc.)
- */
-(function () {
-  "use strict";
-
-  function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
-      const hash = link.getAttribute("href");
-      if (!hash || hash === "#") return;
-
-      link.addEventListener("click", function (e) {
-        const target = document.querySelector(hash);
-        if (!target) return;
-
-        e.preventDefault();
-
-        // Cerrar menú mobile si está abierto
-        const mobileOverlay = document.querySelector(".mobile-menu-overlay");
-        const mobileBtn = document.querySelector(".mobile-menu-btn");
-        if (mobileOverlay && mobileOverlay.classList.contains("is-active")) {
-          mobileOverlay.classList.remove("is-active");
-          if (mobileBtn) mobileBtn.classList.remove("is-active");
-          document.body.style.overflow = "";
-        }
-
-        const targetY = target.getBoundingClientRect().top + window.scrollY;
-
-        window.scrollTo({
-          top: targetY,
-          behavior: "smooth",
-        });
-      });
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initSmoothScroll);
-  } else {
-    initSmoothScroll();
-  }
-})();
-
-/**
  * Mobile Menu Toggle
  */
 (function () {
@@ -1013,13 +970,14 @@ const isMobileDevice = () => window.innerWidth <= 768;
   "use strict";
 
   function initProyectoAcordeon() {
-    const btn   = document.querySelector(".proyecto-seguir-btn");
+    const btn = document.querySelector(".proyecto-seguir-btn");
     const panel = document.querySelector(".proyecto-acordeon");
 
     if (!btn || !panel) return;
 
     btn.addEventListener("click", function () {
       const isOpen = panel.classList.contains("is-open");
+
       panel.classList.toggle("is-open", !isOpen);
       panel.setAttribute("aria-hidden", isOpen ? "true" : "false");
       btn.setAttribute("aria-expanded", isOpen ? "false" : "true");
@@ -1081,7 +1039,7 @@ const isMobileDevice = () => window.innerWidth <= 768;
     });
 
     // Galería con stagger
-    main.querySelectorAll(".galeria-fila").forEach((el, i) => {
+    main.querySelectorAll(".galeria-item").forEach((el, i) => {
       el.style.transitionDelay = `${i * 0.1}s`;
       observer.observe(el);
     });

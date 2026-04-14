@@ -12,6 +12,8 @@ Text Domain: bsm-child
 */
 
 @import "variables";
+@import "header-interna";
+@import "proyecto-interna";
 
 /* General Styles */
 * {
@@ -47,7 +49,7 @@ body {
 h1,
 h2,
 h3 {
-  font-family: "Right Grotesk", sans-serif;
+  font-family: "Right Grotesk Compact", sans-serif;
 }
 
 /* Animations */
@@ -214,7 +216,7 @@ h3 {
 }
 
 .hero-title h1 {
-  font-family: "Right Grotesk", sans-serif;
+  font-family: "Right Grotesk Compact", sans-serif;
   font-weight: 700;
   font-size: 64px;
   line-height: 0.83;
@@ -388,7 +390,7 @@ h3 {
 }
 
 .bsm-what-we-do h2 {
-  font-family: "Right Grotesk", sans-serif;
+  font-family: "Right Grotesk Compact", sans-serif;
   font-weight: 700;
   font-size: 64px;
   line-height: 0.85;
@@ -531,7 +533,7 @@ h3 {
   position: relative;
   width: 100%;
   height: 100vh;
-  background-color: #6023f0; /* Purple */
+  background-color: #6a23cd; /* Purple */
   color: #000;
   padding: 40px;
   z-index: 10;
@@ -636,7 +638,7 @@ h3 {
 }
 
 .bsm-full-experience h2 {
-  font-family: "Right Grotesk", sans-serif;
+  font-family: "Right Grotesk Compact", sans-serif;
   font-weight: 700;
   font-size: 180px;
   line-height: 0.83;
@@ -746,22 +748,20 @@ h3 {
 
 /* Work Section */
 .bsm-work {
-  padding: 0 0 0;
+  padding: 0;
+  padding-top: 80px;
   background-color: #fff;
-  /* overflow: hidden; Removed to allow sticky positioning to work */
-
   .container {
-    padding: 0 0 96px 48px; /* Left padding for title alignment */
-    /* Ensure container allows swiper to overflow right */
     max-width: 100%;
-    padding-right: 0;
+    padding: 0;
+    padding-left: 48px;
   }
 }
 
 .bsm-work h2 {
   font-family: "Right Grotesk Compact";
-  font-size: 60px;
-  line-height: 0.9;
+  font-size: 64px;
+  line-height: 0.85;
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -781,14 +781,15 @@ h3 {
   position: sticky;
   top: 0;
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  height: 900px;
+  overflow-x: hidden;
+  overflow-y: visible;
   display: flex;
-  flex-direction: column; /* Stack Title and Track */
-  justify-content: flex-start; /* Changed from center to prevent title cut-off */
+  flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
-  padding-left: 0; /* Container padding */
-  padding-top: 96px; /* Space for title */
+  padding-left: 0;
+  padding-top: 0;
 }
 
 .bsm-work-track {
@@ -796,8 +797,13 @@ h3 {
   gap: 30px; /* Space between items */
   width: max-content;
   will-change: transform;
-  padding-left: 0; /* Removed double padding */
+  padding-left: 0;
   padding-right: 56px; /* End padding */
+}
+
+a.work-item {
+  text-decoration: none;
+  color: inherit;
 }
 
 .work-item {
@@ -891,246 +897,137 @@ h3 {
 
 /* Redundant blocks removed to fix duplication and syntax issues */
 
-/* Testimonials Section */
-.bsm-testimonials {
-  background-color: #000;
-  padding: 0; /* Sticky wrapper handles spacing */
+/* ─── Reconocimientos Section ──────────────────────────────────────────────── */
+.bsm-reconocimientos {
+  background-color: #fff;
+  height: 900px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 56px 80px;
+  box-sizing: border-box;
 }
 
-.testimonials-sticky-wrapper {
+.reconocimientos-titulo {
+  font-family: "Right Grotesk Compact", sans-serif;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #000;
+  margin: 0 0 72px;
+}
+
+.reconocimientos-carousel-wrapper {
   position: relative;
-  width: 100%;
-  height: 550vh; /* Ajustado para terminar justo con el último elemento */
-}
-
-.testimonials-collage {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  height: 100vh;
   overflow: hidden;
-  background-color: #000;
-  perspective: 1000px; /* For potential 3D feel */
 }
 
-.collage-item {
-  position: absolute;
-  width: auto;
-  opacity: 0; /* Start hidden */
-  transform: scale(0.5); /* Start small */
-  will-change: transform, opacity;
+.reconocimientos-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.reconocimiento-slide {
+  flex: 0 0 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 10%;
+}
+
+.reconocimiento-logo {
+  margin-bottom: 40px;
 
   img {
-    width: 100%;
-    height: auto;
+    height: 36px;
+    width: auto;
     display: block;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); /* Shadow for depth */
-    border-radius: 12px;
+    margin: 0 auto;
+    filter: brightness(0);
   }
 }
 
-/* Item Positions (Exact match to Reference) */
-
-/* 1. Garbachos Bocas (Top Left Cropped) */
-.item-garbachos-bocas {
-  top: -10%;
-  left: -5%;
-  width: 200px;
-  z-index: 1;
-  transform: rotate(-10deg);
+.reconocimiento-quote {
+  font-family: "Clash Grotesk", sans-serif;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 1.2;
+  color: #000;
+  margin: 0 0 48px;
+  max-width: 860px;
 }
 
-/* 2. Tweet Garbachos User (Top Left/Mid) */
-.item-tweet-garbachos {
-  top: 18%;
-  left: 10%;
-  width: 300px;
-  z-index: 4;
+.reconocimiento-autor {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-/* 3. Garbachos Chela (Mid Left) */
-.item-garbachos-chela {
-  top: 35%;
-  left: 2%;
-  width: 300px;
-  max-width: 25vw;
-  z-index: 2;
+.reconocimiento-nombre {
+  font-family: "Clash Grotesk", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #000;
+  line-height: 1;
 }
 
-/* 4. Tweet CD 816 (Top Center - Main) */
-.item-tweet-cd816 {
-  top: 8%;
-  left: 40%;
-  transform: translateX(-50%);
-  width: 400px;
-  z-index: 5;
+.reconocimiento-cargo {
+  font-family: "Clash Grotesk", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #888;
+  line-height: 1;
 }
 
-/* 5. Tweet Smart (Top Right) */
-.item-tweet-smart {
-  top: 10%;
-  right: 12%;
-  width: 320px;
-  z-index: 4;
+/* Dots */
+.reconocimientos-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 56px;
 }
 
-/* 6. Tweet Organa (Center/Mid) */
-.item-tweet-organa {
-  top: 38%;
-  left: 35%;
-  width: 350px;
-  z-index: 6; /* On top of leaf? */
-}
+.reconocimientos-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #d0d0d0;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 
-/* 7. Organa Leaf (Center Focus) */
-.item-organa-leaf {
-  top: 50%;
-  left: 55%;
-  transform: translate(-50%, -50%); /* Centered */
-  width: 380px;
-  z-index: 3;
-}
-
-/* 8. Smart Yellow Poster (Right Mid) */
-.item-smart-yellow {
-  top: 25%;
-  right: 5%;
-  width: 300px;
-  max-width: 25vw;
-  z-index: 2;
-  transform: rotate(5deg);
-}
-
-/* 9. Organa Postres (Bottom Center/Left) */
-.item-organa-postres {
-  bottom: 0%;
-  left: 30%;
-  width: 300px;
-  z-index: 1;
-}
-
-/* 10. Smart Storie (Bottom Right) */
-.item-smart-storie {
-  bottom: 15%;
-  right: 5%;
-  width: 300px;
-  z-index: 4;
-}
-
-/* Responsive Tweaks */
-@media (max-width: 1440px) {
-  /* Scale down slightly */
-  .testimonials-collage {
-    font-size: 14px; /* If em units used */
-  }
-  .collage-item {
-    width: 250px;
-  }
-  .item-tweet-cd816 {
-    width: 350px;
-  }
-  .item-organa-leaf {
-    width: 300px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .collage-item {
-    width: 200px;
-  }
-  .item-tweet-cd816 {
-    width: 300px;
-  }
-  .item-organa-leaf {
-    width: 250px;
-  }
-  .item-smart-yellow {
-    top: 35%;
+  &.is-active {
+    background-color: #000;
   }
 }
 
 @media (max-width: 768px) {
-  .testimonials-sticky-wrapper {
-    height: 250vh;
+  .bsm-reconocimientos {
+    padding: 64px 24px;
   }
-  .collage-item {
-    width: 150px;
+
+  .reconocimientos-titulo {
+    font-size: 40px;
+    margin-bottom: 48px;
   }
-  /* Simplified Layout for Mobile */
-  .item-tweet-cd816 {
-    width: 250px;
-    left: 50%;
-    top: 5%;
+
+  .reconocimiento-slide {
+    padding: 0 4%;
   }
-  .item-tweet-smart {
-    display: none;
-  } /* Hide less important */
-  .item-garbachos-bocas {
-    display: none;
+
+  .reconocimiento-quote {
+    font-size: 26px;
+    margin-bottom: 32px;
   }
-  .item-organa-leaf {
-    width: 180px;
-    top: 40%;
-    left: 50%;
+
+  .reconocimiento-nombre,
+  .reconocimiento-cargo {
+    font-size: 15px;
   }
-  .item-tweet-organa {
-    top: 60%;
-    left: 10%;
-    width: 250px;
-  }
-}
-
-/* Footer */
-.bsm-footer {
-  position: relative;
-  background-color: #6a23cd;
-  padding: 0;
-}
-
-.footer-background {
-  position: absolute;
-  bottom: 0;
-  left: -117px;
-  width: 1921px;
-  height: 864px;
-  z-index: 1;
-}
-
-.footer-background img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.footer-content {
-  position: relative;
-  z-index: 2;
-  padding: 100px 0 50px;
-}
-
-.footer-logo {
-  text-align: center;
-  margin-bottom: 80px;
-}
-
-.footer-logo img {
-  max-width: 500px;
-  height: auto;
-}
-
-.footer-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  font-family: "Neureal", sans-serif;
-  font-size: 24px;
-  line-height: 1.09;
-  text-transform: uppercase;
-  color: #000;
-}
-
-.footer-social p {
-  margin: 0;
 }
 
 /* Responsive */
@@ -1312,7 +1209,7 @@ h3 {
     }
 
     a {
-      font-family: "Right Grotesk", sans-serif;
+      font-family: "Right Grotesk Compact", sans-serif;
       font-size: 40px;
       font-weight: 700;
       color: #000;
@@ -1522,6 +1419,13 @@ h3 {
       margin-bottom: 40px;
       padding-right: 20px;
     }
+  }
+
+  .bsm-work-container {
+    height: auto;
+    min-height: unset;
+    padding-top: 56px;
+    padding-bottom: 40px;
   }
 
   .work-item {
@@ -1782,7 +1686,7 @@ h3 {
   font-weight: 700;
   font-size: 16px;
   color: $color-black;
-  background-color: $color-white;
+  background-color: $color-primary;
   border: none;
   border-radius: $border-radius-pill;
   padding: 14px 32px;
@@ -1794,7 +1698,7 @@ h3 {
     color $transition-base;
 
   &:hover {
-    background-color: $color-primary;
+    background-color: darken(#6a23cd, 10%);
     color: $color-white;
   }
 }

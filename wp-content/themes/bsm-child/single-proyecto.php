@@ -64,53 +64,79 @@ get_header('interna'); ?>
 
     <!-- ─── GALERÍA ──────────────────────────────────────────────────── -->
     <?php
-    $galeria = get_field('proyecto_galeria');
-    if ($galeria) : ?>
+    $filas = get_field('proyecto_filas');
+    if ($filas) : ?>
     <section class="proyecto-galeria">
-        <div class="proyecto-galeria-grid">
-            <?php
-            // Mapa de clases: primera imagen wide, luego alternamos half/third
-            $total = count($galeria);
-            foreach ($galeria as $i => $img) :
-                if ($i === 0 || $i === $total - 1) {
-                    $clase = 'galeria-item--wide';
-                } elseif ($i % 3 === 1) {
-                    $clase = 'galeria-item--half';
-                } elseif ($i % 3 === 2) {
-                    $clase = 'galeria-item--half';
-                } else {
-                    $clase = 'galeria-item--third';
-                }
+        <?php foreach ($filas as $fila) :
+            $layout  = $fila['fila_layout'] ?: 'full';
+            $bloques = $fila['fila_bloques'] ?: array();
+        ?>
+        <div class="galeria-fila galeria-fila--<?php echo esc_attr($layout); ?>">
+            <?php foreach ($bloques as $bloque) :
+                $tipo = $bloque['bloque_tipo'] ?: 'imagen';
             ?>
-            <div class="galeria-item <?php echo $clase; ?>">
-                <img src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
+            <div class="galeria-bloque">
+                <?php if ($tipo === 'imagen') :
+                    $img = $bloque['bloque_imagen'];
+                    if ($img) : ?>
+                    <img src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
+                    <?php endif;
+
+                elseif ($tipo === 'video_mp4') :
+                    $file = $bloque['bloque_video_mp4'];
+                    if ($file) : ?>
+                    <video autoplay muted loop playsinline disablePictureInPicture>
+                        <source src="<?php echo esc_url($file['url']); ?>" type="<?php echo esc_attr($file['mime_type']); ?>">
+                    </video>
+                    <?php endif;
+
+                elseif ($tipo === 'video_vimeo') :
+                    $url = $bloque['bloque_video_url'];
+                    if ($url) :
+                        preg_match('/vimeo\.com\/(\d+)/', $url, $m);
+                        $vid = $m[1] ?? '';
+                        if ($vid) : ?>
+                    <div class="galeria-video-wrapper">
+                        <iframe src="https://player.vimeo.com/video/<?php echo esc_attr($vid); ?>?autoplay=1&muted=1&loop=1&background=1&controls=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    </div>
+                        <?php endif;
+                    endif;
+
+                elseif ($tipo === 'video_youtube') :
+                    $url = $bloque['bloque_video_url'];
+                    if ($url) :
+                        preg_match('/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([a-zA-Z0-9_-]{11})/', $url, $m);
+                        $vid = $m[1] ?? '';
+                        if ($vid) : ?>
+                    <div class="galeria-video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/<?php echo esc_attr($vid); ?>?autoplay=1&mute=1&loop=1&playlist=<?php echo esc_attr($vid); ?>&controls=0&disablekb=1&modestbranding=1&rel=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    </div>
+                        <?php endif;
+                    endif;
+                endif; ?>
             </div>
             <?php endforeach; ?>
         </div>
+        <?php endforeach; ?>
     </section>
     <?php else : ?>
-    <!-- Galería fallback (hardcodeada) mientras no haya imágenes en ACF -->
+    <!-- Galería fallback (hardcodeada) mientras no haya filas en ACF -->
     <section class="proyecto-galeria">
-        <div class="proyecto-galeria-grid">
-            <div class="galeria-item galeria-item--wide">
+        <div class="galeria-fila galeria-fila--full">
+            <div class="galeria-bloque">
                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/interna/img1.png" alt="">
             </div>
-            <div class="galeria-item galeria-item--half">
+        </div>
+        <div class="galeria-fila galeria-fila--half">
+            <div class="galeria-bloque">
                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/interna/img2.png" alt="">
             </div>
-            <div class="galeria-item galeria-item--half">
+            <div class="galeria-bloque">
                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/interna/img3.png" alt="">
             </div>
-            <div class="galeria-item galeria-item--third">
-                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/interna/img4.png" alt="">
-            </div>
-            <div class="galeria-item galeria-item--third">
-                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/interna/img5.png" alt="">
-            </div>
-            <div class="galeria-item galeria-item--third">
-                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/interna/img6.png" alt="">
-            </div>
-            <div class="galeria-item galeria-item--wide">
+        </div>
+        <div class="galeria-fila galeria-fila--full">
+            <div class="galeria-bloque">
                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/interna/img7.png" alt="">
             </div>
         </div>

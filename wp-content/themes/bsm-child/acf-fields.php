@@ -398,15 +398,105 @@ acf_add_local_field_group(array(
             'type'  => 'tab',
         ),
         array(
-            'key'           => 'field_proy_galeria',
-            'label'         => 'Imágenes de galería',
-            'name'          => 'proyecto_galeria',
-            'type'          => 'gallery',
-            'return_format' => 'array',
-            'preview_size'  => 'medium',
-            'instructions'  => 'Sube las imágenes en el orden que deben aparecer. Acepta JPG, PNG, WebP, AVIF.',
-            'min'           => 1,
-            'max'           => 20,
+            'key'          => 'field_proy_filas',
+            'label'        => 'Filas de galería',
+            'name'         => 'proyecto_filas',
+            'type'         => 'repeater',
+            'instructions' => 'Cada fila puede ser de 1 bloque (ancho completo) o 2 bloques en columnas.',
+            'layout'       => 'block',
+            'button_label' => 'Añadir fila',
+            'sub_fields'   => array(
+
+                array(
+                    'key'           => 'field_proy_fila_layout',
+                    'label'         => 'Layout de la fila',
+                    'name'          => 'fila_layout',
+                    'type'          => 'radio',
+                    'choices'       => array(
+                        'full' => '1 columna (ancho completo)',
+                        'half' => '2 columnas (50 / 50)',
+                    ),
+                    'default_value' => 'full',
+                    'layout'        => 'horizontal',
+                ),
+
+                array(
+                    'key'          => 'field_proy_fila_bloques',
+                    'label'        => 'Bloques',
+                    'name'         => 'fila_bloques',
+                    'type'         => 'repeater',
+                    'instructions' => 'Si el layout es "1 columna" usa solo 1 bloque. Si es "2 columnas" usa exactamente 2.',
+                    'min'          => 1,
+                    'max'          => 2,
+                    'layout'       => 'block',
+                    'button_label' => 'Añadir bloque',
+                    'sub_fields'   => array(
+
+                        array(
+                            'key'           => 'field_proy_bloque_tipo',
+                            'label'         => 'Tipo de contenido',
+                            'name'          => 'bloque_tipo',
+                            'type'          => 'select',
+                            'choices'       => array(
+                                'imagen'         => 'Imagen / GIF',
+                                'video_mp4'      => 'Video MP4',
+                                'video_vimeo'    => 'Video Vimeo',
+                                'video_youtube'  => 'Video YouTube',
+                            ),
+                            'default_value' => 'imagen',
+                        ),
+
+                        array(
+                            'key'           => 'field_proy_bloque_imagen',
+                            'label'         => 'Imagen / GIF',
+                            'name'          => 'bloque_imagen',
+                            'type'          => 'image',
+                            'return_format' => 'array',
+                            'preview_size'  => 'medium',
+                            'instructions'  => 'JPG, PNG, WebP, AVIF o GIF animado.',
+                            'conditional_logic' => array(array(array(
+                                'field'    => 'field_proy_bloque_tipo',
+                                'operator' => '==',
+                                'value'    => 'imagen',
+                            ))),
+                        ),
+
+                        array(
+                            'key'           => 'field_proy_bloque_video_mp4',
+                            'label'         => 'Archivo MP4',
+                            'name'          => 'bloque_video_mp4',
+                            'type'          => 'file',
+                            'return_format' => 'array',
+                            'mime_types'    => 'mp4,webm',
+                            'instructions'  => 'Archivo de video MP4 o WebM.',
+                            'conditional_logic' => array(array(array(
+                                'field'    => 'field_proy_bloque_tipo',
+                                'operator' => '==',
+                                'value'    => 'video_mp4',
+                            ))),
+                        ),
+
+                        array(
+                            'key'          => 'field_proy_bloque_video_url',
+                            'label'        => 'URL del video (Vimeo o YouTube)',
+                            'name'         => 'bloque_video_url',
+                            'type'         => 'url',
+                            'instructions' => 'Pega la URL del video. Ej: https://vimeo.com/123456 o https://youtu.be/ABC123',
+                            'conditional_logic' => array(array(array(
+                                'field'    => 'field_proy_bloque_tipo',
+                                'operator' => '==',
+                                'value'    => 'video_vimeo',
+                            )), array(array(
+                                'field'    => 'field_proy_bloque_tipo',
+                                'operator' => '==',
+                                'value'    => 'video_youtube',
+                            ))),
+                        ),
+
+                    ),
+                ),
+
+            ),
         ),
 
     ), // end fields
