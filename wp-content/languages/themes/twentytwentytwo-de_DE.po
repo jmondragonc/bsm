@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Themes - Twenty Twenty-Two package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-11-29 04:15:55+0000\n"
+"PO-Revision-Date: 2026-04-07 20:25:20+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -878,7 +878,7 @@ msgstr "https://de.wordpress.org"
 #: inc/patterns/footer-query-images-title-citation.php:34
 #: inc/patterns/footer-query-title-citation.php:32
 msgid "Proudly powered by %s"
-msgstr "Mit Stolz präsentiert von %s"
+msgstr "Stolz präsentiert von %s"
 
 #: inc/patterns/footer-blog.php:31
 #: inc/patterns/page-sidebar-blog-posts-right.php:74
@@ -899,7 +899,7 @@ msgstr "Wir sind eine bunt gemischte Gruppe von Vogelbeobachtern. Wir sind dafü
 
 #: inc/patterns/footer-about-title-logo.php:13 inc/patterns/footer-blog.php:13
 msgid "About us"
-msgstr "Über uns"
+msgstr "Impressum"
 
 #: inc/patterns/footer-about-title-logo.php:6
 msgid "Footer with text, title, and logo"

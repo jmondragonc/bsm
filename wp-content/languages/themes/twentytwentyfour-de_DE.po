@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Themes - Twenty Twenty-Four package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-12-08 22:47:47+0000\n"
+"PO-Revision-Date: 2026-03-28 03:40:46+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -287,7 +287,7 @@ msgstr "Seite ohne Titel"
 #: theme.json
 msgctxt "Template part name"
 msgid "Post Meta"
-msgstr "Beitrags-Meta"
+msgstr "Beitrags-Metadaten"
 
 #: theme.json
 msgctxt "Template part name"
@@ -477,7 +477,7 @@ msgstr "Akzent / Zwei"
 #: theme.json styles/onyx.json
 msgctxt "Color name"
 msgid "Accent"
-msgstr "Akzent"
+msgstr "Akzentfarbe"
 
 #: styles/onyx.json
 msgctxt "Gradient name"
@@ -657,7 +657,7 @@ msgstr "Extrem groß"
 #: theme.json styles/fossil.json styles/ice.json styles/maelstrom.json
 msgctxt "Font size name"
 msgid "Extra Large"
-msgstr "Extra groß"
+msgstr "Extragroß"
 
 #: theme.json styles/fossil.json styles/ice.json styles/maelstrom.json
 msgctxt "Font size name"
@@ -814,7 +814,7 @@ msgstr "Ember"
 #: patterns/text-title-left-image-right.php:35
 msgctxt "Call to Action button text"
 msgid "About us"
-msgstr "Über uns"
+msgstr "Impressum"
 
 #: patterns/text-title-left-image-right.php:28
 msgctxt "Description for the About pattern"
@@ -1186,7 +1186,7 @@ msgstr "Liste von Beiträgen, 3 Spalten"
 #: patterns/posts-1-col.php
 msgctxt "Pattern title"
 msgid "List of posts, 1 column"
-msgstr "Liste von Beiträgen, 1 Spalte"
+msgstr "Liste von Beiträgen, 1 Spalte"
 
 #: patterns/page-rsvp-landing.php:49
 msgid "Green staircase at Western University, London, Canada"
@@ -1245,7 +1245,7 @@ msgstr "Blogging-Startseite"
 #: patterns/page-about-business.php
 msgctxt "Pattern title"
 msgid "About"
-msgstr "Über"
+msgstr "Impressum"
 
 #: patterns/hidden-sidebar.php:75
 msgctxt "search form placeholder"
@@ -1334,7 +1334,7 @@ msgstr "von"
 #: patterns/hidden-post-meta.php
 msgctxt "Pattern title"
 msgid "Post meta"
-msgstr "Beitrags-Meta"
+msgstr "Beitrags-Metadaten"
 
 #: patterns/hidden-portfolio-hero.php
 msgctxt "Pattern title"
@@ -1437,7 +1437,7 @@ msgstr "Datenschutz"
 
 #: patterns/footer.php:41 patterns/footer.php:47
 msgid "About"
-msgstr "Über"
+msgstr "Impressum"
 
 #: patterns/footer.php
 msgctxt "Pattern title"
@@ -1723,7 +1723,7 @@ msgstr "Äußeres Gebäude in Toronto, Kanada"
 #: patterns/banner-hero.php:37
 msgctxt "Button text of the hero section"
 msgid "About us"
-msgstr "Über uns"
+msgstr "Impressum"
 
 #: patterns/banner-hero.php:26
 msgctxt "Content of the hero section"

@@ -1,0 +1,238 @@
+{
+  "screenshotsDir": "/Users/joseph/Work/bsm/scroll-screenshots/transition-test-1774069774026",
+  "stableFrameFound": false,
+  "transitions": [
+    {
+      "scrollPos": 3900,
+      "actualScroll": 3900,
+      "expContentVisible": false,
+      "expContentRect": null,
+      "trabajamosVisible": false,
+      "trabajamosRect": null,
+      "blackGapSuspected": true,
+      "centerElement": "DIV.container bg=rgba(0, 0, 0, 0)",
+      "screenshot": "scroll-03900.png"
+    },
+    {
+      "scrollPos": 4000,
+      "actualScroll": 4000,
+      "expContentVisible": false,
+      "expContentRect": null,
+      "trabajamosVisible": false,
+      "trabajamosRect": null,
+      "blackGapSuspected": true,
+      "centerElement": "DIV.container bg=rgba(0, 0, 0, 0)",
+      "screenshot": "scroll-04000.png"
+    },
+    {
+      "scrollPos": 4100,
+      "actualScroll": 4100,
+      "expContentVisible": false,
+      "expContentRect": null,
+      "trabajamosVisible": true,
+      "trabajamosRect": {
+        "top": 850,
+        "bottom": 2304
+      },
+      "blackGapSuspected": false,
+      "centerElement": "DIV.container bg=rgba(0, 0, 0, 0)",
+      "screenshot": "scroll-04100.png"
+    },
+    {
+      "scrollPos": 4200,
+      "actualScroll": 4200,
+      "expContentVisible": false,
+      "expContentRect": null,
+      "trabajamosVisible": true,
+      "trabajamosRect": {
+        "top": 750,
+        "bottom": 2204
+      },
+      "blackGapSuspected": false,
+      "centerElement": "DIV.container bg=rgba(0, 0, 0, 0)",
+      "screenshot": "scroll-04200.png"
+    },
+    {
+      "scrollPos": 4300,
+      "actualScroll": 4300,
+      "expContentVisible": false,
+      "expContentRect": null,
+      "trabajamosVisible": true,
+      "trabajamosRect": {
+        "top": 650,
+        "bottom": 2104
+      },
+      "blackGapSuspected": false,
+      "centerElement": "DIV.container bg=rgba(0, 0, 0, 0)",
+      "screenshot": "scroll-04300.png"
+    },
+    {
+      "scrollPos": 4400,
+      "actualScroll": 4400,
+      "expContentVisible": false,
+      "expContentRect": null,
+      "trabajamosVisible": true,
+      "trabajamosRect": {
+        "top": 550,
+        "bottom": 2004
+      },
+      "blackGapSuspected": false,
+      "centerElement": "DIV.container bg=rgba(0, 0, 0, 0)",
+      "screenshot": "scroll-04400.png"
+    },
+    {
+      "scrollPos": 4500,
+      "actualScroll": 4500,
+      "expContentVisible": false,
+      "expContentRect": null,
+      "trabajamosVisible": true,
+      "trabajamosRect": {
+        "top": 450,
+        "bottom": 1904
+      },
+      "blackGapSuspected": false,
+      "centerElement": "DIV.bsm-work-container bg=rgba(0, 0, 0, 0)",
+      "screenshot": "scroll-04500.png"
+    },
+    {
+      "scrollPos": 4600,
+      "actualScroll": 4600,
+      "expContentVisible": false,
+      "expContentRect": null,
+      "trabajamosVisible": true,
+      "trabajamosRect": {
+        "top": 350,
+        "bottom": 1804
+      },
+      "blackGapSuspected": false,
+      "centerElement": "DIV.bsm-work-container bg=rgba(0, 0, 0, 0)",
+      "screenshot": "scroll-04600.png"
+    },
+    {
+      "scrollPos": 4700,
+      "actualScroll": 4700,
+      "expContentVisible": false,
+      "expContentRect": null,
+      "trabajamosVisible": true,
+      "trabajamosRect": {
+        "top": 250,
+        "bottom": 1704
+      },
+      "blackGapSuspected": false,
+      "centerElement": "DIV.bsm-work-container bg=rgba(0, 0, 0, 0)",
+      "screenshot": "scroll-04700.png"
+    },
+    {
+      "scrollPos": 4800,
+      "actualScroll": 4800,
+      "expContentVisible": false,
+      "expContentRect": null,
+      "trabajamosVisible": true,
+      "trabajamosRect": {
+        "top": 150,
+        "bottom": 1604
+      },
+      "blackGapSuspected": false,
+      "centerElement": "IMG. bg=rgba(0, 0, 0, 0)",
+      "screenshot": "scroll-04800.png"
+    },
+    {
+      "scrollPos": 4900,
+      "actualScroll": 4900,
+      "expContentVisible": false,
+      "expContentRect": null,
+      "trabajamosVisible": true,
+      "trabajamosRect": {
+        "top": 50,
+        "bottom": 1504
+      },
+      "blackGapSuspected": false,
+      "centerElement": "IMG. bg=rgba(0, 0, 0, 0)",
+      "screenshot": "scroll-04900.png"
+    },
+    {
+      "scrollPos": 5000,
+      "actualScroll": 5000,
+      "expContentVisible": false,
+      "expContentRect": null,
+      "trabajamosVisible": true,
+      "trabajamosRect": {
+        "top": -50,
+        "bottom": 1404
+      },
+      "blackGapSuspected": false,
+      "centerElement": "IMG. bg=rgba(0, 0, 0, 0)",
+      "screenshot": "scroll-05000.png"
+    },
+    {
+      "scrollPos": 5100,
+      "actualScroll": 5100,
+      "expContentVisible": false,
+      "expContentRect": null,
+      "trabajamosVisible": true,
+      "trabajamosRect": {
+        "top": -150,
+        "bottom": 1304
+      },
+      "blackGapSuspected": false,
+      "centerElement": "IMG. bg=rgba(0, 0, 0, 0)",
+      "screenshot": "scroll-05100.png"
+    },
+    {
+      "scrollPos": 5200,
+      "actualScroll": 5200,
+      "expContentVisible": false,
+      "expContentRect": null,
+      "trabajamosVisible": true,
+      "trabajamosRect": {
+        "top": -250,
+        "bottom": 1204
+      },
+      "blackGapSuspected": false,
+      "centerElement": "DIV.bsm-work-track bg=rgba(0, 0, 0, 0)",
+      "screenshot": "scroll-05200.png"
+    },
+    {
+      "scrollPos": 5300,
+      "actualScroll": 5300,
+      "expContentVisible": false,
+      "expContentRect": null,
+      "trabajamosVisible": true,
+      "trabajamosRect": {
+        "top": -350,
+        "bottom": 1104
+      },
+      "blackGapSuspected": false,
+      "centerElement": "IMG. bg=rgba(0, 0, 0, 0)",
+      "screenshot": "scroll-05300.png"
+    },
+    {
+      "scrollPos": 5400,
+      "actualScroll": 5400,
+      "expContentVisible": false,
+      "expContentRect": null,
+      "trabajamosVisible": true,
+      "trabajamosRect": {
+        "top": -450,
+        "bottom": 1004
+      },
+      "blackGapSuspected": false,
+      "centerElement": "IMG. bg=rgba(0, 0, 0, 0)",
+      "screenshot": "scroll-05400.png"
+    },
+    {
+      "scrollPos": 5500,
+      "actualScroll": 5500,
+      "expContentVisible": false,
+      "expContentRect": null,
+      "trabajamosVisible": true,
+      "trabajamosRect": {
+        "top": -550,
+        "bottom": 904
+      },
+      "blackGapSuspected": false,
+      "centerElement": "IMG. bg=rgba(0, 0, 0, 0)",
+      "screenshot": "scroll-05500.png"
+    }
+  ]
+}

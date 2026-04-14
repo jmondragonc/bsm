@@ -1,0 +1,4 @@
+[     243ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ https://qa.bsm.pe/wp-content/themes/bsm-child/assets/fonts/stylesheet.css?ver=6.9.4:0
+[    2365ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ https://qa.bsm.pe/wp-content/themes/bsm-child/assets/fonts/ClashGrotesk-Semibold.woff2:0
+[    2461ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ https://qa.bsm.pe/wp-content/themes/bsm-child/assets/fonts/ClashGrotesk-Semibold.woff:0
+[    2568ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ https://qa.bsm.pe/wp-content/themes/bsm-child/assets/fonts/ClashGrotesk-Semibold.ttf:0
