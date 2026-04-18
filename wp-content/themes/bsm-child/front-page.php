@@ -111,7 +111,7 @@ get_header(); ?>
     <div class="bsm-experience-wrapper">
     <section class="bsm-full-experience" data-bg="dark">
         <div class="container">
-            <h2 class="mobile-break"><?php echo wp_kses(get_field('exp_titulo') ?: 'CREAMOS <br>UNA<br>EXPERIENCIA<br>DE<br>MARCA<br>COMPLETA', array('br' => array())); ?></h2>
+            <h2 class="mobile-break"><?php echo wp_kses(get_field('exp_titulo') ?: 'AUTHENTIC<br>BY DESIGN<br>DRIVEN<br>BY BSM', array('br' => array())); ?></h2>
 
             <div class="services-tags">
                 <?php
@@ -204,7 +204,7 @@ get_header(); ?>
 
     <!-- Reconocimientos Section -->
     <section class="bsm-reconocimientos" data-bg="light">
-        <h2 class="reconocimientos-titulo"><?php echo esc_html(get_field('rec_titulo') ?: 'RECONOCIMIENTOS:'); ?></h2>
+        <h2 class="reconocimientos-titulo animate-fade-up"><?php echo esc_html(get_field('rec_titulo') ?: 'RECONOCIMIENTOS:'); ?></h2>
 
         <div class="reconocimientos-carousel-wrapper">
             <div class="reconocimientos-track" id="reconocimientosTrack">
@@ -246,6 +246,7 @@ get_header(); ?>
 </main>
 
     <!-- Footer Section -->
+    <div class="bsm-footer-sticky-wrapper">
     <footer class="bsm-footer">
         <div class="footer-top">
             <div class="footer-info-left">
@@ -273,9 +274,11 @@ get_header(); ?>
 
         <div class="footer-logo">
              <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/logo.svg" alt="BSM Logo">
+             <span class="footer-logo-registered">®</span>
         </div>
     </footer>
-    
+    </div><!-- /.bsm-footer-sticky-wrapper -->
+
     <!-- Contact Drawer Overlay -->
     <div class="contact-drawer-overlay" id="contactDrawerOverlay"></div>
 

@@ -3,6 +3,11 @@
  * BSM Child Theme Functions
  */
 
+// Favicon
+add_action('wp_head', function() {
+    echo '<link rel="icon" type="image/png" href="' . get_stylesheet_directory_uri() . '/favicon.png">';
+});
+
 // Enqueue parent and child theme styles
 function bsm_child_enqueue_styles()
 {

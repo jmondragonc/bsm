@@ -857,6 +857,7 @@ h3 {
   padding: 100px 0;
   background-color: #fff;
   height: 100vh;
+  min-height: 800px;
 }
 .bsm-what-we-do .container {
   display: grid;
@@ -984,7 +985,7 @@ h3 {
 .bsm-experience-wrapper {
   position: relative;
   width: 100%;
-  height: 350vh;
+  height: 250vh;
   background-color: #000;
 }
 
@@ -1003,10 +1004,17 @@ h3 {
 }
 
 /* Footer Section */
-.bsm-footer {
+.bsm-footer-sticky-wrapper {
   position: relative;
+  height: 200vh; /* 100vh extra para el parallax del logo */
+}
+
+.bsm-footer {
+  position: sticky;
+  top: 0;
   width: 100%;
   height: 100vh;
+  min-height: 650px;
   background-color: #6a23cd; /* Purple */
   color: #000;
   padding: 40px;
@@ -1020,7 +1028,7 @@ h3 {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 100px 64px;
+  padding: 100px 40px 100px 16px;
   box-sizing: border-box;
 }
 
@@ -1055,8 +1063,9 @@ h3 {
 .footer-logo {
   position: absolute;
   bottom: 0;
-  left: 10vw !important; /* Explicit viewport centering */
-  width: 80vw !important; /* Explicit viewport width */
+  left: 56px !important;
+  width: 82vw !important;
+  max-width: 1640px !important;
   z-index: 1;
   line-height: 0;
   pointer-events: none;
@@ -1064,12 +1073,26 @@ h3 {
   padding: 0 !important;
 }
 .footer-logo img {
-  width: 100% !important; /* Fill the 80vw container */
-  max-width: none !important; /* Remove constraints */
+  width: 100% !important;
+  max-width: none !important;
   height: auto !important;
   display: block;
-  margin: 0 auto !important;
+  margin: 0 !important;
   /* Animation State */
+  transform: translateY(120%);
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.footer-logo .footer-logo-registered {
+  position: absolute;
+  /* a la derecha de la M, a la altura del cap-height (~10% desde arriba del logo) */
+  top: 8%;
+  left: 100%;
+  margin-left: 0.5vw;
+  font-family: "Clash Grotesk", sans-serif;
+  font-size: 3.5vw;
+  font-weight: 400;
+  line-height: 1;
+  color: #000;
   transform: translateY(120%);
   transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -1228,7 +1251,7 @@ h3 {
 
 .bsm-work-container {
   position: sticky;
-  top: 0;
+  top: 80px;
   width: 100%;
   height: 900px;
   overflow-x: hidden;
@@ -1382,7 +1405,7 @@ a.work-item {
 }
 
 .reconocimiento-logo {
-  margin-bottom: 40px;
+  margin-bottom: 80px;
 }
 .reconocimiento-logo img {
   height: 36px;
@@ -1701,7 +1724,7 @@ a.work-item {
      FULL EXPERIENCE SECTION - MOBILE
      ------------------------------------------------------------------ */
   .bsm-experience-wrapper {
-    height: 150vh;
+    height: 120vh;
     overflow: hidden;
     position: relative;
     z-index: 5;
@@ -1725,8 +1748,8 @@ a.work-item {
     display: block !important;
   }
   .services-tags .tag {
-    font-size: 9px !important;
-    padding: 4px 10px !important;
+    font-size: 12px !important;
+    padding: 6px 14px !important;
   }
   .services-tags .tag.tag-1 {
     top: 5% !important;

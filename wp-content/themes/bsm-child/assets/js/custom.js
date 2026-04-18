@@ -498,9 +498,9 @@ const isMobileDevice = () => window.innerWidth <= 768;
       return;
     }
 
-    // Initial styles — título entra desde abajo (sin opacity)
+    // Initial styles — título entra desde abajo con fadeIn
     if (title) {
-      title.style.opacity = 1;
+      title.style.opacity = 0;
       title.style.transform = "translateY(100vh)";
       title.style.willChange = "transform";
     }
@@ -590,6 +590,15 @@ const isMobileDevice = () => window.innerWidth <= 768;
         }
 
         title.style.transform = `translateY(${titleTransY}px)`;
+
+        // FadeIn: opacity 0→1 mientras el título entra
+        if (growthProgress <= 0) {
+          title.style.opacity = 0;
+        } else if (growthProgress < titleEntryEnd) {
+          title.style.opacity = Math.min(growthProgress / titleEntryEnd * 2, 1);
+        } else {
+          title.style.opacity = 1;
+        }
       }
 
       const initialTransY = 400; // Patillas entran desde abajo
@@ -816,21 +825,21 @@ const isMobileDevice = () => window.innerWidth <= 768;
     if (!footer || !logoContainer) return;
 
     const img = logoContainer.querySelector("img");
+    const registered = logoContainer.querySelector(".footer-logo-registered");
     if (!img) return;
 
     // Quitar transición CSS — el scroll lo controla directamente
     img.style.transition = "none";
+    if (registered) registered.style.transition = "none";
 
     function updateFooterScroll() {
       const vh = window.innerHeight;
-      const scrollY = window.scrollY;
-      const maxScroll = document.documentElement.scrollHeight - vh;
-      // El logo está al fondo del footer (100vh). Solo es visible cuando el scroll
-      // llega al final de la página. Animamos durante los últimos 80vh de scroll.
-      const animStart = Math.max(0, maxScroll - vh * 0.8);
-      const progress = Math.max(0, Math.min(1, (scrollY - animStart) / (maxScroll - animStart)));
-      const translateY = 120 * (1 - progress);
+      const wrapperRect = footer.parentElement.getBoundingClientRect();
+      const scrolledPast = Math.max(0, -wrapperRect.top);
+      const progress = Math.max(0, Math.min(1, scrolledPast / vh));
+      const translateY = 80 * (1 - progress);
       img.style.transform = `translateY(${translateY}%)`;
+      if (registered) registered.style.transform = `translateY(${translateY}%)`;
     }
 
     updateFooterScroll();

@@ -184,6 +184,7 @@ get_header('interna'); ?>
     </section>
 
     <!-- ─── FOOTER ───────────────────────────────────────────────────── -->
+    <div class="bsm-footer-sticky-wrapper">
     <footer class="bsm-footer">
         <div class="footer-top">
             <div class="footer-info-left">
@@ -207,6 +208,7 @@ get_header('interna'); ?>
             <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/logo.svg" alt="BSM Logo">
         </div>
     </footer>
+    </div><!-- /.bsm-footer-sticky-wrapper -->
 
 </main>
 
