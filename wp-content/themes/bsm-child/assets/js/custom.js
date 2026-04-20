@@ -498,6 +498,16 @@ const isMobileDevice = () => window.innerWidth <= 768;
       return;
     }
 
+    // En mobile: mostrar todo estático, sin animación de scroll
+    if (window.innerWidth < 768) {
+      if (title) {
+        title.style.opacity = 1;
+        title.style.transform = "none";
+      }
+      tags.forEach(tag => { tag.style.opacity = 1; });
+      return;
+    }
+
     // Initial styles — título entra desde abajo con fadeIn
     if (title) {
       title.style.opacity = 0;
