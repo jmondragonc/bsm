@@ -47,7 +47,7 @@
         </ul>
         <div class="mobile-menu-cta">
             <p class="mobile-menu-cta-title">¿LISTO PARA<br>CAMBIAR?</p>
-            <a href="mailto:hola@bsm.pe" class="mobile-menu-email">HOLA@BSM.PE</a>
+            <a href="#" class="mobile-menu-email" id="openContactDrawerMobile" data-open-drawer>HOLA@BSM.PE</a>
         </div>
     </div>
 </div>
