@@ -1,0 +1,178 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "BSM" [ref=e5] [cursor=pointer]:
+        - /url: https://qa.bsm.pe/
+        - img "BSM" [ref=e6]
+      - list [ref=e7]:
+        - listitem [ref=e8]:
+          - link "WORK" [ref=e9] [cursor=pointer]:
+            - /url: "#work"
+        - listitem [ref=e10]:
+          - link "ABOUT US" [ref=e11] [cursor=pointer]:
+            - /url: "#about"
+    - link "¿LISTO PARA CAMBIAR?" [ref=e13] [cursor=pointer]:
+      - /url: "#"
+  - main [ref=e14]:
+    - generic [ref=e16]:
+      - img "Hero Background" [ref=e18]
+      - generic [ref=e20]:
+        - generic [ref=e22]:
+          - img "Frame B2" [ref=e25]
+          - img "Frame S1" [ref=e28]
+          - img "Frame M1" [ref=e31]
+        - heading "CREAMOS MARCAS PARA EL FUTURO" [level=1] [ref=e33]:
+          - text: CREAMOS MARCAS
+          - text: PARA EL FUTURO
+    - generic [ref=e35]:
+      - generic [ref=e36]:
+        - heading "¿QUÉ HACEMOS?" [level=2] [ref=e37]
+        - paragraph [ref=e38]: Transformamos marcas para dominar su categoría.
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - generic [ref=e43] [cursor=pointer]:
+            - heading "Estrategia de Marca" [level=3] [ref=e44]
+            - button "+" [ref=e45]
+          - paragraph [ref=e46]: Construimos identidades auténticas para que tu marca sea la opción obvia, incluso en mercados saturados. Transformamos la percepción de tu negocio en una ventaja competitiva real.
+        - generic [ref=e47]:
+          - generic [ref=e48] [cursor=pointer]:
+            - heading "Creatividad y Contenidos" [level=3] [ref=e49]
+            - button "+" [ref=e50]
+          - paragraph [ref=e51]: Impacto diseñado para detener el scroll. Producimos campañas y piezas que rompen el ruido visual para transformar la atención en una conexión emocional que genera ventas.
+        - generic [ref=e52]:
+          - generic [ref=e53] [cursor=pointer]:
+            - heading "Diseño y Packaging" [level=3] [ref=e54]
+            - button "+" [ref=e55]
+          - paragraph [ref=e56]: El diseño es tu activo de venta más potente. Incrementamos la visibilidad en góndola mediante un rigor visual de clase mundial que protege el valor de tu producto e impulsa la rotación.
+    - generic [ref=e59]:
+      - heading "INDEPENDENT CREATIVE GROUP" [level=2] [ref=e60]:
+        - text: INDEPENDENT CREATIVE
+        - text: GROUP
+      - generic:
+        - generic: BRANDING
+        - generic: PACKAGING
+        - generic: STRATEGY
+        - generic: DIGITAL & SOCIAL
+        - generic: AD CAMPAIGNS
+        - generic: WEB & ECOMM
+        - generic: Design guidelines
+        - generic: OUTDOORS & TV
+    - generic [ref=e64]:
+      - heading "AUTHENTIC BY DESIGN" [level=2] [ref=e65]
+      - generic [ref=e66]:
+        - link "Organa RETAIL SALUDABLE NAMING BRANDING STRATEGY RETAIL DESIGN ECOMM" [ref=e67] [cursor=pointer]:
+          - /url: https://qa.bsm.pe/proyecto/organa-retail-design/
+          - generic [ref=e69]:
+            - heading "Organa" [level=3] [ref=e70]
+            - paragraph [ref=e71]: RETAIL SALUDABLE
+            - generic [ref=e72]:
+              - generic [ref=e73]: NAMING
+              - generic [ref=e74]: BRANDING
+              - generic [ref=e75]: STRATEGY
+              - generic [ref=e76]: RETAIL DESIGN
+              - generic [ref=e77]: ECOMM
+        - link "Smart Blends Lifestyle & Nutrition Strategy Identity Redesign Character Design 360º Branding Motion Graphics Ecommerce" [ref=e78] [cursor=pointer]:
+          - /url: https://qa.bsm.pe/proyecto/smart-blends-rebranding/
+          - generic [ref=e80]:
+            - heading "Smart Blends" [level=3] [ref=e81]
+            - paragraph [ref=e82]: Lifestyle & Nutrition
+            - generic [ref=e83]:
+              - generic [ref=e84]: Strategy
+              - generic [ref=e85]: Identity Redesign
+              - generic [ref=e86]: Character Design
+              - generic [ref=e87]: 360º Branding
+              - generic [ref=e88]: Motion Graphics
+              - generic [ref=e89]: Ecommerce
+        - link "Bueno por Dentro Social Impact & Sustainability Core Branding Visual System Brand Voice Graphic Design" [ref=e90] [cursor=pointer]:
+          - /url: https://qa.bsm.pe/proyecto/bueno-por-dentro/
+          - generic [ref=e92]:
+            - heading "Bueno por Dentro" [level=3] [ref=e93]
+            - paragraph [ref=e94]: Social Impact & Sustainability
+            - generic [ref=e95]:
+              - generic [ref=e96]: Core Branding
+              - generic [ref=e97]: Visual System
+              - generic [ref=e98]: Brand Voice
+              - generic [ref=e99]: Graphic Design
+        - link "Crocantitos Consumer Goods Packaging Design Visual System Illustration Brand Voice" [ref=e100] [cursor=pointer]:
+          - /url: https://qa.bsm.pe/proyecto/crocantitos-packaging/
+          - generic [ref=e102]:
+            - heading "Crocantitos" [level=3] [ref=e103]
+            - paragraph [ref=e104]: Consumer Goods
+            - generic [ref=e105]:
+              - generic [ref=e106]: Packaging Design
+              - generic [ref=e107]: Visual System
+              - generic [ref=e108]: Illustration
+              - generic [ref=e109]: Brand Voice
+        - link "Garbachos Branding & Consumer Goods NAMING PACKAGING BRAND VOICE CONTENT DESIGN" [ref=e110] [cursor=pointer]:
+          - /url: https://qa.bsm.pe/proyecto/packaging-garbachos/
+          - generic [ref=e112]:
+            - heading "Garbachos" [level=3] [ref=e113]
+            - paragraph [ref=e114]: Branding & Consumer Goods
+            - generic [ref=e115]:
+              - generic [ref=e116]: NAMING
+              - generic [ref=e117]: PACKAGING
+              - generic [ref=e118]: BRAND VOICE
+              - generic [ref=e119]: CONTENT DESIGN
+    - generic [ref=e120]:
+      - heading "RECONOCIMIENTOS:" [level=2] [ref=e121]
+      - generic [ref=e122]:
+        - generic [ref=e123]:
+          - generic [ref=e124]:
+            - blockquote [ref=e126]: “Nos crearon el nombre, el branding, el E-commerce, la estrategia y nuestra franquicia de vitaminas y suplementos”
+            - generic [ref=e127]:
+              - generic [ref=e128]: Arturo
+              - generic [ref=e129]: Fundador y Gerente
+          - generic [ref=e130]:
+            - blockquote [ref=e132]: “Sorprendidos con la transformación de nuestro Branding; llevaron nuestros empaques a otro nivel.”
+            - generic [ref=e133]:
+              - generic [ref=e134]: Scarly
+              - generic [ref=e135]: Gerente General
+          - generic [ref=e136]:
+            - blockquote [ref=e138]: “Rediseñaron nuestro programa 'Bueno por dentro', logrando transmitir nuestro propósito social”
+            - generic [ref=e139]:
+              - generic [ref=e140]: Micaela y Paulina
+              - generic [ref=e141]: Equipo de Sosteniilidad
+          - generic [ref=e142]:
+            - blockquote [ref=e144]: “Rediseñaron nuestros empaques para competir en el mercado de USA”
+            - generic [ref=e145]:
+              - generic [ref=e146]: Sr. Darwin
+              - generic [ref=e147]: Gerente General
+          - generic [ref=e148]:
+            - blockquote [ref=e150]: "“Crearon nuestra nueva línea de snacks: desde el nombre hasta el empaque, quedó Increíble”"
+            - generic [ref=e151]:
+              - generic [ref=e152]: Susan
+              - generic [ref=e153]: Gerente General
+        - generic [ref=e154]:
+          - button "Slide 1" [ref=e155] [cursor=pointer]
+          - button "Slide 2" [ref=e156] [cursor=pointer]
+          - button "Slide 3" [ref=e157] [cursor=pointer]
+          - button "Slide 4" [ref=e158] [cursor=pointer]
+          - button "Slide 5" [ref=e159] [cursor=pointer]
+  - contentinfo [ref=e160]:
+    - generic [ref=e161]:
+      - generic [ref=e163]: LIMA, PERÚ
+      - generic [ref=e164]:
+        - generic [ref=e165]:
+          - generic [ref=e166]: SÍGUENOS
+          - link "Linkedin" [ref=e167] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/brandingsocialmult
+          - link "Instagram" [ref=e168] [cursor=pointer]:
+            - /url: https://www.instagram.com/es_bsm/
+        - generic [ref=e169]: ©BSM 2026
+    - generic:
+      - img "BSM Logo"
+  - complementary [ref=e170]:
+    - button [ref=e171] [cursor=pointer]:
+      - img [ref=e172]
+    - generic [ref=e175]:
+      - heading [level=2] [ref=e176]: SEA CUAL SEA TU OBJETIVO, TE AYUDAMOS A LOGRARLO
+      - generic [ref=e177]:
+        - textbox [ref=e179]:
+          - /placeholder: Nombre
+        - textbox [ref=e181]:
+          - /placeholder: Email
+        - textbox [ref=e183]:
+          - /placeholder: Asunto
+        - textbox [ref=e185]:
+          - /placeholder: Hola equipo de BSM,
+        - button [ref=e187] [cursor=pointer]: EMPECEMOS

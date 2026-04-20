@@ -70,6 +70,9 @@ define( 'WP_CACHE_KEY_SALT', '*-diV;R.CfeZ]48|-sm2D1/-;{cXD1IX>$NK{{~BBZ)8)*JA(M
  */
 $table_prefix = 'wp_';
 
+define('WP_HOME', 'https://bsm');
+define('WP_SITEURL', 'https://bsm');
+
 
 /* Add any custom values between this line and the "stop editing" line. */
 

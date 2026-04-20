@@ -1,0 +1,176 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - link "BSM" [ref=e5] [cursor=pointer]:
+      - /url: https://qa.bsm.pe/
+      - img "BSM" [ref=e6]
+    - button "Abrir menú" [ref=e7] [cursor=pointer]
+  - main [ref=e11]:
+    - generic [ref=e13]:
+      - img "Hero Background" [ref=e15]
+      - generic [ref=e17]:
+        - generic [ref=e19]:
+          - img "Frame B2" [ref=e22]
+          - img "Frame S1" [ref=e25]
+          - img "Frame M1" [ref=e28]
+        - heading "CREAMOS MARCAS PARA EL FUTURO" [level=1] [ref=e30]:
+          - text: CREAMOS MARCAS
+          - text: PARA EL FUTURO
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - heading "¿QUÉ HACEMOS?" [level=2] [ref=e34]
+        - paragraph [ref=e35]: Transformamos marcas para dominar su categoría.
+      - generic [ref=e37]:
+        - generic [ref=e38]:
+          - generic [ref=e39] [cursor=pointer]:
+            - heading "Estrategia de Marca" [level=3] [ref=e40]
+            - button "+" [ref=e41]
+          - paragraph [ref=e42]: Construimos identidades auténticas para que tu marca sea la opción obvia, incluso en mercados saturados. Transformamos la percepción de tu negocio en una ventaja competitiva real.
+        - generic [ref=e43]:
+          - generic [ref=e44] [cursor=pointer]:
+            - heading "Creatividad y Contenidos" [level=3] [ref=e45]
+            - button "+" [ref=e46]
+          - paragraph [ref=e47]: Impacto diseñado para detener el scroll. Producimos campañas y piezas que rompen el ruido visual para transformar la atención en una conexión emocional que genera ventas.
+        - generic [ref=e48]:
+          - generic [ref=e49] [cursor=pointer]:
+            - heading "Diseño y Packaging" [level=3] [ref=e50]
+            - button "+" [ref=e51]
+          - paragraph [ref=e52]: El diseño es tu activo de venta más potente. Incrementamos la visibilidad en góndola mediante un rigor visual de clase mundial que protege el valor de tu producto e impulsa la rotación.
+    - generic [ref=e55]:
+      - heading "INDEPENDENT CREATIVE GROUP" [level=2] [ref=e56]:
+        - text: INDEPENDENT
+        - text: CREATIVE
+        - text: GROUP
+      - generic:
+        - generic: BRANDING
+        - generic: PACKAGING
+        - generic: STRATEGY
+        - generic: DIGITAL & SOCIAL
+        - generic: AD CAMPAIGNS
+        - generic: WEB & ECOMM
+        - generic: Design guidelines
+        - generic: OUTDOORS & TV
+    - generic [ref=e60]:
+      - heading "AUTHENTIC BY DESIGN" [level=2] [ref=e61]
+      - generic [ref=e62]:
+        - link "Organa RETAIL SALUDABLE NAMING BRANDING STRATEGY RETAIL DESIGN ECOMM" [ref=e63] [cursor=pointer]:
+          - /url: https://qa.bsm.pe/proyecto/organa-retail-design/
+          - generic [ref=e65]:
+            - heading "Organa" [level=3] [ref=e66]
+            - paragraph [ref=e67]: RETAIL SALUDABLE
+            - generic [ref=e68]:
+              - generic [ref=e69]: NAMING
+              - generic [ref=e70]: BRANDING
+              - generic [ref=e71]: STRATEGY
+              - generic [ref=e72]: RETAIL DESIGN
+              - generic [ref=e73]: ECOMM
+        - link "Smart Blends Lifestyle & Nutrition Strategy Identity Redesign Character Design 360º Branding Motion Graphics Ecommerce" [ref=e74] [cursor=pointer]:
+          - /url: https://qa.bsm.pe/proyecto/smart-blends-rebranding/
+          - generic [ref=e76]:
+            - heading "Smart Blends" [level=3] [ref=e77]
+            - paragraph [ref=e78]: Lifestyle & Nutrition
+            - generic [ref=e79]:
+              - generic [ref=e80]: Strategy
+              - generic [ref=e81]: Identity Redesign
+              - generic [ref=e82]: Character Design
+              - generic [ref=e83]: 360º Branding
+              - generic [ref=e84]: Motion Graphics
+              - generic [ref=e85]: Ecommerce
+        - link "Bueno por Dentro Social Impact & Sustainability Core Branding Visual System Brand Voice Graphic Design" [ref=e86] [cursor=pointer]:
+          - /url: https://qa.bsm.pe/proyecto/bueno-por-dentro/
+          - generic [ref=e88]:
+            - heading "Bueno por Dentro" [level=3] [ref=e89]
+            - paragraph [ref=e90]: Social Impact & Sustainability
+            - generic [ref=e91]:
+              - generic [ref=e92]: Core Branding
+              - generic [ref=e93]: Visual System
+              - generic [ref=e94]: Brand Voice
+              - generic [ref=e95]: Graphic Design
+        - link "Crocantitos Consumer Goods Packaging Design Visual System Illustration Brand Voice" [ref=e96] [cursor=pointer]:
+          - /url: https://qa.bsm.pe/proyecto/crocantitos-packaging/
+          - generic [ref=e98]:
+            - heading "Crocantitos" [level=3] [ref=e99]
+            - paragraph [ref=e100]: Consumer Goods
+            - generic [ref=e101]:
+              - generic [ref=e102]: Packaging Design
+              - generic [ref=e103]: Visual System
+              - generic [ref=e104]: Illustration
+              - generic [ref=e105]: Brand Voice
+        - link "Garbachos Branding & Consumer Goods NAMING PACKAGING BRAND VOICE CONTENT DESIGN" [ref=e106] [cursor=pointer]:
+          - /url: https://qa.bsm.pe/proyecto/packaging-garbachos/
+          - generic [ref=e108]:
+            - heading "Garbachos" [level=3] [ref=e109]
+            - paragraph [ref=e110]: Branding & Consumer Goods
+            - generic [ref=e111]:
+              - generic [ref=e112]: NAMING
+              - generic [ref=e113]: PACKAGING
+              - generic [ref=e114]: BRAND VOICE
+              - generic [ref=e115]: CONTENT DESIGN
+    - generic [ref=e116]:
+      - heading "RECONOCIMIENTOS:" [level=2] [ref=e117]
+      - generic [ref=e118]:
+        - generic [ref=e119]:
+          - generic [ref=e120]:
+            - img "Diseño de branding y packaging estratégico para Organa Retail Saludable por BSM." [ref=e122]
+            - blockquote [ref=e123]: “Nos crearon el nombre, el branding, el E-commerce, la estrategia y nuestra franquicia de vitaminas y suplementos”
+            - generic [ref=e124]:
+              - generic [ref=e125]: Arturo
+              - generic [ref=e126]: Fundador y Gerente
+          - generic [ref=e127]:
+            - img "Diseño de marca y packaging para la línea de citratos y barras de proteína de Smart Blends" [ref=e129]
+            - blockquote [ref=e130]: “Sorprendidos con la transformación de nuestro Branding; llevaron nuestros empaques a otro nivel.”
+            - generic [ref=e131]:
+              - generic [ref=e132]: Scarly
+              - generic [ref=e133]: Gerente General
+          - generic [ref=e134]:
+            - img "Branding y diseño de assets para el programa \"Bueno por dentro\" de Plaza Vea por BSM." [ref=e136]
+            - blockquote [ref=e137]: “Rediseñaron nuestro programa 'Bueno por dentro', logrando transmitir nuestro propósito social”
+            - generic [ref=e138]:
+              - generic [ref=e139]: Micaela y Paulina
+              - generic [ref=e140]: Equipo de Sosteniilidad
+          - generic [ref=e141]:
+            - img "Rediseño de identidad, packaging e ilustración con tono de voz de marca para Crocantitos por BSM" [ref=e143]
+            - blockquote [ref=e144]: “Rediseñaron nuestros empaques para competir en el mercado de USA”
+            - generic [ref=e145]:
+              - generic [ref=e146]: Sr. Darwin
+              - generic [ref=e147]: Gerente General
+          - generic [ref=e148]:
+            - img "Creación de naming, branding, packaging y assets de contenido para Cosecha Andina por BSM." [ref=e150]
+            - blockquote [ref=e151]: "“Crearon nuestra nueva línea de snacks: desde el nombre hasta el empaque, quedó Increíble”"
+            - generic [ref=e152]:
+              - generic [ref=e153]: Susan
+              - generic [ref=e154]: Gerente General
+        - generic [ref=e155]:
+          - button "Slide 1" [ref=e156] [cursor=pointer]
+          - button "Slide 2" [ref=e157] [cursor=pointer]
+          - button "Slide 3" [ref=e158] [cursor=pointer]
+          - button "Slide 4" [ref=e159] [cursor=pointer]
+          - button "Slide 5" [ref=e160] [cursor=pointer]
+  - contentinfo [ref=e162]:
+    - generic [ref=e163]:
+      - generic [ref=e165]: LIMA, PERÚ
+      - generic [ref=e166]:
+        - generic [ref=e167]:
+          - generic [ref=e168]: SÍGUENOS
+          - link "Linkedin" [ref=e169] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/brandingsocialmult
+          - link "Instagram" [ref=e170] [cursor=pointer]:
+            - /url: https://www.instagram.com/es_bsm/
+        - generic [ref=e171]: ©BSM 2026
+    - generic:
+      - img "BSM Logo"
+      - generic: ®
+  - complementary [ref=e172]:
+    - button [ref=e173] [cursor=pointer]:
+      - img [ref=e174]
+    - generic [ref=e177]:
+      - heading [level=2] [ref=e178]: SEA CUAL SEA TU OBJETIVO, TE AYUDAMOS A LOGRARLO
+      - generic [ref=e179]:
+        - textbox [ref=e181]:
+          - /placeholder: Nombre
+        - textbox [ref=e183]:
+          - /placeholder: Email
+        - textbox [ref=e185]:
+          - /placeholder: Asunto
+        - textbox [ref=e187]:
+          - /placeholder: Hola equipo de BSM,
+        - button [ref=e189] [cursor=pointer]: EMPECEMOS
