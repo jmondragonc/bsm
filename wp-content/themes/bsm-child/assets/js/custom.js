@@ -880,7 +880,8 @@ const isMobileDevice = () => window.innerWidth <= 768;
       // Set the height of the wrapper to accommodate the horizontal scroll duration
       // Added vertical scroll buffer (e.g. 100vh) to make it feel natural
       // 300vh creates a moderate speed scroll
-      wrapper.style.height = `${scrollDist + window.innerHeight}px`;
+      const buffer = window.innerWidth < 768 ? 0 : window.innerHeight;
+      wrapper.style.height = `${scrollDist + buffer}px`;
     }
 
     function onScroll() {
