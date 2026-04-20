@@ -1610,10 +1610,9 @@ a.work-item {
     width: 100%;
     height: 100vh;
     height: 100dvh;
-    background-color: #6a23cd;
+    background-color: #000;
     z-index: 999;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.4s ease, visibility 0.4s ease;
@@ -1623,8 +1622,33 @@ a.work-item {
     opacity: 1;
     visibility: visible;
   }
+  .mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 24px;
+  }
+  .mobile-menu-header .mobile-menu-logo img {
+    height: 20px;
+    width: auto;
+  }
+  .mobile-menu-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-family: "Clash Grotesk", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    padding: 0;
+  }
   .mobile-menu-content {
-    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px 24px 50px;
   }
   .mobile-menu-list {
     list-style: none;
@@ -1632,19 +1656,41 @@ a.work-item {
     padding: 0;
   }
   .mobile-menu-list li {
-    margin-bottom: 30px;
+    margin: 0;
+  }
+  .mobile-menu-list li.accent a {
+    color: #6a23cd;
   }
   .mobile-menu-list a {
     font-family: "Right Grotesk Compact", sans-serif;
-    font-size: 40px;
+    font-size: 88px;
     font-weight: 700;
-    color: #000;
+    line-height: 0.83;
+    color: #fff;
     text-decoration: none;
     text-transform: uppercase;
-    transition: opacity 0.3s ease;
+    display: block;
   }
-  .mobile-menu-list a:hover {
-    opacity: 0.7;
+  .mobile-menu-cta .mobile-menu-cta-title {
+    font-family: "Right Grotesk Compact", sans-serif;
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 0.83;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 0 0 20px;
+  }
+  .mobile-menu-cta .mobile-menu-email {
+    display: inline-block;
+    font-family: "Clash Grotesk", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+    text-decoration: none;
+    background: #6a23cd;
+    border: 1px solid #000;
+    border-radius: 20px;
+    padding: 6px 20px;
   }
   /* ------------------------------------------------------------------
      HERO SECTION - MOBILE

@@ -58,35 +58,31 @@ const isMobileDevice = () => window.innerWidth <= 768;
   function initMobileMenu() {
     const menuBtn = document.querySelector(".mobile-menu-btn");
     const menuOverlay = document.querySelector(".mobile-menu-overlay");
+    const closeBtn = document.querySelector(".mobile-menu-close");
     const menuLinks = document.querySelectorAll(".mobile-menu-list a");
 
     if (!menuBtn || !menuOverlay) return;
 
-    // Toggle menu on button click
+    function closeMenu() {
+      menuBtn.classList.remove("is-active");
+      menuOverlay.classList.remove("is-active");
+      document.body.style.overflow = "";
+    }
+
     menuBtn.addEventListener("click", function () {
       menuBtn.classList.toggle("is-active");
       menuOverlay.classList.toggle("is-active");
-      document.body.style.overflow = menuOverlay.classList.contains("is-active")
-        ? "hidden"
-        : "";
+      document.body.style.overflow = menuOverlay.classList.contains("is-active") ? "hidden" : "";
     });
 
-    // Close menu when clicking a link
+    if (closeBtn) closeBtn.addEventListener("click", closeMenu);
+
     menuLinks.forEach(function (link) {
-      link.addEventListener("click", function () {
-        menuBtn.classList.remove("is-active");
-        menuOverlay.classList.remove("is-active");
-        document.body.style.overflow = "";
-      });
+      link.addEventListener("click", closeMenu);
     });
 
-    // Close menu on escape key
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && menuOverlay.classList.contains("is-active")) {
-        menuBtn.classList.remove("is-active");
-        menuOverlay.classList.remove("is-active");
-        document.body.style.overflow = "";
-      }
+      if (e.key === "Escape" && menuOverlay.classList.contains("is-active")) closeMenu();
     });
   }
 
@@ -153,44 +149,81 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
     const scrollY = window.scrollY;
     const heroHeight = heroSection.offsetHeight;
-    const scrollProgress = Math.min(scrollY / heroHeight, 1);
+    const isMobileHero = window.innerWidth < 768;
 
-    // Fase 1 (0% → 35%): hero-title sube desde 100vh hasta su posición final, sin fade
-    const titleThreshold = heroHeight * 0.35;
-    if (heroTitle) {
-      const titleProgress = Math.min(scrollY / titleThreshold, 1);
-      const titleOffset = window.innerHeight * (1 - titleProgress);
-      heroTitle.style.transform = `translateY(${titleOffset}px)`;
-      heroTitle.style.opacity = "1";
-    }
+    if (isMobileHero) {
+      // MOBILE: 3 fases
+      // Fase 1 (0%→40%): título sube desde abajo, logo anclado
+      const phase1End = heroHeight * 0.40;
+      // Fase 2 (40%→75%): pausa — ambos anclados en su posición final
+      const phase2End = heroHeight * 0.75;
+      // Fase 3 (60%→100%): logo sube lento, título sube rápido
 
-    // Fase 2 (35% → 100%): letras salen hacia arriba SOLO después de que el título llegó
-    const exitStart = titleThreshold;
-    const exitRange = heroHeight - exitStart;
-    const exitProgress = Math.max(scrollY - exitStart, 0) / exitRange;
-    const exitClamped = Math.min(exitProgress, 1);
-
-    if (exitClamped > 0) {
-      const imageOffset = exitClamped * 200;
-      const backgroundOffset = exitClamped * 40;
-
-      if (heroImage) {
-        heroImage.style.transform = `translateY(-${imageOffset}px)`;
-        heroImage.style.opacity = "1";
-      }
       if (heroTitle) {
-        heroTitle.style.transform = `translateY(-${imageOffset}px)`;
+        if (scrollY <= phase1End) {
+          const p = scrollY / phase1End;
+          const ease = p * (2 - p);
+          const offset = window.innerHeight * (1 - ease);
+          heroTitle.style.transform = `translateY(${offset}px)`;
+        } else if (scrollY <= phase2End) {
+          heroTitle.style.transform = "translateY(0px)";
+        } else {
+          const p = (scrollY - phase2End) / (heroHeight - phase2End);
+          const clamped = Math.min(p, 1);
+          heroTitle.style.transform = `translateY(-${clamped * 300}px)`;
+        }
+        heroTitle.style.opacity = "1";
       }
+
+      if (scrollY <= phase2End) {
+        heroImage.style.transform = "translateY(0px)";
+      } else {
+        const p = (scrollY - phase2End) / (heroHeight - phase2End);
+        const clamped = Math.min(p, 1);
+        heroImage.style.transform = `translateY(-${clamped * 150}px)`;
+      }
+      heroImage.style.opacity = "1";
+
       if (heroBackground) {
-        heroBackground.style.transform = `translateY(-${backgroundOffset}px)`;
+        const bgP = Math.min(scrollY / heroHeight, 1);
+        heroBackground.style.transform = `translateY(-${bgP * 40}px)`;
       }
     } else {
-      if (heroImage) {
-        heroImage.style.transform = "translateY(0)";
-        heroImage.style.opacity = "1";
+      // DESKTOP: comportamiento original
+      const titleThreshold = heroHeight * 0.35;
+      if (heroTitle) {
+        const titleProgress = Math.min(scrollY / titleThreshold, 1);
+        const titleOffset = window.innerHeight * (1 - titleProgress);
+        heroTitle.style.transform = `translateY(${titleOffset}px)`;
+        heroTitle.style.opacity = "1";
       }
-      if (heroBackground) {
-        heroBackground.style.transform = "translateY(0)";
+
+      const exitStart = titleThreshold;
+      const exitRange = heroHeight - exitStart;
+      const exitProgress = Math.max(scrollY - exitStart, 0) / exitRange;
+      const exitClamped = Math.min(exitProgress, 1);
+
+      if (exitClamped > 0) {
+        const imageOffset = exitClamped * 200;
+        const backgroundOffset = exitClamped * 40;
+        if (heroImage) {
+          heroImage.style.transform = `translateY(-${imageOffset}px)`;
+          heroImage.style.opacity = "1";
+        }
+        if (heroTitle) {
+          heroTitle.style.transform = `translateY(-${imageOffset}px)`;
+        }
+        if (heroBackground) {
+          heroBackground.style.transform = `translateY(-${backgroundOffset}px)`;
+        }
+      } else {
+        if (heroImage) {
+          heroImage.style.transform = "translateY(0)";
+          heroImage.style.opacity = "1";
+        }
+        if (heroBackground) {
+          heroBackground.style.transform = "translateY(0)";
+        }
       }
     }
   }
