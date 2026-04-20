@@ -1731,14 +1731,11 @@ a.work-item {
      FULL EXPERIENCE SECTION - MOBILE
      ------------------------------------------------------------------ */
   .bsm-experience-wrapper {
-    height: 100vh;
-    overflow: hidden;
+    height: 150vh;
     position: relative;
     z-index: 5;
   }
   .bsm-full-experience {
-    position: relative;
-    height: 100vh;
     padding: 50px 0;
   }
   .bsm-full-experience .container {

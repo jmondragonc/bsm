@@ -1353,15 +1353,12 @@ a.work-item {
      ------------------------------------------------------------------ */
 
   .bsm-experience-wrapper {
-    height: 100vh;
-    overflow: hidden;
+    height: 150vh;
     position: relative;
     z-index: 5;
   }
 
   .bsm-full-experience {
-    position: relative; // Sin sticky en mobile - no hay parallax
-    height: 100vh;
     padding: 50px 0;
 
     .container {
