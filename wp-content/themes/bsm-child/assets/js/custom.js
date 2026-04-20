@@ -327,13 +327,15 @@ const isMobileDevice = () => window.innerWidth <= 768;
     }
 
     // 1) Logo grande: scale 1.2 → 1.0 en 0.2s
-    // Scale 1 → 0.8 en paralelo con la animación de letras
-    requestAnimationFrame(function () {
+    // Scale 1 → 0.8 en paralelo con la animación de letras (solo desktop)
+    if (window.innerWidth >= 768) {
       requestAnimationFrame(function () {
-        framesContainer.style.transition = "transform 0.75s ease-out";
-        framesContainer.style.transform = "scale(0.8)";
+        requestAnimationFrame(function () {
+          framesContainer.style.transition = "transform 0.75s ease-out";
+          framesContainer.style.transform = "scale(0.8)";
+        });
       });
-    });
+    }
 
     // Animación de letras arranca al mismo tiempo
     playSequence(bFrames, bSequence, 0);
@@ -498,16 +500,6 @@ const isMobileDevice = () => window.innerWidth <= 768;
       return;
     }
 
-    // En mobile: mostrar todo estático, sin animación de scroll
-    if (window.innerWidth < 768) {
-      if (title) {
-        title.style.opacity = 1;
-        title.style.transform = "none";
-      }
-      tags.forEach(tag => { tag.style.opacity = 1; });
-      return;
-    }
-
     // Initial styles — título entra desde abajo con fadeIn
     if (title) {
       title.style.opacity = 0;
@@ -583,7 +575,7 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
         const titleEntryEnd  = 0.4; // termina de entrar al 40% del scroll pinned
         const collapseStart  = 1.2; // arranca al soltar el pin (220vh wrapper → G_max=1.2)
-        const baseTitleUp    = isMobile ? 80 : (isTablet ? 150 : 280);
+        const baseTitleUp    = isMobile ? 200 : (isTablet ? 150 : 280);
 
         if (growthProgress <= 0) {
           titleTransY = windowH;

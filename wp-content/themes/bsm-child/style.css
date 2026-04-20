@@ -1668,18 +1668,21 @@ a.work-item {
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    padding: 80px 24px 40px;
+    padding: 80px 12px 40px;
+  }
+  .hero-image {
+    width: 100% !important;
   }
   .hero-image .frames {
-    width: 75%;
+    width: 100%;
     gap: 8px;
   }
   .hero-title {
     width: 100%;
   }
   .hero-title h1 {
-    font-size: 28px;
-    line-height: 1;
+    font-size: 43px;
+    line-height: 0.83;
     text-align: center;
     font-family: "Right Grotesk Compact", sans-serif;
     font-weight: 700;
