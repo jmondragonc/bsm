@@ -580,8 +580,8 @@ const isMobileDevice = () => window.innerWidth <= 768;
       const rect = wrapper.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // START calculations
-      const entryStart = windowHeight;
+      // START calculations — 1.8x para que tags aparezcan antes del negro
+      const entryStart = windowHeight * 1.8;
       const entryEnd = 0;
 
       // 1. Entry Progress (0 to 1) - While wrapper is entering viewport
@@ -888,7 +888,7 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
     if (!wrapper || !container || !track) return;
 
-    // FadeIn del título al entrar en viewport
+    // FadeIn/FadeOut del título según visibilidad
     const workTitle = container.querySelector("h2");
     if (workTitle) {
       const titleObserver = new IntersectionObserver(
@@ -896,7 +896,8 @@ const isMobileDevice = () => window.innerWidth <= 768;
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               workTitle.classList.add("is-visible");
-              titleObserver.disconnect();
+            } else {
+              workTitle.classList.remove("is-visible");
             }
           });
         },
