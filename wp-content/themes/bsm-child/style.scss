@@ -801,6 +801,17 @@ h3 {
   height: auto;
 }
 
+.bsm-work-container h2 {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .bsm-work-container {
   position: sticky;
   top: 80px;

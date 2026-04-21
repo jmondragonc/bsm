@@ -888,6 +888,23 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
     if (!wrapper || !container || !track) return;
 
+    // FadeIn del título al entrar en viewport
+    const workTitle = container.querySelector("h2");
+    if (workTitle) {
+      const titleObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              workTitle.classList.add("is-visible");
+              titleObserver.disconnect();
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      titleObserver.observe(workTitle);
+    }
+
     function updateDimensions() {
       const trackWidth = track.scrollWidth;
       const viewportWidth = window.innerWidth;
