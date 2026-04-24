@@ -618,16 +618,10 @@ const isMobileDevice = () => window.innerWidth <= 768;
     const expEl = document.querySelector(".bsm-full-experience");
     const workEl = document.querySelector(".bsm-work");
     let workIsPinned = false;
-    let workPlaceholder = null;
 
     function enterWorkPinned() {
       if (workIsPinned || !workEl || !expEl) return;
       workIsPinned = true;
-      // Placeholder preserves document height
-      workPlaceholder = document.createElement("div");
-      workPlaceholder.style.height = workEl.offsetHeight + "px";
-      workEl.parentNode.insertBefore(workPlaceholder, workEl);
-      // Fix work at bottom of viewport (below 74vh exp section)
       const expH = expEl.offsetHeight;
       workEl.style.position = "fixed";
       workEl.style.top = expH + "px";
@@ -636,11 +630,6 @@ const isMobileDevice = () => window.innerWidth <= 768;
       workEl.style.height = (window.innerHeight - expH) + "px";
       workEl.style.overflow = "hidden";
       workEl.style.zIndex = "6";
-      // Force inner animate-fade-up elements to full visibility (scroll calc breaks when fixed)
-      workEl.querySelectorAll('.animate-fade-up, .animate-slide-left').forEach(function(el) {
-        el.style.opacity = '1';
-        el.style.transform = el.classList.contains('animate-fade-up') ? 'translateY(0)' : 'translateX(0)';
-      });
       // Fade in — double RAF ensures opacity:0 is painted before transition starts
       workEl.style.transition = "";
       workEl.style.opacity = "0";
@@ -654,23 +643,16 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
     function exitWorkPinned() {
       if (!workIsPinned || !workEl) return;
-      workEl.style.transition = "opacity 0.3s ease";
-      workEl.style.opacity = "0";
-      const placeholder = workPlaceholder;
-      workPlaceholder = null;
-      setTimeout(function() {
-        workIsPinned = false;
-        workEl.style.transition = "";
-        workEl.style.opacity = "";
-        workEl.style.position = "";
-        workEl.style.top = "";
-        workEl.style.left = "";
-        workEl.style.right = "";
-        workEl.style.height = "";
-        workEl.style.overflow = "";
-        workEl.style.zIndex = "";
-        if (placeholder) placeholder.remove();
-      }, 300);
+      workIsPinned = false;
+      workEl.style.transition = "";
+      workEl.style.opacity = "";
+      workEl.style.position = "";
+      workEl.style.top = "";
+      workEl.style.left = "";
+      workEl.style.right = "";
+      workEl.style.height = "";
+      workEl.style.overflow = "";
+      workEl.style.zIndex = "";
     }
 
     function setMobileWrapperHeight() {
@@ -729,9 +711,12 @@ const isMobileDevice = () => window.innerWidth <= 768;
       // growthProgress goes from 0 to 1+
       let growthProgress = pinnedDist / growthDist;
 
-      // Mobile: Work section visible in the 26vh gap below the pinned experience section
+      // Mobile: Work section visible in the 26vh gap below the pinned experience section.
+      // Exit when growthProgress >= maxGrowth (experience wrapper exits viewport bottom) so
+      // the Work section returns to natural document flow without leaving a white gap.
       if (isMobile) {
-        if (growthProgress > 0) {
+        const maxGrowth = (wrapper.offsetHeight - windowHeight) / windowHeight;
+        if (growthProgress > 0 && growthProgress < maxGrowth) {
           enterWorkPinned();
         } else {
           exitWorkPinned();
