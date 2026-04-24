@@ -252,6 +252,23 @@ acf_add_local_field_group(array(
             ),
         ),
 
+        // ── Contacto ─────────────────────────────────────────────────
+        array(
+            'key'   => 'field_tab_contacto',
+            'label' => 'Contacto',
+            'name'  => '',
+            'type'  => 'tab',
+        ),
+        array(
+            'key'           => 'field_contact_titulo',
+            'label'         => 'Título del drawer de contacto',
+            'name'          => 'contact_titulo',
+            'type'          => 'textarea',
+            'rows'          => 4,
+            'default_value' => "SEA CUAL SEA\nTU OBJETIVO,\nTE AYUDAMOS\nA LOGRARLO",
+            'instructions'  => 'Usa saltos de línea para controlar los quiebres de línea del título.',
+        ),
+
     ), // end fields
 ));
 

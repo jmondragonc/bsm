@@ -53,7 +53,7 @@ get_header('interna'); ?>
             <?php if (get_field('proyecto_acordeon')) : ?>
             <div class="proyecto-seguir">
                 <span class="proyecto-seguir-text">Seguir leyendo</span>
-                <button class="proyecto-seguir-btn" aria-label="Seguir leyendo" aria-expanded="false">+</button>
+                <button class="proyecto-seguir-btn" aria-label="Seguir leyendo" aria-expanded="false"><span class="plus-icon"></span></button>
             </div>
             <div class="proyecto-acordeon" aria-hidden="true">
                 <p><?php echo esc_html(get_field('proyecto_acordeon')); ?></p>
