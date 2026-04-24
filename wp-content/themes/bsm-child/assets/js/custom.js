@@ -712,11 +712,10 @@ const isMobileDevice = () => window.innerWidth <= 768;
       let growthProgress = pinnedDist / growthDist;
 
       // Mobile: Work section visible in the 26vh gap below the pinned experience section.
-      // Exit when growthProgress >= maxGrowth (experience wrapper exits viewport bottom) so
-      // the Work section returns to natural document flow without leaving a white gap.
+      // Exit at growthProgress >= 2.0: at this exact point, the Work section's natural
+      // document position equals its fixed visual position — zero visual jump on transition.
       if (isMobile) {
-        const maxGrowth = (wrapper.offsetHeight - windowHeight) / windowHeight;
-        if (growthProgress > 0 && growthProgress < maxGrowth) {
+        if (growthProgress > 0 && growthProgress < 2.0) {
           enterWorkPinned();
         } else {
           exitWorkPinned();
