@@ -472,38 +472,87 @@ h3 {
   border: 1px solid #000;
   border-radius: 50px;
   background-color: #fff;
-  font-family: "Neureal", sans-serif;
-  font-size: 45px;
-  line-height: 1;
-  text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   padding: 0;
-  padding-bottom: 10px;
-  padding-left: 0;
-  transition: all ease-in-out 0.35s;
+  transition: background-color ease-in-out 0.35s, border-color ease-in-out 0.35s;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   outline: none;
   caret-color: transparent;
+  position: relative;
 
   &:focus {
     outline: none;
     caret-color: transparent;
+  }
+
+  .plus-icon {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    display: block;
+    transition: transform 0.35s ease-in-out;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      background-color: #000;
+      border-radius: 2px;
+      transition: background-color 0.35s ease-in-out;
+    }
+
+    // Barra horizontal
+    &::before {
+      width: 18px;
+      height: 2px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    // Barra vertical
+    &::after {
+      width: 2px;
+      height: 18px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 }
 
 .expand-btn:hover,
 .service-header:hover .expand-btn {
   background-color: #000;
-  color: #fff;
-  transition: all ease-in-out 0.35s;
+  border-color: #000;
+
+  .plus-icon {
+    &::before,
+    &::after {
+      background-color: #fff;
+    }
+  }
+}
+
+.expand-btn.is-open {
+  background-color: #000;
+  border-color: #000;
+
+  .plus-icon {
+    transform: rotate(45deg);
+
+    &::before,
+    &::after {
+      background-color: #fff;
+    }
+  }
 }
 
 /* Full Experience Section */
@@ -729,14 +778,14 @@ h3 {
 
   &.tag-3 {
     // PACKAGING - Center over "ERI"
-    top: 38%;
+    top: 30%;
     left: 40%;
     transform: rotate(8deg);
   }
 
   &.tag-4 {
     // SOCIAL MEDIA - Center Right over "NCIA"
-    top: 48%;
+    top: 46%;
     right: 18%;
     transform: rotate(-4deg);
   }
@@ -1111,10 +1160,12 @@ a.work-item {
     }
     &.tag-7 {
       top: 220px;
+      bottom: auto;
       left: 20%;
     }
     &.tag-8 {
       top: 260px;
+      bottom: auto;
       right: 30%;
     }
   }
@@ -1145,8 +1196,9 @@ a.work-item {
   // Hide desktop menu elements and show nav on mobile
   .bsm-nav {
     padding: 20px;
-    opacity: 1 !important; // Override desktop hidden state
-    // Keep mix-blend-mode: difference for logo color change like desktop
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
 
     .nav-left {
       gap: 0;
@@ -1165,42 +1217,21 @@ a.work-item {
   // Mobile hamburger button
   .mobile-menu-btn {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 5px;
-    width: 40px;
-    height: 40px;
     background: transparent;
     border: none;
     cursor: pointer;
     z-index: 1001;
     padding: 0;
 
-    .hamburger-line {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background-color: #fff;
-      transition: all 0.3s ease;
-    }
-  }
-
-  // Hamburger lines inherit blend mode behavior from nav
-  .mobile-menu-btn .hamburger-line {
-    background-color: #fff; // Will invert with blend mode
-  }
-
-  // Hamburger animation when menu is open
-  .mobile-menu-btn.is-active {
-    .hamburger-line:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-    .hamburger-line:nth-child(2) {
-      opacity: 0;
-    }
-    .hamburger-line:nth-child(3) {
-      transform: rotate(-45deg) translate(5px, -5px);
+    .menu-label {
+      font-family: "Clash Grotesk", sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 1;
+      letter-spacing: 0;
+      color: #fff;
     }
   }
 
@@ -1214,7 +1245,7 @@ a.work-item {
     height: 100vh;
     height: 100dvh;
     background-color: #000;
-    z-index: 999;
+    z-index: 1010;
     flex-direction: column;
     opacity: 0;
     visibility: hidden;
@@ -1236,6 +1267,7 @@ a.work-item {
     .mobile-menu-logo img {
       height: 20px;
       width: auto;
+      filter: brightness(0) invert(1);
     }
   }
 
@@ -1263,6 +1295,7 @@ a.work-item {
     list-style: none;
     margin: 0;
     padding: 0;
+    text-align: center;
 
     li { margin: 0; }
 
@@ -1277,18 +1310,22 @@ a.work-item {
       text-decoration: none;
       text-transform: uppercase;
       display: block;
+      text-align: center;
     }
   }
 
   .mobile-menu-cta {
+    text-align: center;
+
     .mobile-menu-cta-title {
       font-family: "Right Grotesk Compact", sans-serif;
       font-size: 50px;
       font-weight: 700;
       line-height: 0.83;
-      color: #fff;
+      color: #6a23cd;
       text-transform: uppercase;
       margin: 0 0 20px;
+      text-align: center;
     }
 
     .mobile-menu-email {
@@ -1310,7 +1347,7 @@ a.work-item {
      ------------------------------------------------------------------ */
 
   .bsm-hero {
-    height: 120vh; // Enough height for scroll animation
+    height: 300vh; // Logo centra → sube → texto sube
 
     .bsm-hero-sticky-wrapper {
       position: sticky;
@@ -1328,24 +1365,31 @@ a.work-item {
   .hero-content {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     height: 100%;
     padding: 80px 12px 40px;
+    position: relative;
   }
 
   .hero-image {
     width: 100% !important;
+    transition: none !important;
     .frames {
       width: 100%;
       gap: 8px;
+      transition: none !important;
     }
   }
 
   .hero-title {
-    width: 100%;
+    position: absolute;
+    bottom: 140px;
+    left: 12px;
+    right: 12px;
+    width: auto !important;
     h1 {
-      font-size: 43px;
+      font-size: 43px !important;
       line-height: 0.83;
       text-align: center;
       font-family: "Right Grotesk Compact", sans-serif;
@@ -1394,11 +1438,11 @@ a.work-item {
   }
 
   .service-item h3 {
-    font-size: 32px;
+    font-size: 26px;
   }
 
   .service-content p {
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .expand-btn {
@@ -1412,13 +1456,15 @@ a.work-item {
      ------------------------------------------------------------------ */
 
   .bsm-experience-wrapper {
-    height: 150vh;
     position: relative;
     z-index: 5;
+    background-color: #fff;
   }
 
   .bsm-full-experience {
-    padding: 50px 0;
+    height: 74vh;
+    justify-content: flex-start;
+    padding: 80px 0 40px;
 
     .container {
       width: 100%;
@@ -1496,6 +1542,10 @@ a.work-item {
      ------------------------------------------------------------------ */
 
   .bsm-work {
+    padding-top: 0;
+    position: relative;
+    z-index: 10;
+
     .container {
       padding: 0 0 60px 20px;
     }
@@ -1510,7 +1560,9 @@ a.work-item {
   .bsm-work-container {
     height: auto;
     min-height: unset;
-    padding-top: 56px;
+    position: relative;
+    top: auto;
+    padding-top: 32px;
     padding-bottom: 40px;
   }
 

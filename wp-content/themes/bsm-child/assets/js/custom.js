@@ -149,38 +149,52 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
     const scrollY = window.scrollY;
     const heroHeight = heroSection.offsetHeight;
-    const isMobileHero = window.innerWidth < 768;
+    const isMobileHero = window.innerWidth <= 768;
 
     if (isMobileHero) {
-      // MOBILE: 3 fases
-      // Fase 1 (0%→40%): título sube desde abajo, logo anclado
-      const phase1End = heroHeight * 0.40;
-      // Fase 2 (40%→75%): pausa — ambos anclados en su posición final
-      const phase2End = heroHeight * 0.75;
-      // Fase 3 (60%→100%): logo sube lento, título sube rápido
+      // MOBILE: 4 fases
+      // Fase 0 (0%→25%): logo sube desde el centro a su posición final
+      // Fase 1 (25%→55%): texto sube desde abajo (logo ya anclado)
+      // Fase 2 (55%→80%): ambos anclados
+      // Fase 3 (80%→100%): ambos salen hacia arriba
+      const phase0End = heroHeight * 0.25;
+      const phase1End = heroHeight * 0.55;
+      const phase2End = heroHeight * 0.80;
 
-      if (heroTitle) {
-        if (scrollY <= phase1End) {
-          const p = scrollY / phase1End;
-          const ease = p * (2 - p);
-          const offset = window.innerHeight * (1 - ease);
-          heroTitle.style.transform = `translateY(${offset}px)`;
-        } else if (scrollY <= phase2End) {
-          heroTitle.style.transform = "translateY(0px)";
-        } else {
-          const p = (scrollY - phase2End) / (heroHeight - phase2End);
-          const clamped = Math.min(p, 1);
-          heroTitle.style.transform = `translateY(-${clamped * 300}px)`;
+      if (scrollY <= phase0End) {
+        // Logo sube desde el centro hacia su posición final (arriba)
+        const p = scrollY / phase0End;
+        const ease = p * (2 - p);
+        heroImage.style.transform = `translateY(-${mobileLiftAmount * ease}px)`;
+        if (heroTitle) {
+          heroTitle.style.transform = `translateY(${window.innerHeight}px)`;
+          heroTitle.style.opacity = "1";
         }
-        heroTitle.style.opacity = "1";
-      }
-
-      if (scrollY <= phase2End) {
-        heroImage.style.transform = "translateY(0px)";
+      } else if (scrollY <= phase1End) {
+        // Logo anclado arriba, texto sube desde abajo
+        heroImage.style.transform = `translateY(-${mobileLiftAmount}px)`;
+        if (heroTitle) {
+          const p = (scrollY - phase0End) / (phase1End - phase0End);
+          const ease = p * (2 - p);
+          heroTitle.style.transform = `translateY(${window.innerHeight * (1 - ease)}px)`;
+          heroTitle.style.opacity = "1";
+        }
+      } else if (scrollY <= phase2End) {
+        // Ambos anclados
+        heroImage.style.transform = `translateY(-${mobileLiftAmount}px)`;
+        if (heroTitle) {
+          heroTitle.style.transform = "translateY(0px)";
+          heroTitle.style.opacity = "1";
+        }
       } else {
+        // Ambos salen hacia arriba
         const p = (scrollY - phase2End) / (heroHeight - phase2End);
         const clamped = Math.min(p, 1);
-        heroImage.style.transform = `translateY(-${clamped * 150}px)`;
+        heroImage.style.transform = `translateY(-${mobileLiftAmount + clamped * 150}px)`;
+        if (heroTitle) {
+          heroTitle.style.transform = `translateY(-${clamped * 300}px)`;
+          heroTitle.style.opacity = "1";
+        }
       }
       heroImage.style.opacity = "1";
 
@@ -227,6 +241,50 @@ const isMobileDevice = () => window.innerWidth <= 768;
       }
     }
   }
+
+  // Estado inicial mobile: logo en su posición natural (centro), título fuera de pantalla
+  // mobileLiftAmount = cuánto sube el logo desde el centro hasta su posición final (arriba)
+  let mobileLiftAmount = 0;
+
+  function initMobileHeroState() {
+    if (window.innerWidth > 768) return;
+    const heroSection = document.querySelector("#primary .bsm-hero");
+    if (!heroSection) return;
+    const heroImage = heroSection.querySelector(".hero-image");
+    const heroTitle = heroSection.querySelector(".hero-title");
+    if (!heroImage || !heroTitle) return;
+
+    heroImage.style.transition = "none";
+    heroImage.style.transform = "";
+    const rect = heroImage.getBoundingClientRect();
+    const targetTop = 185;
+    mobileLiftAmount = Math.max(rect.top - targetTop, 0);
+
+    heroTitle.style.transition = "none";
+    heroTitle.style.transform = `translateY(${window.innerHeight}px)`;
+    heroTitle.style.opacity = "1";
+
+    // Nav visible inmediatamente en mobile sin slide-in animation
+    const nav = document.querySelector(".bsm-nav");
+    if (nav) {
+      nav.style.transition = "none";
+      nav.classList.add("show", "on-purple");
+      requestAnimationFrame(function () {
+        nav.style.transition = "";
+      });
+    }
+
+    // Sincronizar posición del logo con el scroll actual
+    handleHeroParallax();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMobileHeroState);
+  } else {
+    initMobileHeroState();
+  }
+  window.addEventListener("load", initMobileHeroState);
+  window.addEventListener("resize", initMobileHeroState);
 
   // Ejecutar al cargar
   window.addEventListener("load", checkBackground);
@@ -361,7 +419,7 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
     // 1) Logo grande: scale 1.2 → 1.0 en 0.2s
     // Scale 1 → 0.8 en paralelo con la animación de letras (solo desktop)
-    if (window.innerWidth >= 768) {
+    if (window.innerWidth > 768) {
       requestAnimationFrame(function () {
         requestAnimationFrame(function () {
           framesContainer.style.transition = "transform 0.75s ease-out";
@@ -409,20 +467,16 @@ const isMobileDevice = () => window.innerWidth <= 768;
       const btn = item.querySelector(".expand-btn");
 
       header.addEventListener("click", function () {
-        // Si el item ya está activo, lo cerramos
         if (item.classList.contains("active")) {
           item.classList.remove("active");
-          btn.textContent = "+";
+          btn.classList.remove("is-open");
         } else {
-          // Cerrar todos los demás items
           serviceItems.forEach(function (otherItem) {
             otherItem.classList.remove("active");
-            otherItem.querySelector(".expand-btn").textContent = "+";
+            otherItem.querySelector(".expand-btn").classList.remove("is-open");
           });
-
-          // Abrir el item actual
           item.classList.add("active");
-          btn.textContent = "-";
+          btn.classList.add("is-open");
         }
       });
     });
@@ -548,27 +602,90 @@ const isMobileDevice = () => window.innerWidth <= 768;
     // Map of final rotations matching CSS requirements
     const rotations = [15, -15, 8, -4, -28, 15, 18, -25];
 
-    // Stagger delays to create wave effect
-    const staggerOffsets = [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35];
+    // Stagger delays — cada tag entra en momento distinto
+    const staggerOffsets = [0, 0.08, 0.14, 0.06, 0.18, 0.10, 0.22, 0.04];
+
+    // Velocidad individual de entrada: parallax — cada tag sube a distinta velocidad
+    const entrySpeedFactors = [1.0, 0.7, 1.3, 0.85, 1.15, 0.6, 1.4, 0.9];
 
     // Spread vectors for Phase 2 (Growth)
     // As they grow, move them outwards to avoid overlapping
     // {x, y, r, speed} (r = additional rotation, speed = parallax speed factor)
-    const isMobile = window.innerWidth < 768;
-    const isTablet = window.innerWidth < 1200 && window.innerWidth >= 768;
+    const isMobile = window.innerWidth <= 768;
+    const isTablet = window.innerWidth < 1200 && window.innerWidth > 768;
+
+    // En mobile: wrapper toma el alto del contenido + espacio de scroll para la animación
+    const expEl = document.querySelector(".bsm-full-experience");
+    const workEl = document.querySelector(".bsm-work");
+    let workIsPinned = false;
+
+    function enterWorkPinned() {
+      if (workIsPinned || !workEl || !expEl) return;
+      workIsPinned = true;
+      const expH = expEl.offsetHeight;
+      workEl.style.position = "fixed";
+      workEl.style.top = expH + "px";
+      workEl.style.left = "0";
+      workEl.style.right = "0";
+      workEl.style.height = (window.innerHeight - expH) + "px";
+      workEl.style.overflow = "hidden";
+      workEl.style.zIndex = "6";
+      // Fade in — double RAF ensures opacity:0 is painted before transition starts
+      workEl.style.transition = "";
+      workEl.style.opacity = "0";
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          workEl.style.transition = "opacity 0.6s ease";
+          workEl.style.opacity = "1";
+        });
+      });
+    }
+
+    function exitWorkPinned() {
+      if (!workIsPinned || !workEl) return;
+      workIsPinned = false;
+      workEl.style.transition = "";
+      workEl.style.opacity = "";
+      workEl.style.position = "";
+      workEl.style.top = "";
+      workEl.style.left = "";
+      workEl.style.right = "";
+      workEl.style.height = "";
+      workEl.style.overflow = "";
+      workEl.style.zIndex = "";
+    }
+
+    function setMobileWrapperHeight() {
+      if (!isMobile || !expEl) return;
+      wrapper.style.height = (expEl.offsetHeight + window.innerHeight * 2.0) + "px";
+    }
+    setMobileWrapperHeight();
+    window.addEventListener("resize", setMobileWrapperHeight);
 
     // Reduce movements for smaller screens
-    const mobileFactor = isMobile ? 0.4 : (isTablet ? 0.6 : 1);
+    const mobileFactor = isMobile ? 0.7 : (isTablet ? 0.6 : 1);
 
-    const spreadOffsets = [
+    const spreadOffsets = isMobile ? [
+      // Y calculado desde posiciones medidas con Playwright en growthProgress=1
+      // Target sin overlap: BRANDING 62, STRATEGY 127, AD CAMPAIGNS 168, DESIGN 267 (izq)
+      //                     PACKAGING 85, DIGITAL 165, WEB 209, OUTDOORS 278 (der)
+      { x: -50, y:  +70, r:  -5, speed: 1.2 },  // BRANDING
+      { x:  20, y:  +60, r:   5, speed: 0.8 },  // PACKAGING
+      { x: -55, y: +125, r:  -3, speed: 1.1 },  // STRATEGY
+      { x:  30, y: +120, r:   8, speed: 0.9 },  // DIGITAL
+      { x: -20, y: +157, r: -10, speed: 1.3 },  // AD CAMPAIGNS
+      { x:  20, y: +136, r:   5, speed: 1.0 },  // WEB & ECOMM
+      { x: -50, y: +213, r:   4, speed: 1.0 },  // DESIGN GUIDE
+      { x:  40, y: +182, r:  -4, speed: 1.15 }, // OUTDOORS
+    ] : [
       { x: -100 * mobileFactor, y: -50 * mobileFactor, r: -5, speed: 1.2 },
       { x: 100 * mobileFactor, y: -50 * mobileFactor, r: 5, speed: 0.8 },
       { x: -80 * mobileFactor, y: -20 * mobileFactor, r: -3, speed: 1.1 },
       { x: 150 * mobileFactor, y:  20 * mobileFactor, r: 8,  speed: 0.9 },
-      { x: -150 * mobileFactor, y: -40 * mobileFactor, r: -10, speed: 1.3 }, // era y:80
-      { x:  120 * mobileFactor, y: -60 * mobileFactor, r: 5,  speed: 1.0 },  // era y:120, speed:0.7
-      { x:  -60 * mobileFactor, y: -60 * mobileFactor, r: 4,  speed: 1.0 },  // era y:150
-      { x:   60 * mobileFactor, y: -60 * mobileFactor, r: -4, speed: 1.15 }, // era y:150
+      { x: -150 * mobileFactor, y: -40 * mobileFactor, r: -10, speed: 1.3 },
+      { x:  120 * mobileFactor, y: -60 * mobileFactor, r: 5,  speed: 1.0 },
+      { x:  -60 * mobileFactor, y: -60 * mobileFactor, r: 4,  speed: 1.0 },
+      { x:   60 * mobileFactor, y: -60 * mobileFactor, r: -4, speed: 1.15 },
     ];
 
     function render() {
@@ -580,8 +697,8 @@ const isMobileDevice = () => window.innerWidth <= 768;
       const rect = wrapper.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // START calculations
-      const entryStart = windowHeight;
+      // START calculations — empieza antes para que el viaje sea visible sin negro largo
+      const entryStart = isMobile ? windowHeight * 2.5 : windowHeight * 1.6;
       const entryEnd = 0;
 
       // 1. Entry Progress (0 to 1) - While wrapper is entering viewport
@@ -594,10 +711,16 @@ const isMobileDevice = () => window.innerWidth <= 768;
       // growthProgress goes from 0 to 1+
       let growthProgress = pinnedDist / growthDist;
 
-      // Calculate Scroll Up Progress (starts after growth/pinning is done or during)
-      // We want continuous upward movement.
-      // Let's use the raw pinned distance
-      // MOVED: Calculation happens per tag now for variable speed
+      // Mobile: Work section visible in the 26vh gap below the pinned experience section.
+      // Exit at growthProgress >= 2.0: at this exact point, the Work section's natural
+      // document position equals its fixed visual position — zero visual jump on transition.
+      if (isMobile) {
+        if (growthProgress > 0 && growthProgress < 2.0) {
+          enterWorkPinned();
+        } else {
+          exitWorkPinned();
+        }
+      }
 
       // --- ANIMATION LOGIC ---
 
@@ -606,22 +729,24 @@ const isMobileDevice = () => window.innerWidth <= 768;
         const windowH = window.innerHeight;
         let titleTransY;
 
-        const titleEntryEnd  = 0.4; // termina de entrar al 40% del scroll pinned
-        const collapseStart  = 1.2; // arranca al soltar el pin (220vh wrapper → G_max=1.2)
+        const titleEntryEnd  = isMobile ? 0.2 : 0.4;
+        const collapseStart  = isMobile ? 0.9 : 1.2;
         const baseTitleUp    = isMobile ? 200 : (isTablet ? 150 : 280);
+
+        const titleRestY = isMobile ? 80 : 0; // posición final más abajo en mobile
 
         if (growthProgress <= 0) {
           titleTransY = windowH;
         } else if (growthProgress < titleEntryEnd) {
           const p    = growthProgress / titleEntryEnd;
           const ease = p * (2 - p);
-          titleTransY = windowH * (1 - ease);
+          titleTransY = windowH * (1 - ease) + titleRestY * ease;
         } else if (growthProgress < collapseStart) {
           // Frame estable
-          titleTransY = 0;
+          titleTransY = titleRestY;
         } else {
           // Colapsa hacia arriba — corre mientras el sticky sale del viewport
-          titleTransY = -((growthProgress - collapseStart) * baseTitleUp);
+          titleTransY = titleRestY - ((growthProgress - collapseStart) * baseTitleUp);
         }
 
         title.style.transform = `translateY(${titleTransY}px)`;
@@ -636,7 +761,7 @@ const isMobileDevice = () => window.innerWidth <= 768;
         }
       }
 
-      const initialTransY = 400; // Patillas entran desde abajo
+      const initialTransY = isMobile ? windowHeight * 1.3 : 250; // Patillas entran desde abajo
 
       tags.forEach((tag, index) => {
         const rotation = rotations[index] !== undefined ? rotations[index] : 0;
@@ -650,33 +775,37 @@ const isMobileDevice = () => window.innerWidth <= 768;
         let transY = initialTransY;
         let currentRot = rotation;
 
-        // PHASE 1: Patillas suben desde abajo (sin opacity, solo translateY)
+        // PHASE 1: Patillas suben desde abajo con parallax (velocidad propia + easing cúbico)
         if (entryProgress > 0) {
-          let p1 = (entryProgress - stagger) / (1 - stagger);
+          const entrySpeed = entrySpeedFactors[index] !== undefined ? entrySpeedFactors[index] : 1;
+          // Ajustar el progreso por velocidad propia del tag (parallax)
+          let p1 = (entryProgress * entrySpeed - stagger) / (1 - stagger);
           p1 = Math.max(0, Math.min(1, p1));
 
-          const ease1 = p1 * (2 - p1); // Ease Out Quad
+          // Ease Out Cubic — más pronunciado que quad
+          const ease1 = 1 - Math.pow(1 - p1, 3);
 
-          scale = 0.5 + 0.5 * ease1; // 0.5 -> 1.0
-          transY = initialTransY * (1 - ease1); // 400 -> 0
+          scale = 0.5 + 0.5 * ease1;
+          transY = initialTransY * (1 - ease1);
         }
 
         // PHASE 2: Patillas se dispersan y colapsan hacia arriba al soltar el pin
-        const tagCollapseDelay = 1.2; // mismo punto que collapseStart del título
+        const tagCollapseDelay = isMobile ? 0.8 : 1.2;
         if (growthProgress > 0) {
           scale = 1.0;
-          transX = 0;
-          transY = 0;
-
           const pGrowth = Math.min(1, growthProgress);
 
+          // Blend suave: fade out residual de fase 1 en el primer 40% de growth
+          const p1Blend = Math.max(0, 1 - growthProgress / 0.4);
+          const p1Carry = transY * p1Blend;
+
           transX = spread.x * pGrowth;
-          transY = spread.y * pGrowth;
+          transY = spread.y * pGrowth + p1Carry;
           currentRot += (spread.r || 0) * pGrowth;
 
           // Colapso hacia arriba sincronizado con el scroll-off del sticky
           const effectiveCollapse = Math.max(0, growthProgress - tagCollapseDelay);
-          const baseUpward = isMobile ? 60 : (isTablet ? 120 : 250);
+          const baseUpward = isMobile ? 250 : (isTablet ? 120 : 250);
           transY -= effectiveCollapse * baseUpward * speedFactor;
         }
 
@@ -888,7 +1017,7 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
     if (!wrapper || !container || !track) return;
 
-    // FadeIn del título al entrar en viewport
+    // FadeIn/FadeOut del título según visibilidad
     const workTitle = container.querySelector("h2");
     if (workTitle) {
       const titleObserver = new IntersectionObserver(
@@ -896,7 +1025,8 @@ const isMobileDevice = () => window.innerWidth <= 768;
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               workTitle.classList.add("is-visible");
-              titleObserver.disconnect();
+            } else {
+              workTitle.classList.remove("is-visible");
             }
           });
         },
@@ -922,7 +1052,7 @@ const isMobileDevice = () => window.innerWidth <= 768;
       // Set the height of the wrapper to accommodate the horizontal scroll duration
       // Added vertical scroll buffer (e.g. 100vh) to make it feel natural
       // 300vh creates a moderate speed scroll
-      const buffer = window.innerWidth < 768 ? 0 : window.innerHeight;
+      const buffer = window.innerWidth <= 768 ? 0 : window.innerHeight;
       wrapper.style.height = `${scrollDist + buffer}px`;
     }
 
@@ -1085,6 +1215,7 @@ const isMobileDevice = () => window.innerWidth <= 768;
       panel.classList.toggle("is-open", !isOpen);
       panel.setAttribute("aria-hidden", isOpen ? "true" : "false");
       btn.setAttribute("aria-expanded", isOpen ? "false" : "true");
+      btn.classList.toggle("is-open", !isOpen);
     });
   }
 

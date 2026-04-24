@@ -25,9 +25,7 @@
     </div>
     <!-- Mobile Menu Button -->
     <button class="mobile-menu-btn" aria-label="Abrir menú">
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
+        <span class="menu-label">MENÚ</span>
     </button>
 </nav>
 

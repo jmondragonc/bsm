@@ -95,7 +95,7 @@ get_header(); ?>
                     <div class="service-item animate-slide-left">
                         <div class="service-header">
                             <h3><?php echo esc_html($servicio['nombre']); ?></h3>
-                            <button class="expand-btn">+</button>
+                            <button class="expand-btn"><span class="plus-icon"></span></button>
                         </div>
                         <div class="service-content">
                             <p><?php echo esc_html($servicio['descripcion']); ?></p>
@@ -274,7 +274,7 @@ get_header(); ?>
 
         <div class="footer-logo">
              <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/logo.svg" alt="BSM Logo">
-             <span class="footer-logo-registered">®</span>
+
         </div>
     </footer>
     </div><!-- /.bsm-footer-sticky-wrapper -->
@@ -292,7 +292,10 @@ get_header(); ?>
         </button>
 
         <div class="contact-drawer-content">
-            <h2 class="contact-drawer-title">SEA CUAL SEA<br>TU OBJETIVO,<br>TE AYUDAMOS<br>A LOGRARLO</h2>
+            <h2 class="contact-drawer-title"><?php
+                $contact_titulo = get_field('contact_titulo') ?: "SEA CUAL SEA\nTU OBJETIVO,\nTE AYUDAMOS\nA LOGRARLO";
+                echo nl2br(esc_html($contact_titulo));
+            ?></h2>
 
             <form class="contact-drawer-form" id="contactDrawerForm">
                 <div class="contact-field">
