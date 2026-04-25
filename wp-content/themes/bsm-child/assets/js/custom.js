@@ -724,29 +724,26 @@ const isMobileDevice = () => window.innerWidth <= 768;
         const windowH = window.innerHeight;
         let titleTransY;
 
-        const titleEntryEnd  = isMobile ? 0.2 : 0.4;
+        const titleEntryEnd  = isMobile ? 0.5 : 0.4;
         const collapseStart  = isMobile ? 0.9 : 1.2;
         const baseTitleUp    = isMobile ? 200 : (isTablet ? 150 : 280);
 
-        const titleRestY = isMobile ? 80 : 0; // posición final más abajo en mobile
+        const titleRestY = isMobile ? 80 : 0;
 
         if (growthProgress <= 0) {
           titleTransY = windowH;
         } else if (growthProgress < titleEntryEnd) {
           const p    = growthProgress / titleEntryEnd;
-          const ease = p * (2 - p);
+          const ease = 1 - Math.pow(1 - p, 4); // ease out quartic
           titleTransY = windowH * (1 - ease) + titleRestY * ease;
         } else if (growthProgress < collapseStart) {
-          // Frame estable
           titleTransY = titleRestY;
         } else {
-          // Colapsa hacia arriba — corre mientras el sticky sale del viewport
           titleTransY = titleRestY - ((growthProgress - collapseStart) * baseTitleUp);
         }
 
         title.style.transform = `translateY(${titleTransY}px)`;
 
-        // FadeIn: opacity 0→1 mientras el título entra
         if (growthProgress <= 0) {
           title.style.opacity = 0;
         } else if (growthProgress < titleEntryEnd) {
