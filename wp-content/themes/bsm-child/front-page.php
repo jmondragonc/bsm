@@ -257,7 +257,7 @@ get_header(); ?>
 
             <div class="footer-info-right">
                 <div class="footer-socials">
-                    <div>SÍGUENOS</div>
+                    <div><?php echo esc_html(get_field('footer_siguenos') ?: 'SÍGUENOS'); ?></div>
                     <?php
                     $redes_default = array(
                         array('nombre' => 'INSTAGRAM', 'url' => '#'),
@@ -269,14 +269,20 @@ get_header(); ?>
                     <?php endforeach; ?>
                 </div>
                 <div class="footer-copyright">
-                    <?php echo esc_html(get_field('footer_anio') ?: '©BSM 2025'); ?>
+                    <?php echo esc_html(get_field('footer_anio') ?: '©BSM 2026'); ?>
                 </div>
             </div>
         </div>
 
     </footer>
         <div class="footer-logo">
-             <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/logo.svg" alt="BSM Logo">
+            <?php
+            $footer_logo = get_field('footer_logo');
+            if ($footer_logo) : ?>
+                <img src="<?php echo esc_url($footer_logo['url']); ?>" alt="<?php echo esc_attr($footer_logo['alt'] ?: 'BSM Logo'); ?>">
+            <?php else : ?>
+                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/logo.svg" alt="BSM Logo">
+            <?php endif; ?>
         </div>
     </div><!-- /.bsm-footer-sticky-wrapper -->
 

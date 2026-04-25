@@ -230,6 +230,22 @@ acf_add_local_field_group(array(
             'default_value' => '©BSM 2025',
         ),
         array(
+            'key'           => 'field_footer_logo',
+            'label'         => 'Logo del footer',
+            'name'          => 'footer_logo',
+            'type'          => 'image',
+            'return_format' => 'array',
+            'preview_size'  => 'medium',
+            'instructions'  => 'Logo grande que aparece en la parte inferior del footer. Si se deja vacío, usa el logo SVG por defecto.',
+        ),
+        array(
+            'key'           => 'field_footer_siguenos',
+            'label'         => 'Etiqueta "Síguenos"',
+            'name'          => 'footer_siguenos',
+            'type'          => 'text',
+            'default_value' => 'SÍGUENOS',
+        ),
+        array(
             'key'           => 'field_footer_redes',
             'label'         => 'Redes sociales',
             'name'          => 'footer_redes',
