@@ -1017,13 +1017,11 @@ const isMobileDevice = () => window.innerWidth <= 768;
       img.style.transition = "none";
       if (registered) registered.style.transition = "none";
 
-      // Posición absoluta del footer en el documento (constante)
-      const footerDocTop = footer.getBoundingClientRect().top + document.documentElement.scrollTop;
-
       function updateFooterScrollMobile() {
         const scrollTop = document.documentElement.scrollTop;
         const vh = window.innerHeight;
-        // Empieza 800px antes de que el footer entre al viewport
+        // Recalcular posición absoluta cada vez para evitar errores de timing en carga
+        const footerDocTop = footer.getBoundingClientRect().top + scrollTop;
         const animStart = footerDocTop - vh - 800;
         const animRange = footer.offsetHeight + 800;
         const progress = Math.max(0, Math.min(1, (scrollTop - animStart) / animRange));
