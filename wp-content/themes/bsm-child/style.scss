@@ -1684,6 +1684,7 @@ a.work-item {
 
   .bsm-footer-sticky-wrapper {
     height: auto;
+    position: relative;
     background-color: transparent;
     overflow: hidden;
   }
@@ -1693,7 +1694,7 @@ a.work-item {
     min-height: 400px;
     position: relative;
     top: auto;
-    overflow: hidden;
+    overflow: visible;
     padding: 40px 20px;
   }
 
@@ -1704,14 +1705,6 @@ a.work-item {
     width: 90vw !important;
     z-index: 20 !important;
 
-    img {
-      transform: translateY(120%) !important;
-      transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1) !important;
-    }
-  }
-
-  .bsm-footer-sticky-wrapper.logo-visible .footer-logo img {
-    transform: translateY(0%) !important;
   }
 
   .footer-top {
