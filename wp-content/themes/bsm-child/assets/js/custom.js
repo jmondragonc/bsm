@@ -1013,18 +1013,22 @@ const isMobileDevice = () => window.innerWidth <= 768;
     }
 
     if (window.innerWidth <= 768) {
-      // Mobile: CSS transition triggered by IntersectionObserver
-      img.style.transform = "";
-      if (registered) registered.style.transform = "";
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            footer.parentElement.classList.add("logo-visible");
-            observer.unobserve(footer);
-          }
-        });
-      }, { threshold: 0.3 });
-      observer.observe(footer);
+      // Mobile: scroll-linked, sin transition CSS
+      img.style.transition = "none";
+      if (registered) registered.style.transition = "none";
+
+      function updateFooterScrollMobile() {
+        const vh = window.innerHeight;
+        const rect = footer.getBoundingClientRect();
+        // progress: 0 cuando footer top = vh, 1 cuando footer completamente visible
+        const progress = Math.max(0, Math.min(1, (vh - rect.top) / rect.height));
+        const translateY = 120 * (1 - progress);
+        img.style.transform = `translateY(${translateY}%)`;
+        if (registered) registered.style.transform = `translateY(${translateY}%)`;
+      }
+
+      updateFooterScrollMobile();
+      document.addEventListener("scroll", updateFooterScrollMobile, { passive: true });
     } else {
       updateFooterScroll();
       window.addEventListener("scroll", updateFooterScroll, { passive: true });

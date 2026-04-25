@@ -2078,13 +2078,6 @@ a.work-item {
     width: 90vw !important;
     z-index: 20 !important;
   }
-  .footer-logo img {
-    transform: translateY(120%) !important;
-    transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1) !important;
-  }
-  .bsm-footer-sticky-wrapper.logo-visible .footer-logo img {
-    transform: translateY(0%) !important;
-  }
   .footer-top {
     flex-direction: row;
     justify-content: space-between;
