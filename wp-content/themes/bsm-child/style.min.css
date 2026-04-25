@@ -1562,7 +1562,8 @@ a.work-item {
 
 @media (max-width: 768px) {
   .bsm-reconocimientos {
-    padding: 64px 24px;
+    height: auto;
+    padding: 0 24px;
   }
   .reconocimientos-titulo {
     font-size: 40px;
@@ -1960,21 +1961,21 @@ a.work-item {
     z-index: 10;
   }
   .bsm-work .container {
-    padding: 0 0 60px 20px;
+    padding: 0 0 0 20px;
   }
   .bsm-work h2 {
     font-size: 28px;
-    margin-top: 96px;
+    margin-top: 64px;
     margin-bottom: 40px;
     padding-right: 20px;
   }
   .bsm-work-container {
     height: auto;
-    min-height: unset;
-    position: relative;
-    top: auto;
-    padding-top: 32px;
-    padding-bottom: 40px;
+    min-height: 100vh;
+    position: sticky;
+    top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
   }
   .work-item {
     width: 75vw !important;

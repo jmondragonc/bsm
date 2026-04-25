@@ -654,7 +654,7 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
     function setMobileWrapperHeight() {
       if (!isMobile || !expEl) return;
-      wrapper.style.height = (expEl.offsetHeight + window.innerHeight * 2.0) + "px";
+      wrapper.style.height = (expEl.offsetHeight + window.innerHeight * 0.9) + "px";
     }
     setMobileWrapperHeight();
     window.addEventListener("resize", setMobileWrapperHeight);
@@ -706,10 +706,7 @@ const isMobileDevice = () => window.innerWidth <= 768;
       // growthProgress goes from 0 to 1+
       let growthProgress = pinnedDist / growthDist;
 
-      // Mobile: Work section visible in the 26vh gap below the pinned experience section.
-      // Exit at growthProgress >= 2.0: at this exact point, the Work section's natural
-      // document position equals its fixed visual position — zero visual jump on transition.
-      if (isMobile) {
+      if (!isMobile) {
         if (growthProgress > 0 && growthProgress < 2.0) {
           enterWorkPinned();
         } else {
@@ -719,14 +716,18 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
       // --- ANIMATION LOGIC ---
 
+      // Exit progress: after section unsticks, expEl.top goes negative as it scrolls out
+      const expRect = expEl ? expEl.getBoundingClientRect() : null;
+      const exitProgress = expRect ? Math.max(0, -expRect.top / windowHeight) : 0;
+
       // A. Título: entra desde abajo durante Phase 2 (pinned), no durante Phase 1 (entry)
       if (title) {
         const windowH = window.innerHeight;
         let titleTransY;
 
         const titleEntryEnd  = isMobile ? 0.5 : 0.4;
-        const collapseStart  = isMobile ? 0.9 : 1.2;
-        const baseTitleUp    = isMobile ? 200 : (isTablet ? 150 : 280);
+        const collapseStart  = 1.2; // desktop only
+        const baseTitleUp    = isTablet ? 150 : 280;
 
         const titleRestY = isMobile ? 80 : 0;
 
@@ -736,10 +737,15 @@ const isMobileDevice = () => window.innerWidth <= 768;
           const p    = growthProgress / titleEntryEnd;
           const ease = 1 - Math.pow(1 - p, 4); // ease out quartic
           titleTransY = windowH * (1 - ease) + titleRestY * ease;
-        } else if (growthProgress < collapseStart) {
-          titleTransY = titleRestY;
-        } else {
+        } else if (!isMobile && growthProgress >= collapseStart) {
           titleTransY = titleRestY - ((growthProgress - collapseStart) * baseTitleUp);
+        } else {
+          titleTransY = titleRestY;
+        }
+
+        // Mobile exit: parallax as section scrolls out
+        if (isMobile) {
+          titleTransY -= exitProgress * 500;
         }
 
         title.style.transform = `translateY(${titleTransY}px)`;
@@ -777,9 +783,8 @@ const isMobileDevice = () => window.innerWidth <= 768;
           scale = 0.5 + 0.5 * ease;
           transY = initialTransY * (1 - ease);
 
-          // Colapso hacia arriba
-          const effectiveCollapse = Math.max(0, growthProgress - 0.8);
-          transY -= effectiveCollapse * 250 * speedFactor;
+          // Exit parallax: cada tag sube a distinta velocidad cuando la sección scrollea
+          transY -= exitProgress * 350 * speedFactor;
 
         } else {
           // Desktop: entrada durante el approach
@@ -1036,19 +1041,14 @@ const isMobileDevice = () => window.innerWidth <= 768;
       const trackWidth = track.scrollWidth;
       const viewportWidth = window.innerWidth;
 
-      // Calculate how much we need to scroll horizontally
       const scrollDist = trackWidth - viewportWidth;
 
-      // If content fits in viewport, no need for sticky scroll
       if (scrollDist <= 0) {
         wrapper.style.height = "auto";
         track.style.transform = "translateX(0)";
         return;
       }
 
-      // Set the height of the wrapper to accommodate the horizontal scroll duration
-      // Added vertical scroll buffer (e.g. 100vh) to make it feel natural
-      // 300vh creates a moderate speed scroll
       const buffer = window.innerWidth <= 768 ? 0 : window.innerHeight;
       wrapper.style.height = `${scrollDist + buffer}px`;
     }
