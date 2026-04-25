@@ -760,8 +760,7 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
       tags.forEach((tag, index) => {
         const rotation = rotations[index] !== undefined ? rotations[index] : 0;
-        const stagger =
-          staggerOffsets[index] !== undefined ? staggerOffsets[index] : 0;
+        const stagger = staggerOffsets[index] !== undefined ? staggerOffsets[index] : 0;
         const spread = spreadOffsets[index] || { x: 0, y: 0, r: 0, speed: 1 };
         const speedFactor = spread.speed !== undefined ? spread.speed : 1;
 
@@ -770,38 +769,44 @@ const isMobileDevice = () => window.innerWidth <= 768;
         let transY = initialTransY;
         let currentRot = rotation;
 
-        // PHASE 1: Patillas suben desde abajo con parallax (velocidad propia + easing cúbico)
-        if (entryProgress > 0) {
-          const entrySpeed = entrySpeedFactors[index] !== undefined ? entrySpeedFactors[index] : 1;
-          // Ajustar el progreso por velocidad propia del tag (parallax)
-          let p1 = (entryProgress * entrySpeed - stagger) / (1 - stagger);
-          p1 = Math.max(0, Math.min(1, p1));
+        if (isMobile) {
+          // Mobile: entrada ocurre durante el scroll pinneado (growthProgress 0 → ~0.6)
+          // Antes del pin los tags están abajo y el overflow los oculta
+          const mobileStagger = stagger * 0.4;
+          const entryDuration = 0.6;
+          const p = Math.max(0, Math.min(1, (growthProgress - mobileStagger) / entryDuration));
+          const ease = 1 - Math.pow(1 - p, 3);
 
-          // Ease Out Cubic — más pronunciado que quad
-          const ease1 = 1 - Math.pow(1 - p1, 3);
+          scale = 0.5 + 0.5 * ease;
+          transY = initialTransY * (1 - ease);
 
-          scale = 0.5 + 0.5 * ease1;
-          transY = initialTransY * (1 - ease1);
-        }
+          // Colapso hacia arriba
+          const effectiveCollapse = Math.max(0, growthProgress - 0.8);
+          transY -= effectiveCollapse * 250 * speedFactor;
 
-        // PHASE 2: Patillas se dispersan y colapsan hacia arriba al soltar el pin
-        const tagCollapseDelay = isMobile ? 0.8 : 1.2;
-        if (growthProgress > 0) {
-          scale = 1.0;
-          const pGrowth = Math.min(1, growthProgress);
+        } else {
+          // Desktop: entrada durante el approach
+          if (entryProgress > 0) {
+            const entrySpeed = entrySpeedFactors[index] !== undefined ? entrySpeedFactors[index] : 1;
+            let p1 = (entryProgress * entrySpeed - stagger) / (1 - stagger);
+            p1 = Math.max(0, Math.min(1, p1));
+            const ease1 = 1 - Math.pow(1 - p1, 3);
+            scale = 0.5 + 0.5 * ease1;
+            transY = initialTransY * (1 - ease1);
+          }
 
-          // Blend suave: fade out residual de fase 1 en el primer 40% de growth
-          const p1Blend = Math.max(0, 1 - growthProgress / 0.4);
-          const p1Carry = transY * p1Blend;
-
-          transX = spread.x * pGrowth;
-          transY = spread.y * pGrowth + p1Carry;
-          currentRot += (spread.r || 0) * pGrowth;
-
-          // Colapso hacia arriba sincronizado con el scroll-off del sticky
-          const effectiveCollapse = Math.max(0, growthProgress - tagCollapseDelay);
-          const baseUpward = isMobile ? 250 : (isTablet ? 120 : 250);
-          transY -= effectiveCollapse * baseUpward * speedFactor;
+          if (growthProgress > 0) {
+            scale = 1.0;
+            const pGrowth = Math.min(1, growthProgress);
+            const p1Blend = Math.max(0, 1 - growthProgress / 0.4);
+            const p1Carry = transY * p1Blend;
+            transX = spread.x * pGrowth;
+            transY = spread.y * pGrowth + p1Carry;
+            currentRot += (spread.r || 0) * pGrowth;
+            const effectiveCollapse = Math.max(0, growthProgress - 1.2);
+            const baseUpward = isTablet ? 120 : 250;
+            transY -= effectiveCollapse * baseUpward * speedFactor;
+          }
         }
 
         tag.style.transform = `translate(${transX}px, ${transY}px) rotate(${currentRot}deg) scale(${scale})`;
