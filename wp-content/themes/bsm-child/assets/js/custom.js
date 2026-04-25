@@ -1016,23 +1016,41 @@ const isMobileDevice = () => window.innerWidth <= 768;
       img.style.transition = "none";
       if (registered) registered.style.transition = "none";
 
-      let lastScrollY = -1;
-      function rafFooterMobile() {
-        const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
-        if (scrollY !== lastScrollY) {
-          lastScrollY = scrollY;
-          const vh = window.innerHeight;
-          const footerDocTop = footer.getBoundingClientRect().top + scrollY;
-          const animStart = footerDocTop - vh - 200;
-          const animRange = footer.offsetHeight + 200;
-          const progress = Math.max(0, Math.min(1, (scrollY - animStart) / animRange));
-          const translateY = 120 * (1 - progress);
-          img.style.transform = `translateY(${translateY}%)`;
-          if (registered) registered.style.transform = `translateY(${translateY}%)`;
-        }
-        requestAnimationFrame(rafFooterMobile);
+      // Cacheamos footerDocTop después de que todo cargue para evitar salto inicial
+      let cachedFooterDocTop = null;
+      let rafPending = false;
+
+      function applyFooterTransform(scrollY) {
+        if (cachedFooterDocTop === null) return;
+        const vh = window.innerHeight;
+        const animStart = cachedFooterDocTop - vh - 200;
+        const animRange = footer.offsetHeight + 200;
+        const progress = Math.max(0, Math.min(1, (scrollY - animStart) / animRange));
+        const translateY = 120 * (1 - progress);
+        img.style.transform = `translateY(${translateY}%)`;
+        if (registered) registered.style.transform = `translateY(${translateY}%)`;
       }
-      requestAnimationFrame(rafFooterMobile);
+
+      function onScrollMobile() {
+        if (!rafPending) {
+          rafPending = true;
+          requestAnimationFrame(() => {
+            const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+            applyFooterTransform(scrollY);
+            rafPending = false;
+          });
+        }
+      }
+
+      // Esperar a que todo cargue para calcular posición real del footer
+      window.addEventListener("load", () => {
+        const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+        cachedFooterDocTop = footer.getBoundingClientRect().top + scrollY;
+        applyFooterTransform(scrollY);
+      });
+
+      window.addEventListener("scroll", onScrollMobile, { passive: true });
+      document.addEventListener("scroll", onScrollMobile, { passive: true });
     } else {
       updateFooterScroll();
       window.addEventListener("scroll", updateFooterScroll, { passive: true });

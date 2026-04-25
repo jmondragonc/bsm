@@ -37,7 +37,7 @@ body {
     sans-serif;
   background-color: #fff;
   color: #000;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 .container {
@@ -645,7 +645,7 @@ h3 {
   left: 56px !important;
   width: 82vw !important;
   max-width: 1640px !important;
-  z-index: 1;
+  z-index: 20;
   line-height: 0;
   pointer-events: none;
   margin: 0 !important;
@@ -1094,9 +1094,16 @@ a.work-item {
 }
 
 @media (max-width: 768px) {
+  .bsm-reconocimientos-wrapper {
+    /* Altura extra para que sticky tenga rango de anclaje */
+    min-height: 100vh;
+  }
+
   .bsm-reconocimientos {
     height: auto;
-    padding: 0 24px 48px;
+    padding: 96px 24px 48px;
+    position: sticky;
+    top: 0;
 
     .reconocimientos-titulo,
     .reconocimientos-carousel-wrapper {
