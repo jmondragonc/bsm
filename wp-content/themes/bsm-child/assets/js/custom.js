@@ -590,7 +590,6 @@ const isMobileDevice = () => window.innerWidth <= 768;
     const isMobile = window.innerWidth <= 768;
     const isTablet = window.innerWidth < 1200 && window.innerWidth > 768;
     const expEl = document.querySelector(".bsm-full-experience");
-    const workEl = document.querySelector(".bsm-work");
 
     // Initial styles — título entra desde abajo con fadeIn
     if (title) {
@@ -614,20 +613,6 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
     // Velocidad individual de entrada: parallax — cada tag sube a distinta velocidad
     const entrySpeedFactors = [1.0, 0.7, 1.3, 0.85, 1.15, 0.6, 1.4, 0.9];
-    let workIsPinned = false;
-
-    function enterWorkPinned() {
-      if (workIsPinned || !workEl) return;
-      workIsPinned = true;
-      workEl.style.visibility = "hidden";
-    }
-
-    function exitWorkPinned() {
-      if (!workIsPinned || !workEl) return;
-      workIsPinned = false;
-      workEl.style.visibility = "";
-    }
-
     function setMobileWrapperHeight() {
       if (!isMobile || !expEl) return;
       wrapper.style.height = (expEl.offsetHeight + window.innerHeight * 0.9) + "px";
@@ -681,15 +666,6 @@ const isMobileDevice = () => window.innerWidth <= 768;
       const growthDist = windowHeight;
       // growthProgress goes from 0 to 1+
       let growthProgress = pinnedDist / growthDist;
-
-      if (!isMobile) {
-        const wrapperInView = rect.bottom > 0;
-        if (growthProgress > 0 && wrapperInView) {
-          enterWorkPinned();
-        } else {
-          exitWorkPinned();
-        }
-      }
 
       // --- ANIMATION LOGIC ---
 
