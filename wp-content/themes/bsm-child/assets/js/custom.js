@@ -1013,25 +1013,26 @@ const isMobileDevice = () => window.innerWidth <= 768;
     }
 
     if (window.innerWidth <= 768) {
-      // Mobile: scroll-linked, sin transition CSS
       img.style.transition = "none";
       if (registered) registered.style.transition = "none";
 
-      function updateFooterScrollMobile() {
-        const scrollTop = document.documentElement.scrollTop;
-        const vh = window.innerHeight;
-        // Recalcular posición absoluta cada vez para evitar errores de timing en carga
-        const footerDocTop = footer.getBoundingClientRect().top + scrollTop;
-        const animStart = footerDocTop - vh - 800;
-        const animRange = footer.offsetHeight + 800;
-        const progress = Math.max(0, Math.min(1, (scrollTop - animStart) / animRange));
-        const translateY = 120 * (1 - progress);
-        img.style.transform = `translateY(${translateY}%)`;
-        if (registered) registered.style.transform = `translateY(${translateY}%)`;
+      let lastScrollY = -1;
+      function rafFooterMobile() {
+        const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollY !== lastScrollY) {
+          lastScrollY = scrollY;
+          const vh = window.innerHeight;
+          const footerDocTop = footer.getBoundingClientRect().top + scrollY;
+          const animStart = footerDocTop - vh - 800;
+          const animRange = footer.offsetHeight + 800;
+          const progress = Math.max(0, Math.min(1, (scrollY - animStart) / animRange));
+          const translateY = 120 * (1 - progress);
+          img.style.transform = `translateY(${translateY}%)`;
+          if (registered) registered.style.transform = `translateY(${translateY}%)`;
+        }
+        requestAnimationFrame(rafFooterMobile);
       }
-
-      updateFooterScrollMobile();
-      document.addEventListener("scroll", updateFooterScrollMobile, { passive: true });
+      requestAnimationFrame(rafFooterMobile);
     } else {
       updateFooterScroll();
       window.addEventListener("scroll", updateFooterScroll, { passive: true });
