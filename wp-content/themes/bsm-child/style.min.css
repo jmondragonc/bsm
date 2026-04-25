@@ -1879,7 +1879,7 @@ a.work-item {
     background-color: #fff;
   }
   .bsm-full-experience {
-    height: 74vh;
+    height: 100vh;
     justify-content: flex-start;
     padding: 80px 0 40px;
   }
@@ -1904,51 +1904,51 @@ a.work-item {
     padding: 6.5px 16px !important;
   }
   .services-tags .tag.tag-1 {
-    top: 11% !important;
-    left: 26% !important;
+    top: 20% !important;
+    left: 21.4% !important;
     right: auto !important;
     bottom: auto !important;
   }
   .services-tags .tag.tag-2 {
-    top: 17% !important;
-    right: 4% !important;
-    left: auto !important;
+    top: 23.9% !important;
+    left: 56.2% !important;
+    right: auto !important;
     bottom: auto !important;
   }
   .services-tags .tag.tag-3 {
-    top: 37% !important;
-    left: 8% !important;
+    top: 30.3% !important;
+    left: 15.5% !important;
     right: auto !important;
     bottom: auto !important;
   }
   .services-tags .tag.tag-4 {
-    top: 46% !important;
-    right: 2% !important;
-    left: auto !important;
+    top: 44.9% !important;
+    left: 47.9% !important;
+    right: auto !important;
     bottom: auto !important;
   }
   .services-tags .tag.tag-5 {
-    top: 57% !important;
-    left: 2% !important;
+    top: 50.3% !important;
+    left: 4.3% !important;
     right: auto !important;
     bottom: auto !important;
   }
   .services-tags .tag.tag-6 {
-    top: 67% !important;
-    right: 26% !important;
-    left: auto !important;
+    top: 62% !important;
+    left: 55.3% !important;
+    right: auto !important;
     bottom: auto !important;
   }
   .services-tags .tag.tag-7 {
-    top: 79% !important;
-    left: 6% !important;
+    top: 71.4% !important;
+    left: 8.8% !important;
     right: auto !important;
     bottom: auto !important;
   }
   .services-tags .tag.tag-8 {
-    top: 89% !important;
-    right: 18% !important;
-    left: auto !important;
+    top: 83% !important;
+    left: 57.5% !important;
+    right: auto !important;
     bottom: auto !important;
   }
   /* ------------------------------------------------------------------

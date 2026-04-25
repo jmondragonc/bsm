@@ -1466,7 +1466,7 @@ a.work-item {
   }
 
   .bsm-full-experience {
-    height: 74vh;
+    height: 100vh;
     justify-content: flex-start;
     padding: 80px 0 40px;
 
@@ -1495,52 +1495,52 @@ a.work-item {
     font-size: 16px !important;
     padding: 6.5px 16px !important; // 16px texto + 6.5*2 = 29px altura
 
-    &.tag-1 { // BRANDING
-      top: 11% !important;
-      left: 26% !important;
+    &.tag-1 { // BRANDING — Figma X:80.03 Y:~130 en 374×653
+      top: 20% !important;
+      left: 21.4% !important;
       right: auto !important;
       bottom: auto !important;
     }
-    &.tag-2 { // PACKAGING
-      top: 17% !important;
-      right: 4% !important;
-      left: auto !important;
-      bottom: auto !important;
-    }
-    &.tag-3 { // STRATEGY
-      top: 37% !important;
-      left: 8% !important;
+    &.tag-2 { // PACKAGING — Figma X:210.34 Y:1295
+      top: 23.9% !important;
+      left: 56.2% !important;
       right: auto !important;
       bottom: auto !important;
     }
-    &.tag-4 { // DIGITAL & SOCIAL
-      top: 46% !important;
-      right: 2% !important;
-      left: auto !important;
-      bottom: auto !important;
-    }
-    &.tag-5 { // AD CAMPAIGNS
-      top: 57% !important;
-      left: 2% !important;
+    &.tag-3 { // STRATEGY — Figma X:57.91 Y:1434
+      top: 30.3% !important;
+      left: 15.5% !important;
       right: auto !important;
       bottom: auto !important;
     }
-    &.tag-6 { // WEB & ECOMM
-      top: 67% !important;
-      right: 26% !important;
-      left: auto !important;
-      bottom: auto !important;
-    }
-    &.tag-7 { // DESIGN GUIDELINES
-      top: 79% !important;
-      left: 6% !important;
+    &.tag-4 { // DIGITAL & SOCIAL — Figma X:179.16 Y:1529
+      top: 44.9% !important;
+      left: 47.9% !important;
       right: auto !important;
       bottom: auto !important;
     }
-    &.tag-8 { // OUTDOORS & TV
-      top: 89% !important;
-      right: 18% !important;
-      left: auto !important;
+    &.tag-5 { // AD CAMPAIGNS — Figma X:16.07 Y:1564
+      top: 50.3% !important;
+      left: 4.3% !important;
+      right: auto !important;
+      bottom: auto !important;
+    }
+    &.tag-6 { // WEB & ECOMM — Figma X:206.86 Y:1641
+      top: 62.0% !important;
+      left: 55.3% !important;
+      right: auto !important;
+      bottom: auto !important;
+    }
+    &.tag-7 { // DESIGN GUIDELINES — Figma X:32.95 Y:1702
+      top: 71.4% !important;
+      left: 8.8% !important;
+      right: auto !important;
+      bottom: auto !important;
+    }
+    &.tag-8 { // OUTDOORS & TV — Figma X:215 Y:1778
+      top: 83.0% !important;
+      left: 57.5% !important;
+      right: auto !important;
       bottom: auto !important;
     }
   }

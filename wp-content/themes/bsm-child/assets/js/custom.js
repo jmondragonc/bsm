@@ -599,8 +599,10 @@ const isMobileDevice = () => window.innerWidth <= 768;
       tag.style.opacity = 1;
     });
 
-    // Map of final rotations matching CSS requirements
-    const rotations = [15, -15, 8, -4, -28, 15, 18, -25];
+    // Map of final rotations — mobile uses Figma exact rotations
+    const rotations = isMobile
+      ? [-13.45, 16.87, -29.94, 7.5, 25.37, -14, 6.18, -26.62]
+      : [15, -15, 8, -4, -28, 15, 18, -25];
 
     // Stagger delays — cada tag entra en momento distinto
     const staggerOffsets = [0, 0.08, 0.14, 0.06, 0.18, 0.10, 0.22, 0.04];
