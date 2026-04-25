@@ -604,10 +604,10 @@ const isMobileDevice = () => window.innerWidth <= 768;
       tag.style.opacity = 1;
     });
 
-    // Map of final rotations — mobile uses Figma exact rotations
+    // Map of final rotations — Figma exact values for both
     const rotations = isMobile
-      ? [13.45, -16.87, 29.94, -7.5, -25.37, 14, -6.18, 26.62]
-      : [15, -15, 8, -4, -28, 15, 18, -25];
+      ? [-13.45, 16.87, -10.07, 7.5, 25.37, -14, -18.22, 23.73]
+      : [-13.45, 16.87, -10.07, 7.5, 25.37, -14, -18.22, 23.73];
 
     // Stagger delays — cada tag entra en momento distinto
     const staggerOffsets = [0, 0.08, 0.14, 0.06, 0.18, 0.10, 0.22, 0.04];
@@ -617,39 +617,15 @@ const isMobileDevice = () => window.innerWidth <= 768;
     let workIsPinned = false;
 
     function enterWorkPinned() {
-      if (workIsPinned || !workEl || !expEl) return;
+      if (workIsPinned || !workEl) return;
       workIsPinned = true;
-      const expH = expEl.offsetHeight;
-      workEl.style.position = "fixed";
-      workEl.style.top = expH + "px";
-      workEl.style.left = "0";
-      workEl.style.right = "0";
-      workEl.style.height = (window.innerHeight - expH) + "px";
-      workEl.style.overflow = "hidden";
-      workEl.style.zIndex = "6";
-      // Fade in — double RAF ensures opacity:0 is painted before transition starts
-      workEl.style.transition = "";
-      workEl.style.opacity = "0";
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          workEl.style.transition = "opacity 0.6s ease";
-          workEl.style.opacity = "1";
-        });
-      });
+      workEl.style.visibility = "hidden";
     }
 
     function exitWorkPinned() {
       if (!workIsPinned || !workEl) return;
       workIsPinned = false;
-      workEl.style.transition = "";
-      workEl.style.opacity = "";
-      workEl.style.position = "";
-      workEl.style.top = "";
-      workEl.style.left = "";
-      workEl.style.right = "";
-      workEl.style.height = "";
-      workEl.style.overflow = "";
-      workEl.style.zIndex = "";
+      workEl.style.visibility = "";
     }
 
     function setMobileWrapperHeight() {
@@ -673,14 +649,14 @@ const isMobileDevice = () => window.innerWidth <= 768;
       { x:   0, y:   0, r:  0, speed: 1.1 },  // DESIGN GUIDE
       { x:   0, y:   0, r:  0, speed: 0.95 }, // OUTDOORS
     ] : [
-      { x: -100 * mobileFactor, y: -50 * mobileFactor, r: -5, speed: 1.2 },
-      { x: 100 * mobileFactor, y: -50 * mobileFactor, r: 5, speed: 0.8 },
-      { x: -80 * mobileFactor, y: -20 * mobileFactor, r: -3, speed: 1.1 },
-      { x: 150 * mobileFactor, y:  20 * mobileFactor, r: 8,  speed: 0.9 },
-      { x: -150 * mobileFactor, y: -40 * mobileFactor, r: -10, speed: 1.3 },
-      { x:  120 * mobileFactor, y: -60 * mobileFactor, r: 5,  speed: 1.0 },
-      { x:  -60 * mobileFactor, y: -60 * mobileFactor, r: 4,  speed: 1.0 },
-      { x:   60 * mobileFactor, y: -60 * mobileFactor, r: -4, speed: 1.15 },
+      { x: 0, y: 0, r: 0, speed: 1.1 },   // BRANDING
+      { x: 0, y: 0, r: 0, speed: 0.85 },  // PACKAGING/NAMING
+      { x: 0, y: 0, r: 0, speed: 1.0 },   // STRATEGY/PACKAGING
+      { x: 0, y: 0, r: 0, speed: 1.3 },   // DIGITAL&SOCIAL — sube rápido en exit
+      { x: 0, y: 0, r: 0, speed: 1.2 },   // AD CAMPAIGNS
+      { x: 0, y: 0, r: 0, speed: 0.75 },  // WEB&ECOMM — sube lento = debajo de DIGITAL&SOCIAL en exit
+      { x: 0, y: 0, r: 0, speed: 1.0 },   // DESIGN GUIDELINES
+      { x: 0, y: 0, r: 0, speed: 0.9 },   // OUTDOORS&TV
     ];
 
     function render() {
@@ -707,7 +683,8 @@ const isMobileDevice = () => window.innerWidth <= 768;
       let growthProgress = pinnedDist / growthDist;
 
       if (!isMobile) {
-        if (growthProgress > 0 && growthProgress < 2.0) {
+        const wrapperInView = rect.bottom > 0;
+        if (growthProgress > 0 && wrapperInView) {
           enterWorkPinned();
         } else {
           exitWorkPinned();
