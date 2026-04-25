@@ -606,7 +606,7 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
     // Map of final rotations — mobile uses Figma exact rotations
     const rotations = isMobile
-      ? [-13.45, 16.87, -29.94, 7.5, 25.37, -14, 6.18, -26.62]
+      ? [-13.45, 16.87, -29.94, 7.5, 25.37, 14, 6.18, -26.62]
       : [15, -15, 8, -4, -28, 15, 18, -25];
 
     // Stagger delays — cada tag entra en momento distinto
