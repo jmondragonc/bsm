@@ -1899,50 +1899,55 @@ a.work-item {
     display: block !important;
   }
   .services-tags .tag {
-    font-size: 12px !important;
-    padding: 6px 14px !important;
+    font-family: "Neureal Mono", monospace !important;
+    font-size: 16px !important;
+    padding: 6.5px 16px !important;
   }
   .services-tags .tag.tag-1 {
-    top: 5% !important;
-    left: 15% !important;
+    top: 11% !important;
+    left: 26% !important;
+    right: auto !important;
     bottom: auto !important;
   }
   .services-tags .tag.tag-2 {
-    top: 18% !important;
-    right: 10% !important;
+    top: 17% !important;
+    right: 4% !important;
     left: auto !important;
     bottom: auto !important;
   }
   .services-tags .tag.tag-3 {
-    top: 32% !important;
-    left: 25% !important;
+    top: 37% !important;
+    left: 8% !important;
+    right: auto !important;
     bottom: auto !important;
   }
   .services-tags .tag.tag-4 {
-    top: 45% !important;
-    right: 15% !important;
+    top: 46% !important;
+    right: 2% !important;
     left: auto !important;
     bottom: auto !important;
   }
   .services-tags .tag.tag-5 {
-    top: 55% !important;
-    left: 5% !important;
+    top: 57% !important;
+    left: 2% !important;
+    right: auto !important;
     bottom: auto !important;
   }
   .services-tags .tag.tag-6 {
-    top: 68% !important;
-    right: 8% !important;
+    top: 67% !important;
+    right: 26% !important;
     left: auto !important;
     bottom: auto !important;
   }
   .services-tags .tag.tag-7 {
-    top: 78% !important;
-    left: 20% !important;
+    top: 79% !important;
+    left: 6% !important;
+    right: auto !important;
     bottom: auto !important;
   }
   .services-tags .tag.tag-8 {
-    top: 88% !important;
-    right: 20% !important;
+    top: 89% !important;
+    right: 18% !important;
     left: auto !important;
     bottom: auto !important;
   }

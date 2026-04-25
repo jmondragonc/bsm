@@ -1489,53 +1489,57 @@ a.work-item {
     }
   }
 
-  // Mobile tags - slightly larger
+  // Mobile tags — Neureal Mono 16px, 29px height, posiciones Figma
   .services-tags .tag {
-    font-size: 12px !important;
-    padding: 6px 14px !important;
+    font-family: "Neureal Mono", monospace !important;
+    font-size: 16px !important;
+    padding: 6.5px 16px !important; // 16px texto + 6.5*2 = 29px altura
 
-    // Mobile positions - spread across the large text
-    &.tag-1 {
-      top: 5% !important;
-      left: 15% !important;
+    &.tag-1 { // BRANDING
+      top: 11% !important;
+      left: 26% !important;
+      right: auto !important;
       bottom: auto !important;
     }
-    &.tag-2 {
-      top: 18% !important;
-      right: 10% !important;
+    &.tag-2 { // PACKAGING
+      top: 17% !important;
+      right: 4% !important;
       left: auto !important;
       bottom: auto !important;
     }
-    &.tag-3 {
-      top: 32% !important;
-      left: 25% !important;
+    &.tag-3 { // STRATEGY
+      top: 37% !important;
+      left: 8% !important;
+      right: auto !important;
       bottom: auto !important;
     }
-    &.tag-4 {
-      top: 45% !important;
-      right: 15% !important;
+    &.tag-4 { // DIGITAL & SOCIAL
+      top: 46% !important;
+      right: 2% !important;
       left: auto !important;
       bottom: auto !important;
     }
-    &.tag-5 {
-      top: 55% !important;
-      left: 5% !important;
+    &.tag-5 { // AD CAMPAIGNS
+      top: 57% !important;
+      left: 2% !important;
+      right: auto !important;
       bottom: auto !important;
     }
-    &.tag-6 {
-      top: 68% !important;
-      right: 8% !important;
+    &.tag-6 { // WEB & ECOMM
+      top: 67% !important;
+      right: 26% !important;
       left: auto !important;
       bottom: auto !important;
     }
-    &.tag-7 {
-      top: 78% !important;
-      left: 20% !important;
+    &.tag-7 { // DESIGN GUIDELINES
+      top: 79% !important;
+      left: 6% !important;
+      right: auto !important;
       bottom: auto !important;
     }
-    &.tag-8 {
-      top: 88% !important;
-      right: 20% !important;
+    &.tag-8 { // OUTDOORS & TV
+      top: 89% !important;
+      right: 18% !important;
       left: auto !important;
       bottom: auto !important;
     }

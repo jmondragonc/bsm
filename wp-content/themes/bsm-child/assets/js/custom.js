@@ -666,17 +666,15 @@ const isMobileDevice = () => window.innerWidth <= 768;
     const mobileFactor = isMobile ? 0.7 : (isTablet ? 0.6 : 1);
 
     const spreadOffsets = isMobile ? [
-      // Y calculado desde posiciones medidas con Playwright en growthProgress=1
-      // Target sin overlap: BRANDING 62, STRATEGY 127, AD CAMPAIGNS 168, DESIGN 267 (izq)
-      //                     PACKAGING 85, DIGITAL 165, WEB 209, OUTDOORS 278 (der)
-      { x: -50, y:  +70, r:  -5, speed: 1.2 },  // BRANDING
-      { x:  20, y:  +60, r:   5, speed: 0.8 },  // PACKAGING
-      { x: -55, y: +125, r:  -3, speed: 1.1 },  // STRATEGY
-      { x:  30, y: +120, r:   8, speed: 0.9 },  // DIGITAL
-      { x: -20, y: +157, r: -10, speed: 1.3 },  // AD CAMPAIGNS
-      { x:  20, y: +136, r:   5, speed: 1.0 },  // WEB & ECOMM
-      { x: -50, y: +213, r:   4, speed: 1.0 },  // DESIGN GUIDE
-      { x:  40, y: +182, r:  -4, speed: 1.15 }, // OUTDOORS
+      // Mobile: tags ya posicionados por CSS (Figma). Sin spread extra — solo entrada + colapso.
+      { x:   0, y:   0, r:  0, speed: 1.1 },  // BRANDING
+      { x:   0, y:   0, r:  0, speed: 0.9 },  // PACKAGING
+      { x:   0, y:   0, r:  0, speed: 1.0 },  // STRATEGY
+      { x:   0, y:   0, r:  0, speed: 0.95 }, // DIGITAL
+      { x:   0, y:   0, r:  0, speed: 1.05 }, // AD CAMPAIGNS
+      { x:   0, y:   0, r:  0, speed: 1.0 },  // WEB & ECOMM
+      { x:   0, y:   0, r:  0, speed: 1.1 },  // DESIGN GUIDE
+      { x:   0, y:   0, r:  0, speed: 0.95 }, // OUTDOORS
     ] : [
       { x: -100 * mobileFactor, y: -50 * mobileFactor, r: -5, speed: 1.2 },
       { x: 100 * mobileFactor, y: -50 * mobileFactor, r: 5, speed: 0.8 },
