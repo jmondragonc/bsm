@@ -726,11 +726,13 @@ const isMobileDevice = () => window.innerWidth <= 768;
         let currentRot = rotation;
 
         if (isMobile) {
-          // Mobile: entrada ocurre durante el scroll pinneado (growthProgress 0 → ~0.6)
-          // Antes del pin los tags están abajo y el overflow los oculta
+          // Mobile: tags animate in as section scrolls into view (rect.top: wh → 0)
+          // mobileEntryProgress: 0 when section bottom hits viewport, 1 when section top hits viewport
+          const mobileEntryProgress = Math.max(0, Math.min(1, 1 - rect.top / windowHeight));
+          const mobileProgress = Math.max(mobileEntryProgress, Math.max(0, growthProgress));
           const mobileStagger = stagger * 0.4;
           const entryDuration = 0.6;
-          const p = Math.max(0, Math.min(1, (growthProgress - mobileStagger) / entryDuration));
+          const p = Math.max(0, Math.min(1, (mobileProgress - mobileStagger) / entryDuration));
           const ease = 1 - Math.pow(1 - p, 3);
 
           scale = 0.5 + 0.5 * ease;
