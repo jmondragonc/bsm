@@ -184,31 +184,7 @@ get_header('interna'); ?>
     </section>
 
     <!-- ─── FOOTER ───────────────────────────────────────────────────── -->
-    <div class="bsm-footer-sticky-wrapper">
-    <footer class="bsm-footer">
-        <div class="footer-top">
-            <div class="footer-info-left">
-                <div>LIMA, PERÚ</div>
-                <div>2024</div>
-            </div>
-            <div class="footer-info-right">
-                <div class="footer-socials">
-                    <a href="#">INSTAGRAM</a>
-                    <a href="#">LINKEDIN</a>
-                    <a href="#">BEHANCE</a>
-                </div>
-                <div class="footer-socials">
-                    <a href="#">TRABAJO</a>
-                    <a href="#">NOSOTROS</a>
-                    <a href="#" data-open-drawer>CONTÁCTANOS</a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-logo">
-            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/logo.svg" alt="BSM Logo">
-        </div>
-    </footer>
-    </div><!-- /.bsm-footer-sticky-wrapper -->
+    <?php get_template_part('template-parts/footer-bsm'); ?>
 
 </main>
 

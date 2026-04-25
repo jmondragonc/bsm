@@ -248,43 +248,7 @@ get_header(); ?>
 </main>
 
     <!-- Footer Section -->
-    <div class="bsm-footer-sticky-wrapper">
-    <footer class="bsm-footer">
-        <div class="footer-top">
-            <div class="footer-info-left">
-                <div><?php echo esc_html(get_field('footer_ciudad') ?: 'LIMA, PERÚ'); ?></div>
-            </div>
-
-            <div class="footer-info-right">
-                <div class="footer-socials">
-                    <div><?php echo esc_html(get_field('footer_siguenos') ?: 'SÍGUENOS'); ?></div>
-                    <?php
-                    $redes_default = array(
-                        array('nombre' => 'INSTAGRAM', 'url' => '#'),
-                        array('nombre' => 'LINKEDIN',  'url' => '#'),
-                    );
-                    $redes = get_field('footer_redes') ?: $redes_default;
-                    foreach ($redes as $red) : ?>
-                    <a href="<?php echo esc_url($red['url']); ?>" target="_blank"><?php echo esc_html($red['nombre']); ?></a>
-                    <?php endforeach; ?>
-                </div>
-                <div class="footer-copyright">
-                    <?php echo esc_html(get_field('footer_anio') ?: '©BSM 2026'); ?>
-                </div>
-            </div>
-        </div>
-
-    </footer>
-        <div class="footer-logo">
-            <?php
-            $footer_logo = get_field('footer_logo');
-            if ($footer_logo) : ?>
-                <img src="<?php echo esc_url($footer_logo['url']); ?>" alt="<?php echo esc_attr($footer_logo['alt'] ?: 'BSM Logo'); ?>">
-            <?php else : ?>
-                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/logo.svg" alt="BSM Logo">
-            <?php endif; ?>
-        </div>
-    </div><!-- /.bsm-footer-sticky-wrapper -->
+    <?php get_template_part('template-parts/footer-bsm'); ?>
 
     <!-- Contact Drawer Overlay -->
     <div class="contact-drawer-overlay" id="contactDrawerOverlay"></div>
