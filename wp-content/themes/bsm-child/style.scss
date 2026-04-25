@@ -711,7 +711,8 @@ h3 {
 
 .bsm-full-experience .container {
   position: relative;
-  min-height: 500px; /* Ensure enough space for tags */
+  height: 100%;
+  width: 100%;
 }
 
 .bsm-full-experience h2 {
@@ -767,59 +768,59 @@ h3 {
   will-change: transform, opacity;
 
   &.tag-1 {
-    // BRANDING - Top left over "C R"
-    top: 5%;
-    left: 22%;
-    transform: rotate(15deg);
+    // BRANDING — Figma X:564/1924=29.3% Y:92/907=10.1% rot:-13.45°
+    top: 10.1%;
+    left: 29.3%;
+    transform: rotate(-13.45deg);
   }
 
   &.tag-2 {
-    // NAMING - Top right over "N A"
-    top: 15%;
-    right: 25%;
-    transform: rotate(-15deg);
+    // NAMING — Figma X:1228/1924=63.8% Y:185/907=20.4% rot:16.87°
+    top: 20.4%;
+    left: 63.8%;
+    transform: rotate(16.87deg);
   }
 
   &.tag-3 {
-    // PACKAGING - Center over "ERI"
-    top: 30%;
-    left: 40%;
-    transform: rotate(8deg);
+    // PACKAGING — Figma X:797/1924=41.4% Y:321/907=35.4% rot:-10.07°
+    top: 35.4%;
+    left: 41.4%;
+    transform: rotate(-10.07deg);
   }
 
   &.tag-4 {
-    // SOCIAL MEDIA - Center Right over "NCIA"
-    top: 46%;
-    right: 18%;
-    transform: rotate(-4deg);
+    // SOCIAL MEDIA — Figma X:1122/1924=58.3% Y:438/907=48.3% rot:7.5°
+    top: 48.3%;
+    left: 58.3%;
+    transform: rotate(7.5deg);
   }
 
   &.tag-5 {
-    // CAMPAÑAS CREATIVAS - Left diagonal
-    top: 55%;
-    left: 8%;
-    transform: rotate(-28deg);
+    // CAMPAÑAS CREATIVAS — Figma X:376/1924=19.5% Y:422/907=46.5% rot:25.37°
+    top: 46.5%;
+    left: 19.5%;
+    transform: rotate(25.37deg);
   }
 
   &.tag-6 {
-    // POSICIONAMIENTO - Right diagonal
-    top: 68%;
-    right: 22%;
-    transform: rotate(15deg);
+    // POSICIONAMIENTO — Figma X:1148/1924=59.7% Y:583/907=64.3% rot:-14°
+    top: 64.3%;
+    left: 59.7%;
+    transform: rotate(-14deg);
   }
 
   &.tag-7 {
-    // MANUAL DE MARCA - Bottom Left
-    bottom: 15%;
-    left: 32%;
-    transform: rotate(18deg);
+    // MANUAL DE MARCA — Figma X:670/1924=34.8% Y:640/907=70.6% rot:-18.22°
+    top: 70.6%;
+    left: 34.8%;
+    transform: rotate(-18.22deg);
   }
 
   &.tag-8 {
-    // Y MÁS - Bottom Center
-    bottom: 2%;
-    right: 35%;
-    transform: rotate(-25deg);
+    // Y MÁS — Figma X:1054/1924=54.8% Y:747/907=82.4% rot:23.73°
+    top: 82.4%;
+    left: 54.8%;
+    transform: rotate(23.73deg);
   }
 }
 
@@ -1156,46 +1157,11 @@ a.work-item {
     font-size: 120px;
   }
 
-  // Scale down tags for tablet
+  // Scale down tags for tablet — positions inherit from desktop % values
   .services-tags .tag {
     font-size: 16px;
     padding: 6px 12px;
-
-    // Adjust positions proportionally (approx 0.7x)
-    &.tag-1 {
-      top: -250px;
-      left: 15%;
-    }
-    &.tag-2 {
-      top: -220px;
-      right: 15%;
-    }
-    &.tag-3 {
-      top: -100px;
-      left: 30%;
-    }
-    &.tag-4 {
-      top: -50px;
-      right: 10%;
-    }
-    &.tag-5 {
-      top: 30px;
-      left: 10%;
-    }
-    &.tag-6 {
-      top: 120px;
-      right: 10%;
-    }
-    &.tag-7 {
-      top: 220px;
-      bottom: auto;
-      left: 20%;
-    }
-    &.tag-8 {
-      top: 260px;
-      bottom: auto;
-      right: 30%;
-    }
+    border-radius: 14px;
   }
 }
 
@@ -1550,7 +1516,7 @@ a.work-item {
       bottom: auto !important;
     }
     &.tag-6 { // WEB & ECOMM — Figma X:206.86 Y:1641
-      top: 62.0% !important;
+      top: 68.0% !important;
       left: 55.3% !important;
       right: auto !important;
       bottom: auto !important;

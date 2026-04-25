@@ -1206,7 +1206,8 @@ h3 {
 }
 .bsm-full-experience .container {
   position: relative;
-  min-height: 500px; /* Ensure enough space for tags */
+  height: 100%;
+  width: 100%;
 }
 
 .bsm-full-experience h2 {
@@ -1259,44 +1260,44 @@ h3 {
   will-change: transform, opacity;
 }
 .services-tags .tag.tag-1 {
-  top: 5%;
-  left: 22%;
-  transform: rotate(15deg);
+  top: 10.1%;
+  left: 29.3%;
+  transform: rotate(-13.45deg);
 }
 .services-tags .tag.tag-2 {
-  top: 15%;
-  right: 25%;
-  transform: rotate(-15deg);
+  top: 20.4%;
+  left: 63.8%;
+  transform: rotate(16.87deg);
 }
 .services-tags .tag.tag-3 {
-  top: 30%;
-  left: 40%;
-  transform: rotate(8deg);
+  top: 35.4%;
+  left: 41.4%;
+  transform: rotate(-10.07deg);
 }
 .services-tags .tag.tag-4 {
-  top: 46%;
-  right: 18%;
-  transform: rotate(-4deg);
+  top: 48.3%;
+  left: 58.3%;
+  transform: rotate(7.5deg);
 }
 .services-tags .tag.tag-5 {
-  top: 55%;
-  left: 8%;
-  transform: rotate(-28deg);
+  top: 46.5%;
+  left: 19.5%;
+  transform: rotate(25.37deg);
 }
 .services-tags .tag.tag-6 {
-  top: 68%;
-  right: 22%;
-  transform: rotate(15deg);
+  top: 64.3%;
+  left: 59.7%;
+  transform: rotate(-14deg);
 }
 .services-tags .tag.tag-7 {
-  bottom: 15%;
-  left: 32%;
-  transform: rotate(18deg);
+  top: 70.6%;
+  left: 34.8%;
+  transform: rotate(-18.22deg);
 }
 .services-tags .tag.tag-8 {
-  bottom: 2%;
-  right: 35%;
-  transform: rotate(-25deg);
+  top: 82.4%;
+  left: 54.8%;
+  transform: rotate(23.73deg);
 }
 
 /* Work Section */
@@ -1615,40 +1616,7 @@ a.work-item {
   .services-tags .tag {
     font-size: 16px;
     padding: 6px 12px;
-  }
-  .services-tags .tag.tag-1 {
-    top: -250px;
-    left: 15%;
-  }
-  .services-tags .tag.tag-2 {
-    top: -220px;
-    right: 15%;
-  }
-  .services-tags .tag.tag-3 {
-    top: -100px;
-    left: 30%;
-  }
-  .services-tags .tag.tag-4 {
-    top: -50px;
-    right: 10%;
-  }
-  .services-tags .tag.tag-5 {
-    top: 30px;
-    left: 10%;
-  }
-  .services-tags .tag.tag-6 {
-    top: 120px;
-    right: 10%;
-  }
-  .services-tags .tag.tag-7 {
-    top: 220px;
-    bottom: auto;
-    left: 20%;
-  }
-  .services-tags .tag.tag-8 {
-    top: 260px;
-    bottom: auto;
-    right: 30%;
+    border-radius: 14px;
   }
 }
 /* ==========================================================================
@@ -1955,7 +1923,7 @@ a.work-item {
     bottom: auto !important;
   }
   .services-tags .tag.tag-6 {
-    top: 62% !important;
+    top: 68% !important;
     left: 55.3% !important;
     right: auto !important;
     bottom: auto !important;
