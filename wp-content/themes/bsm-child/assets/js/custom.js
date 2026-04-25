@@ -1023,9 +1023,9 @@ const isMobileDevice = () => window.innerWidth <= 768;
       function updateFooterScrollMobile() {
         const scrollTop = document.documentElement.scrollTop;
         const vh = window.innerHeight;
-        // Empieza 300px antes de que el footer entre al viewport
-        const animStart = footerDocTop - vh - 300;
-        const animRange = footer.offsetHeight + 300;
+        // Empieza 800px antes de que el footer entre al viewport
+        const animStart = footerDocTop - vh - 800;
+        const animRange = footer.offsetHeight + 800;
         const progress = Math.max(0, Math.min(1, (scrollTop - animStart) / animRange));
         const translateY = 120 * (1 - progress);
         img.style.transform = `translateY(${translateY}%)`;
