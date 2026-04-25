@@ -994,22 +994,41 @@ const isMobileDevice = () => window.innerWidth <= 768;
     const registered = logoContainer.querySelector(".footer-logo-registered");
     if (!img) return;
 
-    // Quitar transición CSS — el scroll lo controla directamente
-    img.style.transition = "none";
-    if (registered) registered.style.transition = "none";
+    if (window.innerWidth > 768) {
+      // Desktop: quitar transición CSS — el scroll lo controla directamente
+      img.style.transition = "none";
+      if (registered) registered.style.transition = "none";
+    }
 
     function updateFooterScroll() {
       const vh = window.innerHeight;
-      const wrapperRect = footer.parentElement.getBoundingClientRect();
+      const wrapperEl = footer.parentElement;
+      const wrapperRect = wrapperEl.getBoundingClientRect();
       const scrolledPast = Math.max(0, -wrapperRect.top);
-      const progress = Math.max(0, Math.min(1, scrolledPast / vh));
-      const translateY = 80 * (1 - progress);
+      const stickyRange = wrapperEl.offsetHeight - vh;
+      const progress = stickyRange > 0 ? Math.max(0, Math.min(1, scrolledPast / stickyRange)) : 1;
+      const translateY = 120 * (1 - progress);
       img.style.transform = `translateY(${translateY}%)`;
       if (registered) registered.style.transform = `translateY(${translateY}%)`;
     }
 
-    updateFooterScroll();
-    window.addEventListener("scroll", updateFooterScroll, { passive: true });
+    if (window.innerWidth <= 768) {
+      // Mobile: CSS transition triggered by IntersectionObserver
+      img.style.transform = "";
+      if (registered) registered.style.transform = "";
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            footer.parentElement.classList.add("logo-visible");
+            observer.unobserve(footer);
+          }
+        });
+      }, { threshold: 0.3 });
+      observer.observe(footer);
+    } else {
+      updateFooterScroll();
+      window.addEventListener("scroll", updateFooterScroll, { passive: true });
+    }
   }
 
   function initWorkStickyScroll() {
@@ -1354,5 +1373,30 @@ const isMobileDevice = () => window.innerWidth <= 768;
     document.addEventListener("DOMContentLoaded", initReconocimientosCarousel);
   } else {
     initReconocimientosCarousel();
+  }
+
+  function initReconocimientosFadeIn() {
+    const titulo = document.querySelector(".reconocimientos-titulo");
+    const carousel = document.querySelector(".reconocimientos-carousel-wrapper");
+    if (!titulo && !carousel) return;
+
+    const targets = [titulo, carousel].filter(Boolean);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    targets.forEach(el => observer.observe(el));
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initReconocimientosFadeIn);
+  } else {
+    initReconocimientosFadeIn();
   }
 })();

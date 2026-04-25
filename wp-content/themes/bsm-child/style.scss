@@ -1096,7 +1096,23 @@ a.work-item {
 @media (max-width: 768px) {
   .bsm-reconocimientos {
     height: auto;
-    padding: 0 24px;
+    padding: 0 24px 48px;
+
+    .reconocimientos-titulo,
+    .reconocimientos-carousel-wrapper {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+
+      &.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reconocimientos-carousel-wrapper {
+      transition-delay: 0.18s;
+    }
   }
 
   .reconocimientos-titulo {
@@ -1561,7 +1577,7 @@ a.work-item {
 
     h2 {
       font-size: 28px;
-      margin-top: 64px;
+      margin-top: 0;
       margin-bottom: 40px;
       padding-right: 20px;
     }
@@ -1666,8 +1682,36 @@ a.work-item {
      FOOTER - MOBILE (With animation)
      ------------------------------------------------------------------ */
 
+  .bsm-footer-sticky-wrapper {
+    height: auto;
+    background-color: transparent;
+    overflow: hidden;
+  }
+
   .bsm-footer {
+    height: auto;
+    min-height: 400px;
+    position: relative;
+    top: auto;
+    overflow: hidden;
     padding: 40px 20px;
+  }
+
+  .footer-logo {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 5vw !important;
+    width: 90vw !important;
+    z-index: 20 !important;
+
+    img {
+      transform: translateY(120%) !important;
+      transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    }
+  }
+
+  .bsm-footer-sticky-wrapper.logo-visible .footer-logo img {
+    transform: translateY(0%) !important;
   }
 
   .footer-top {

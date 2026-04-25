@@ -204,7 +204,7 @@ get_header(); ?>
 
     <!-- Reconocimientos Section -->
     <section class="bsm-reconocimientos" data-bg="light">
-        <h2 class="reconocimientos-titulo animate-fade-up"><?php echo esc_html(get_field('rec_titulo') ?: 'RECONOCIMIENTOS:'); ?></h2>
+        <h2 class="reconocimientos-titulo"><?php echo esc_html(get_field('rec_titulo') ?: 'RECONOCIMIENTOS:'); ?></h2>
 
         <div class="reconocimientos-carousel-wrapper">
             <div class="reconocimientos-track" id="reconocimientosTrack">
@@ -272,11 +272,10 @@ get_header(); ?>
             </div>
         </div>
 
+    </footer>
         <div class="footer-logo">
              <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/logo.svg" alt="BSM Logo">
-
         </div>
-    </footer>
     </div><!-- /.bsm-footer-sticky-wrapper -->
 
     <!-- Contact Drawer Overlay -->
