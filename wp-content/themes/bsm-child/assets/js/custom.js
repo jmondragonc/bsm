@@ -587,6 +587,11 @@ const isMobileDevice = () => window.innerWidth <= 768;
       return;
     }
 
+    const isMobile = window.innerWidth <= 768;
+    const isTablet = window.innerWidth < 1200 && window.innerWidth > 768;
+    const expEl = document.querySelector(".bsm-full-experience");
+    const workEl = document.querySelector(".bsm-work");
+
     // Initial styles — título entra desde abajo con fadeIn
     if (title) {
       title.style.opacity = 0;
@@ -609,16 +614,6 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
     // Velocidad individual de entrada: parallax — cada tag sube a distinta velocidad
     const entrySpeedFactors = [1.0, 0.7, 1.3, 0.85, 1.15, 0.6, 1.4, 0.9];
-
-    // Spread vectors for Phase 2 (Growth)
-    // As they grow, move them outwards to avoid overlapping
-    // {x, y, r, speed} (r = additional rotation, speed = parallax speed factor)
-    const isMobile = window.innerWidth <= 768;
-    const isTablet = window.innerWidth < 1200 && window.innerWidth > 768;
-
-    // En mobile: wrapper toma el alto del contenido + espacio de scroll para la animación
-    const expEl = document.querySelector(".bsm-full-experience");
-    const workEl = document.querySelector(".bsm-work");
     let workIsPinned = false;
 
     function enterWorkPinned() {
