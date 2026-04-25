@@ -203,6 +203,7 @@ get_header(); ?>
     </section>
 
     <!-- Reconocimientos Section -->
+    <div class="bsm-reconocimientos-wrapper">
     <section class="bsm-reconocimientos" data-bg="light">
         <h2 class="reconocimientos-titulo"><?php echo esc_html(get_field('rec_titulo') ?: 'RECONOCIMIENTOS:'); ?></h2>
 
@@ -241,6 +242,7 @@ get_header(); ?>
             <div class="reconocimientos-dots" id="reconocimientosDots"></div>
         </div>
     </section>
+    </div><!-- /.bsm-reconocimientos-wrapper -->
 
     <!-- Footer -->
 </main>
