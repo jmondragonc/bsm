@@ -1145,7 +1145,7 @@ h3 {
 
 .footer-logo {
   position: absolute;
-  bottom: 25px;
+  bottom: 0;
   left: 56px !important;
   width: 82vw !important;
   max-width: 1640px !important;
