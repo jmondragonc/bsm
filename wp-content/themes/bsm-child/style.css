@@ -210,6 +210,7 @@ body.single-proyecto .entry-content {
   font-weight: 400;
   font-size: 18px;
   color: #000;
+  cursor: pointer;
 }
 .proyecto-interna .proyecto-seguir-btn {
   width: 74px;

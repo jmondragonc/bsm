@@ -1203,17 +1203,21 @@ const isMobileDevice = () => window.innerWidth <= 768;
 
   function initProyectoAcordeon() {
     const btn   = document.querySelector(".proyecto-seguir-btn");
+    const texto = document.querySelector(".proyecto-seguir-text");
     const panel = document.querySelector(".proyecto-acordeon");
 
     if (!btn || !panel) return;
 
-    btn.addEventListener("click", function () {
+    function toggle() {
       const isOpen = panel.classList.contains("is-open");
       panel.classList.toggle("is-open", !isOpen);
       panel.setAttribute("aria-hidden", isOpen ? "true" : "false");
       btn.setAttribute("aria-expanded", isOpen ? "false" : "true");
       btn.classList.toggle("is-open", !isOpen);
-    });
+    }
+
+    btn.addEventListener("click", toggle);
+    if (texto) texto.addEventListener("click", toggle);
   }
 
   if (document.readyState === "loading") {
