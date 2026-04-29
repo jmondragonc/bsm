@@ -288,7 +288,7 @@ body.single-proyecto .entry-content {
 }
 .proyecto-interna .proyecto-acordeon p {
   font-family: "Clash Grotesk", sans-serif;
-  font-size: 20px;
+  font-size: 40px;
   line-height: 1.15;
   color: #000;
   margin: 0;
@@ -529,6 +529,10 @@ body.single-proyecto .entry-content {
     padding: 6px 14px;
   }
   .proyecto-interna .proyecto-description {
+    font-size: 22px;
+    line-height: 1.25;
+  }
+  .proyecto-interna .proyecto-acordeon p {
     font-size: 22px;
     line-height: 1.25;
   }
