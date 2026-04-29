@@ -296,13 +296,11 @@ body.single-proyecto {
   .galeria-bloque {
     overflow: hidden;
     background-color: #000;
-    min-height: 400px;
 
     img,
     video {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       display: block;
     }
   }
@@ -565,7 +563,7 @@ body.single-proyecto {
     }
 
     .galeria-bloque {
-      min-height: 72vw;
+      min-height: unset;
     }
 
     .galeria-video-wrapper {

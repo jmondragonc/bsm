@@ -341,13 +341,11 @@ body.single-proyecto .entry-content {
 .proyecto-interna .galeria-bloque {
   overflow: hidden;
   background-color: #000;
-  min-height: 400px;
 }
 .proyecto-interna .galeria-bloque img,
 .proyecto-interna .galeria-bloque video {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
 }
 .proyecto-interna .galeria-video-wrapper {
@@ -546,7 +544,7 @@ body.single-proyecto .entry-content {
     flex-direction: column;
   }
   .proyecto-interna .galeria-bloque {
-    min-height: 72vw;
+    min-height: unset;
   }
   .proyecto-interna .galeria-video-wrapper {
     min-height: 72vw;
