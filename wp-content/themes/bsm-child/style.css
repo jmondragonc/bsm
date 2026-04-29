@@ -538,7 +538,7 @@ body.single-proyecto .entry-content {
   .proyecto-interna .proyecto-seguir-text {
     font-size: 17px;
   }
-  .proyecto-interna .galeria-fila--half {
+  .proyecto-interna .galeria-fila {
     flex-direction: column;
   }
   .proyecto-interna .galeria-bloque {
