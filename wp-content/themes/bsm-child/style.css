@@ -145,7 +145,7 @@ body.single-proyecto .entry-content {
 .proyecto-interna .proyecto-info-left {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 24px;
 }
 .proyecto-interna .proyecto-info-left .proyecto-tags {
   margin-top: 12px;
