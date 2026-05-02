@@ -145,7 +145,10 @@ body.single-proyecto .entry-content {
 .proyecto-interna .proyecto-info-left {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 8px;
+}
+.proyecto-interna .proyecto-info-left .proyecto-tags {
+  margin-top: 12px;
 }
 .proyecto-interna .proyecto-client-name {
   font-family: "ClashGrotesk-Semibold", sans-serif;
@@ -502,7 +505,7 @@ body.single-proyecto .entry-content {
 }
 @media (max-width: 768px) {
   .proyecto-interna .proyecto-title-section {
-    padding: 28px 24px 48px;
+    padding: 88px 24px 48px;
   }
   .proyecto-interna .proyecto-main-title {
     font-size: clamp(2.4rem, 11vw, 5rem);
