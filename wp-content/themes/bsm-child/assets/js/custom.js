@@ -157,9 +157,9 @@ const isMobileDevice = () => window.innerWidth <= 768;
       // Fase 1 (25%→55%): texto sube desde abajo (logo ya anclado)
       // Fase 2 (55%→80%): ambos anclados
       // Fase 3 (80%→100%): ambos salen hacia arriba
-      const phase0End = heroHeight * 0.25;
-      const phase1End = heroHeight * 0.55;
-      const phase2End = heroHeight * 0.80;
+      const phase0End = heroHeight * 0.15;
+      const phase1End = heroHeight * 0.38;
+      const phase2End = heroHeight * 0.72;
 
       if (scrollY <= phase0End) {
         // Logo sube desde el centro hacia su posición final (arriba)
@@ -962,7 +962,10 @@ const isMobileDevice = () => window.innerWidth <= 768;
       const scrolledPast = Math.max(0, -wrapperRect.top);
       const stickyRange = wrapperEl.offsetHeight - vh;
       const progress = stickyRange > 0 ? Math.max(0, Math.min(1, scrolledPast / stickyRange)) : 1;
-      const translateY = 120 * (1 - progress);
+      // Ease-out: logo llega a su posición al ~50% del scroll, no al 100%
+      const fastP = Math.min(progress * 2, 1);
+      const eased = fastP * (2 - fastP);
+      const translateY = 120 * (1 - eased);
       img.style.transform = `translateY(${translateY}%)`;
       if (registered) registered.style.transform = `translateY(${translateY}%)`;
     }

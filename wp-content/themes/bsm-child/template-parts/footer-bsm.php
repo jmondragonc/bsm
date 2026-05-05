@@ -29,7 +29,6 @@ $logo     = get_field('footer_logo', $home_id);
             </div>
         </div>
     </div>
-</footer>
     <div class="footer-logo">
         <?php if ($logo) : ?>
             <img src="<?php echo esc_url($logo['url']); ?>" alt="<?php echo esc_attr($logo['alt'] ?: 'BSM Logo'); ?>">
@@ -37,4 +36,5 @@ $logo     = get_field('footer_logo', $home_id);
             <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/logo.svg" alt="BSM Logo">
         <?php endif; ?>
     </div>
+</footer>
 </div><!-- /.bsm-footer-sticky-wrapper -->

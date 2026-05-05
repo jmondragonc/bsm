@@ -145,10 +145,10 @@ body.single-proyecto .entry-content {
 .proyecto-interna .proyecto-info-left {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 8px;
 }
 .proyecto-interna .proyecto-info-left .proyecto-tags {
-  margin-top: 12px;
+  margin-top: 16px;
 }
 .proyecto-interna .proyecto-client-name {
   font-family: "ClashGrotesk-Semibold", sans-serif;
